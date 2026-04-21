@@ -123,10 +123,6 @@
     @apply bg-white/[0.03] backdrop-blur-2xl border border-white/[0.08] rounded-2xl;
   }
 
-  .premium-card {
-    @apply obsidian-card; /* Unified under the new system */
-  }
-
   /* Buttons */
   .btn-premium, .btn-obsidian-primary {
     @apply relative overflow-hidden inline-flex items-center justify-center rounded-full font-semibold text-xs uppercase tracking-widest transition-all duration-300 active:scale-95 z-10;
