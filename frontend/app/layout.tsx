@@ -25,12 +25,12 @@ export const metadata: Metadata = {
   description: "Architecting high-performance digital ecosystems for global visionaries. Professional software engineering with architectural precision.",
   keywords: ["software orchestration", "technical excellence", "AI intelligence", "enterprise systems", "Obsidian design"],
   icons: {
-    icon: "/images/logo.png",
-    shortcut: "/images/logo.png",
-    apple: "/images/logo.png",
+    icon: "/images/favicon.svg",
+    shortcut: "/images/favicon.svg",
+    apple: "/images/favicon.svg",
   },
   openGraph: {
-    title: "SYSHUB365 - High-Performance Engineering",
+    title: "SYSHUB365",
     description: "The elite standard for technical orchestration and digital product delivery.",
     type: "website",
   },
