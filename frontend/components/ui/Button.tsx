@@ -45,7 +45,7 @@ export const Button: FC<ButtonProps> = ({
       {showShimmer && isPremium && (
         <span className="shimmer-sweep" />
       )}
-      <span className="relative z-10 flex items-center gap-2 transition-transform duration-500 group-hover:scale-105">
+      <span className="relative z-10 flex items-center gap-2 transition-transform duration-500 group-hover:scale-105 will-change-transform">
         {children}
       </span>
     </>

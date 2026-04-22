@@ -162,12 +162,17 @@
   }
 
   .border-beam {
-    @apply absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none;
+    @apply absolute inset-0 opacity-60 group-hover:opacity-100 transition-all duration-500 pointer-events-none rounded-full;
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
-    padding: 1px;
-    background: conic-gradient(from var(--beam-angle, 0deg), transparent 70%, #2563eb, #38bdf8, transparent 100%);
-    animation: beam-rotate 4s linear infinite;
+    padding: 2.5px;
+    background: conic-gradient(from var(--beam-angle, 0deg), transparent 40%, #2563eb, #8b5cf6, #ec4899, #06b6d4, transparent 100%);
+    animation: beam-rotate 3s linear infinite;
+  }
+
+  .btn-elite:hover .border-beam {
+    padding: 3.5px;
+    filter: brightness(1.5) blur(0.5px);
   }
 
   @keyframes beam-rotate {
