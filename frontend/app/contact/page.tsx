@@ -11,7 +11,7 @@ const fadeUp: Variants = {
 };
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<{ type: "success" | "error" | null, text: string }>({ type: null, text: "" });
 
@@ -30,7 +30,7 @@ export default function Contact() {
       if (!response.ok) throw new Error("Failed to send message");
 
       setStatus({ type: "success", text: "Message sent successfully! We'll get back to you soon." });
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", phone: "", message: "" });
     } catch (error) {
       console.error("Submission error:", error);
       setStatus({ type: "error", text: "Something went wrong. Please try again later." });
@@ -115,52 +115,69 @@ export default function Contact() {
                   </div>
 
                   <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
-                    <div className="grid md:grid-cols-2 gap-8">
+                    {/* Full Name & Phone Number */}
+                    <div className="grid md:grid-cols-2 gap-6">
                       <div className="flex flex-col gap-2">
-                          <label className="text-xs font-bold text-white/60 uppercase tracking-widest px-2">Full Name</label>
-                          <div className="relative">
-                            <LuUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
-                            <input 
-                              type="text" 
-                              required
-                              value={formData.name}
-                              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                              placeholder="John Doe" 
-                              className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" 
-                            />
-                          </div>
+                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest px-2">Full Name</label>
+                        <div className="relative">
+                          <LuUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
+                          <input
+                            type="text"
+                            required
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            placeholder="John Doe"
+                            className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20"
+                          />
+                        </div>
                       </div>
                       <div className="flex flex-col gap-2">
-                          <label className="text-xs font-bold text-white/60 uppercase tracking-widest px-2">Email Address</label>
-                          <div className="relative">
-                            <LuMail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
-                            <input 
-                              type="email" 
-                              required
-                              value={formData.email}
-                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                              placeholder="john@company.com" 
-                              className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" 
-                            />
-                          </div>
+                        <label className="text-xs font-bold text-white/60 uppercase tracking-widest px-2">Phone Number</label>
+                        <div className="relative">
+                          <LuPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
+                          <input
+                            type="tel"
+                            required
+                            value={formData.phone}
+                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                            placeholder="+1 (555) 000-0000"
+                            className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20"
+                          />
+                        </div>
                       </div>
                     </div>
 
+                    {/* Email Address */}
+                    <div className="flex flex-col gap-2">
+                      <label className="text-xs font-bold text-white/60 uppercase tracking-widest px-2">Email Address</label>
+                      <div className="relative">
+                        <LuMail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          placeholder="john@company.com"
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Project Details */}
                     <div className="flex flex-col gap-2">
                       <label className="text-xs font-bold text-white/60 uppercase tracking-widest px-2">Project Details</label>
                       <div className="relative">
-                          <LuMessageSquare className="absolute left-4 top-5 text-white/30" size={18} />
-                          <textarea 
-                            rows={4} 
-                            required
-                            value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            placeholder="How can we help you?" 
-                            className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20 resize-none" 
-                          />
+                        <LuMessageSquare className="absolute left-4 top-5 text-white/30" size={18} />
+                        <textarea
+                          rows={4}
+                          required
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          placeholder="Tell us about your project, timeline, and requirements..."
+                          className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20 resize-none"
+                        />
                       </div>
                     </div>
-
                     {status.type && (
                       <div className={`flex items-center gap-3 p-4 rounded-xl border ${
                         status.type === "success" ? "bg-green-500/10 border-green-500/20 text-green-400" : "bg-red-500/10 border-red-500/20 text-red-400"

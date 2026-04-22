@@ -7,7 +7,7 @@ import { motion, useInView, useScroll, useTransform, AnimatePresence, Variants }
 import {
   LuArrowUpRight, LuCode, LuBrainCog, LuShieldCheck, LuCloud, LuPalette,
   LuRocket, LuChevronDown, LuStar, LuCircleCheck, LuGlobe, LuUsers, LuTrendingUp,
-  LuMail, LuUser, LuMessageSquare, LuSend
+  LuMail, LuUser, LuMessageSquare, LuSend, LuPhone
 } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 
@@ -520,11 +520,20 @@ export default function Home() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-electric-blue/10 rounded-full blur-[80px]" />
             
             <form className="relative z-10 flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-bold text-white/60 uppercase tracking-widest pl-2">Full Name</label>
-                <div className="relative">
-                  <LuUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                  <input type="text" placeholder="John Doe" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-bold text-white/60 uppercase tracking-widest pl-2">Full Name</label>
+                  <div className="relative">
+                    <LuUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                    <input type="text" placeholder="John Doe" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs font-bold text-white/60 uppercase tracking-widest pl-2">Phone Number</label>
+                  <div className="relative">
+                    <LuPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                    <input type="tel" placeholder="+1 (555) 000-0000" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
+                  </div>
                 </div>
               </div>
               

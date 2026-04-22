@@ -65,13 +65,20 @@ export function Navbar() {
                 key={link.name}
                 href={link.href}
                 className={clsx(
-                  "px-4 py-2 rounded-full text-xs font-semibold transition-all duration-300",
-                  pathname === link.href ? "text-white bg-white/10" : "text-slate-400 hover:text-white"
+                  "relative px-4 py-2 text-xs font-semibold transition-all duration-300 rounded-full overflow-hidden",
+                  pathname === link.href ? "text-white" : "text-slate-400 hover:text-white"
                 )}
               >
-                {link.name}
-              </Link>
-            ))}
+                <span className="relative z-10">{link.name}</span>
+                {pathname === link.href && (
+                  <motion.div 
+                    layoutId="nav-pill"
+                    className="absolute inset-0 bg-white/10 rounded-full"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <div className="absolute inset-0 scale-0 bg-white/5 rounded-full transition-transform duration-300 group-hover:scale-100" />
+              </Link>            ))}
           </nav>
 
           {/* Actions */}

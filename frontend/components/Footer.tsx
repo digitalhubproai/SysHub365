@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { LuTwitter, LuLinkedin, LuGithub, LuInstagram, LuZap } from "react-icons/lu";
+import { LuTwitter, LuLinkedin, LuFacebook, LuInstagram, LuZap } from "react-icons/lu";
 
 const FOOTER_LINKS = [
   {
@@ -33,7 +33,7 @@ const FOOTER_LINKS = [
 
 const SOCIAL_LINKS = [
   { icon: <LuLinkedin size={20} />, href: "#" },
-  { icon: <LuGithub size={20} />, href: "#" },
+  { icon: <LuFacebook size={20} />, href: "#" },
   { icon: <LuTwitter size={20} />, href: "#" },
   { icon: <LuInstagram size={20} />, href: "#" },
 ];
