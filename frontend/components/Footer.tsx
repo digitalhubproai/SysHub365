@@ -8,34 +8,26 @@ const FOOTER_LINKS = [
     links: [
       { name: "Services", href: "/services" },
       { name: "Projects", href: "/projects" },
-      { name: "About Us", href: "/about" },
+      { name: "About", href: "/about" },
       { name: "Blog", href: "/blog" },
     ],
   },
   {
     title: "Support",
     links: [
-      { name: "Contact Us", href: "/contact" },
-      { name: "Partner Program", href: "/contact" },
+      { name: "Contact Hub", href: "/contact" },
       { name: "Help Center", href: "/contact" },
-      { name: "Privacy Policy", href: "#" },
-    ],
-  },
-  {
-    title: "Contact",
-    links: [
-      { name: "Karachi Office", href: "#" },
-      { name: "Global Operations", href: "#" },
-      { name: "Available 24/7", href: "#" },
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Terms of Service", href: "/terms" },
     ],
   },
 ];
 
 const SOCIAL_LINKS = [
-  { icon: <LuLinkedin size={20} />, href: "#" },
-  { icon: <LuFacebook size={20} />, href: "#" },
-  { icon: <LuTwitter size={20} />, href: "#" },
-  { icon: <LuInstagram size={20} />, href: "#" },
+  { icon: <LuLinkedin size={20} />, href: "https://linkedin.com/company/syshub365" },
+  { icon: <LuFacebook size={20} />, href: "https://facebook.com/syshub365" },
+  { icon: <LuTwitter size={20} />, href: "https://twitter.com/syshub365" },
+  { icon: <LuInstagram size={20} />, href: "https://instagram.com/syshub365" },
 ];
 
 export function Footer() {
@@ -51,9 +43,9 @@ export function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
           
           {/* Brand Info */}
-          <div className="lg:col-span-5 flex flex-col gap-8">
-            <Link href="/" className="flex items-center group relative w-max">
-              <div className="relative transition-all duration-500 hover:scale-105">
+          <div className="lg:col-span-5 flex flex-col gap-10">
+            <div className="flex flex-col gap-6">
+              <Link href="/" className="flex items-center group relative w-max">
                 <Image
                   src="/images/logo.png"
                   alt="SysHub365 Logo"
@@ -61,14 +53,19 @@ export function Footer() {
                   height={50}
                   style={{ width: "auto", height: "auto" }}
                   className="object-contain"
-                />              </div>
-            </Link>
-
-            <p className="text-base text-slate-400 leading-relaxed max-w-sm">
-               We build scalable software, AI integrations, and enterprise systems that drive real business growth and digital transformation.
-            </p>
+                />
+              </Link>
+              <p className="text-base text-slate-400 leading-relaxed max-w-sm">
+                Architecting the future of enterprise software and AI. We build elite digital systems that drive global transformation.
+              </p>
+              
+              <div className="flex flex-col gap-1">
+                <span className="text-white font-bold text-xs uppercase tracking-widest">Headquarters</span>
+                <span className="text-slate-500 text-sm">Karachi, Pakistan • Available 24/7</span>
+              </div>
+            </div>
             
-            <div className="flex gap-4 pt-4">
+            <div className="flex gap-4">
                {SOCIAL_LINKS.map((social, i) => (
                  <a 
                    key={i} 
@@ -81,8 +78,8 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Links Grid */}
-          <div className="lg:col-span-7 grid grid-cols-2 md:grid-cols-3 gap-12 lg:gap-16">
+          {/* Links & Newsletter Grid */}
+          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
               {FOOTER_LINKS.map((section) => (
                 <div key={section.title} className="flex flex-col gap-6">
                    <h4 className="text-white font-bold text-sm tracking-wider uppercase">{section.title}</h4>
@@ -97,6 +94,27 @@ export function Footer() {
                    </ul>
                 </div>
               ))}
+
+              {/* Newsletter Column */}
+              <div className="flex flex-col gap-6">
+                <h4 className="text-white font-bold text-sm tracking-wider uppercase">Newsletter</h4>
+                <div className="flex flex-col gap-5">
+                  <p className="text-xs text-slate-500 leading-relaxed">
+                    Subscribe for elite AI insights and project updates.
+                  </p>
+                  <form className="flex flex-col gap-3">
+                    <input 
+                      type="email" 
+                      placeholder="Email Address" 
+                      className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-electric-blue transition-all placeholder:text-slate-700"
+                      required
+                    />
+                    <button type="submit" className="btn-obsidian-primary w-full py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-[0.98]">
+                      Subscribe Now
+                    </button>
+                  </form>
+                </div>
+              </div>
           </div>
         </div>
 
@@ -107,8 +125,8 @@ export function Footer() {
             </div>
             
             <div className="flex gap-8 items-center text-sm text-slate-500">
-               <span className="hover:text-white transition-colors cursor-pointer">Privacy Policy</span>
-               <span className="hover:text-white transition-colors cursor-pointer">Terms of Service</span>
+               <Link href="/privacy" className="hover:text-white transition-colors cursor-pointer">Privacy Policy</Link>
+               <Link href="/terms" className="hover:text-white transition-colors cursor-pointer">Terms of Service</Link>
             </div>
         </div>
       </div>
