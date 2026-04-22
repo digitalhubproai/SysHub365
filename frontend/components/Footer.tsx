@@ -54,14 +54,14 @@ export function Footer() {
           <div className="lg:col-span-5 flex flex-col gap-8">
             <Link href="/" className="flex items-center group relative w-max">
               <div className="relative transition-all duration-500 hover:scale-105">
-                <Image 
-                  src="/images/logo.png" 
-                  alt="SysHub365 Logo" 
+                <Image
+                  src="/images/logo.png"
+                  alt="SysHub365 Logo"
                   width={150}
                   height={50}
+                  style={{ width: "auto", height: "auto" }}
                   className="object-contain"
-                />
-              </div>
+                />              </div>
             </Link>
 
             <p className="text-base text-slate-400 leading-relaxed max-w-sm">

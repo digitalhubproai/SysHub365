@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { LuMessageSquare, LuX, LuSend, LuBot, LuUser } from "react-icons/lu";
+import Image from "next/image";
+import { LuX, LuSend, LuBot, LuUser } from "react-icons/lu";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
 
@@ -14,7 +15,7 @@ type Message = {
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: "1", role: "assistant", content: "Hello! I'm the SysHub365 AI Assistant. How can I help you today?" }
+    { id: "1", role: "assistant", content: "Hello! I'm the SysHub365 AI Agent. How can I strategically support your goals today?" }
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -38,19 +39,22 @@ export function Chatbot() {
     setIsLoading(true);
 
     try {
-      // Stub integration for now until backend is fully hooked up
       const response = await fetch("http://127.0.0.1:8000/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMessage.content })
+        body: JSON.stringify({ 
+          message: userMessage.content,
+          history: messages.map(m => ({ role: m.role, content: m.content }))
+        })
       });
       
+      if (!response.ok) throw new Error("Backend error");
+
       const data = await response.json();
       const botMessage: Message = { id: (Date.now() + 1).toString(), role: "assistant", content: data.response };
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
-      console.error("Chat error:", error);
-      const errorMessage: Message = { id: (Date.now() + 1).toString(), role: "assistant", content: "Sorry, I'm having trouble connecting right now." };
+      const errorMessage: Message = { id: (Date.now() + 1).toString(), role: "assistant", content: "I'm experiencing a temporary connectivity issue. Please reach out via hello@syshub365.com if this persists." };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
@@ -59,111 +63,91 @@ export function Chatbot() {
 
   return (
     <>
-      <button
-        onClick={() => setIsOpen(true)}
-        className={clsx(
-          "fixed bottom-6 right-6 z-40 p-4 bg-electric-blue text-white rounded-full transition-all duration-300 shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)]",
-          isOpen ? "scale-0 opacity-0" : "scale-100 opacity-100 hover:scale-110"
-        )}
-        aria-label="Open Chat"
-      >
-        <LuMessageSquare size={24} />
-      </button>
+      <div className="fixed bottom-8 right-8 z-[9999]">
+        <button
+          onClick={() => setIsOpen(true)}
+          className={clsx(
+            "relative group w-20 h-20 flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
+            isOpen ? "scale-0 opacity-0 rotate-[180deg]" : "scale-100 opacity-100 hover:scale-110"
+          )}
+          aria-label="Open Chat"
+        >
+          <div className="absolute inset-0 bg-electric-blue/30 rounded-[2rem] blur-[30px] group-hover:bg-electric-blue/50 group-hover:blur-[40px] transition-all duration-700 animate-pulse" />
+          <div className="absolute inset-0 rounded-[1.8rem] overflow-hidden p-[1.5px] bg-white/5">
+            <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--beam-angle,0deg),transparent_70%,#2563eb_80%,#38bdf8_90%,transparent_100%)] animate-[beam-rotate_4s_linear_infinite]" />
+            <div className="absolute inset-[1.5px] bg-[#030509]/90 backdrop-blur-2xl rounded-[1.7rem] flex items-center justify-center overflow-hidden border border-white/5">
+              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,#2563eb,transparent_70%)]" />
+              <Image src="/images/favicon.svg" alt="SysHub365" width={32} height={32} className="relative z-10 transition-all duration-500 group-hover:scale-110" />
+            </div>
+          </div>
+          <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#030509] border border-white/10 flex items-center justify-center p-[2px]">
+            <div className="w-full h-full rounded-full bg-cyber-cyan animate-pulse shadow-[0_0_10px_#06b6d4]" />
+          </div>
+        </button>
+      </div>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            className="fixed bottom-6 right-6 z-50 w-full max-w-[360px] h-[500px] flex flex-col bg-[var(--obsidian-deep)] backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden"
+            initial={{ opacity: 0, scale: 0.8, filter: "blur(20px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="fixed bottom-28 right-8 z-[9999] w-[380px] h-[480px] max-h-[80vh] flex flex-col bg-black/40 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_0_100px_-20px_rgba(37,99,235,0.3)] overflow-hidden"
           >
-            {/* Header */}
-            <div className="flex items-center justify-between p-4 border-b border-white/10 bg-[var(--obsidian-surface)]">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-electric-blue rounded-lg shadow-[0_0_15px_rgba(37,99,235,0.4)]">
-                  <LuBot size={18} className="text-white" />
+            <div className="relative flex items-center justify-between p-6 border-b border-white/5">
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-electric-blue to-cyber-cyan p-[2px] shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                   <div className="w-full h-full rounded-full bg-black flex items-center justify-center overflow-hidden">
+                      <Image src="/images/favicon.svg" alt="SysHub365" width={20} height={20} />
+                   </div>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-white">SysHub365 AI</h3>
-                  <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyber-cyan animate-pulse" />
-                    <p className="text-[10px] uppercase tracking-widest text-cyber-cyan font-bold">Online</p>
-                  </div>
+                  <h3 className="text-sm font-bold text-white tracking-widest uppercase">SysHub365</h3>
+                  <p className="text-[10px] text-cyber-cyan font-medium uppercase tracking-[0.2em]">Online</p>
                 </div>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-2 text-slate-400 hover:text-white transition-colors"
-              >
-                <LuX size={18} />
+              <button onClick={() => setIsOpen(false)} className="w-8 h-8 flex items-center justify-center text-white/50 hover:text-white bg-white/5 rounded-full hover:bg-white/10 transition-all">
+                <LuX size={14} />
               </button>
             </div>
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
               {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={clsx(
-                    "flex gap-3 max-w-[85%]",
-                    msg.role === "user" ? "ml-auto flex-row-reverse" : "mr-auto"
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} key={msg.id} className={clsx("flex gap-4", msg.role === "user" ? "justify-end" : "justify-start")}>
+                  {msg.role !== "user" && (
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10">
+                      <Image src="/images/favicon.svg" alt="SysHub365" width={16} height={16} />
+                    </div>
                   )}
-                >
-                  <div
-                    className={clsx(
-                      "w-8 h-8 rounded-full flex items-center justify-center shrink-0",
-                      msg.role === "user" ? "bg-white/10 text-white" : "bg-electric-blue/20 text-electric-blue border border-electric-blue/30"
-                    )}
-                  >
-                    {msg.role === "user" ? <LuUser size={14} /> : <LuBot size={14} />}
-                  </div>
-                  <div
-                    className={clsx(
-                      "p-3 text-sm leading-relaxed",
-                      msg.role === "user"
-                        ? "bg-white/10 text-white rounded-2xl rounded-tr-sm"
-                        : "bg-[var(--obsidian-surface)] text-slate-300 border border-white/5 rounded-2xl rounded-tl-sm"
-                    )}
-                  >
+                  <div className={clsx("px-5 py-3 text-sm rounded-[1.5rem] shadow-xl max-w-[80%]", msg.role === "user" ? "bg-gradient-to-r from-electric-blue to-vibrant-purple text-white rounded-br-none" : "bg-white/[0.03] text-slate-200 border border-white/5 rounded-bl-none")}>
                     {msg.content}
                   </div>
-                </div>
+                </motion.div>
               ))}
               {isLoading && (
-                <div className="mr-auto flex gap-3 max-w-[85%]">
-                  <div className="w-8 h-8 rounded-full bg-electric-blue/20 text-electric-blue border border-electric-blue/30 flex items-center justify-center shrink-0">
-                    <LuBot size={14} />
+                <div className="flex gap-4">
+                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center shrink-0 border border-white/10 animate-pulse">
+                    <Image src="/images/favicon.svg" alt="Thinking" width={16} height={16} />
                   </div>
-                  <div className="p-4 rounded-2xl rounded-tl-sm bg-[var(--obsidian-surface)] border border-white/5 flex gap-1.5">
-                    <div className="w-1.5 h-1.5 bg-electric-blue rounded-full animate-bounce [animation-delay:-0.3s]" />
-                    <div className="w-1.5 h-1.5 bg-electric-blue rounded-full animate-bounce [animation-delay:-0.15s]" />
-                    <div className="w-1.5 h-1.5 bg-electric-blue rounded-full animate-bounce" />
+                  <div className="flex gap-2 p-4 bg-white/[0.03] rounded-[1.5rem] border border-white/5">
+                    <div className="w-1.5 h-1.5 bg-cyber-cyan rounded-full animate-bounce" />
+                    <div className="w-1.5 h-1.5 bg-cyber-cyan rounded-full animate-bounce [animation-delay:0.2s]" />
+                    <div className="w-1.5 h-1.5 bg-cyber-cyan rounded-full animate-bounce [animation-delay:0.4s]" />
                   </div>
                 </div>
               )}
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input */}
-            <form onSubmit={handleSend} className="p-3 border-t border-white/10 bg-[var(--obsidian-deep)]">
-              <div className="relative flex items-center">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="Type your message..."
-                  className="w-full bg-[var(--obsidian-surface)] border border-white/10 text-sm text-white rounded-full pl-4 pr-12 py-3 focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-500"
-                />
-                <button
-                  type="submit"
-                  disabled={!input.trim() || isLoading}
-                  className="absolute right-1.5 p-2 bg-electric-blue hover:bg-white hover:text-black disabled:opacity-50 disabled:hover:bg-electric-blue disabled:hover:text-white rounded-full text-white transition-colors"
-                >
-                  <LuSend size={16} className="ml-0.5" />
+            <div className="p-6 bg-gradient-to-t from-black/80 to-transparent">
+              <form onSubmit={handleSend} className="relative flex items-center bg-white/[0.03] border border-white/10 rounded-full p-2 focus-within:border-cyber-cyan/50 transition-colors">
+                <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Query system..." className="w-full bg-transparent text-sm text-white px-4 py-2 focus:outline-none placeholder:text-white/20" />
+                <button type="submit" disabled={!input.trim() || isLoading} className="p-3 bg-gradient-to-br from-electric-blue to-cyber-cyan rounded-full text-white hover:brightness-110 disabled:opacity-50 transition-all">
+                  <LuSend size={14} />
                 </button>
-              </div>
-            </form>
+              </form>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

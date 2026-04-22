@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import { motion, Variants } from "framer-motion";
-import { LuMail, LuMapPin, LuPhone, LuSend, LuUser, LuMessageSquare, LuBuilding2, LuChevronRight } from "react-icons/lu";
+import { LuMail, LuMapPin, LuPhone, LuSend, LuUser, LuMessageSquare, LuBuilding2, LuChevronRight, LuCheckCircle, LuAlertCircle } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 
 const fadeUp: Variants = {
@@ -10,10 +11,37 @@ const fadeUp: Variants = {
 };
 
 export default function Contact() {
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<{ type: "success" | "error" | null, text: string }>({ type: null, text: "" });
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus({ type: null, text: "" });
+
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error("Failed to send message");
+
+      setStatus({ type: "success", text: "Message sent successfully! We'll get back to you soon." });
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("Submission error:", error);
+      setStatus({ type: "error", text: "Something went wrong. Please try again later." });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <main className="bg-[var(--obsidian-base)] selection:bg-neon-accent selection:text-black overflow-x-hidden pt-32 pb-20">
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-20">
-         <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] bg-electric-blue/10 rounded-full blur-[150px]" />
+      <div className="absolute inset-0 pointer-events-none z-0 opacity-20">         <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] bg-electric-blue/10 rounded-full blur-[150px]" />
          <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-vibrant-purple/10 rounded-full blur-[120px]" />
       </div>
 
@@ -86,20 +114,34 @@ export default function Contact() {
                     <p className="text-sm text-slate-500">We will get back to you within 24 hours.</p>
                   </div>
 
-                  <form className="flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
+                  <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
                     <div className="grid md:grid-cols-2 gap-8">
                       <div className="flex flex-col gap-2">
                           <label className="text-xs font-bold text-white/60 uppercase tracking-widest px-2">Full Name</label>
                           <div className="relative">
                             <LuUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
-                            <input type="text" placeholder="John Doe" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
+                            <input 
+                              type="text" 
+                              required
+                              value={formData.name}
+                              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                              placeholder="John Doe" 
+                              className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" 
+                            />
                           </div>
                       </div>
                       <div className="flex flex-col gap-2">
                           <label className="text-xs font-bold text-white/60 uppercase tracking-widest px-2">Email Address</label>
                           <div className="relative">
                             <LuMail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
-                            <input type="email" placeholder="john@company.com" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
+                            <input 
+                              type="email" 
+                              required
+                              value={formData.email}
+                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                              placeholder="john@company.com" 
+                              className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" 
+                            />
                           </div>
                       </div>
                     </div>
@@ -108,13 +150,33 @@ export default function Contact() {
                       <label className="text-xs font-bold text-white/60 uppercase tracking-widest px-2">Project Details</label>
                       <div className="relative">
                           <LuMessageSquare className="absolute left-4 top-5 text-white/30" size={18} />
-                          <textarea rows={4} placeholder="How can we help you?" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20 resize-none" />
+                          <textarea 
+                            rows={4} 
+                            required
+                            value={formData.message}
+                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                            placeholder="How can we help you?" 
+                            className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20 resize-none" 
+                          />
                       </div>
                     </div>
 
-                    <button type="submit" className="btn-obsidian-primary w-full !rounded-xl flex items-center justify-center gap-3 mt-4">
-                      <span>Send Message</span>
-                      <LuSend size={18} />
+                    {status.type && (
+                      <div className={`flex items-center gap-3 p-4 rounded-xl border ${
+                        status.type === "success" ? "bg-green-500/10 border-green-500/20 text-green-400" : "bg-red-500/10 border-red-500/20 text-red-400"
+                      }`}>
+                        {status.type === "success" ? <LuCheckCircle size={18} /> : <LuAlertCircle size={18} />}
+                        <span className="text-sm font-medium">{status.text}</span>
+                      </div>
+                    )}
+
+                    <button 
+                      type="submit" 
+                      disabled={isSubmitting}
+                      className="btn-obsidian-primary w-full !rounded-xl flex items-center justify-center gap-3 mt-4 disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-hidden"
+                    >
+                      <span className="relative z-10">{isSubmitting ? "Sending..." : "Send Message"}</span>
+                      <LuSend size={18} className={`relative z-10 ${isSubmitting ? "animate-pulse" : "group-hover:translate-x-1 transition-transform"}`} />
                     </button>
                   </form>
               </div>

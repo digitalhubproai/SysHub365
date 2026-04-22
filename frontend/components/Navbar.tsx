@@ -47,15 +47,15 @@ export function Navbar() {
           {/* Brand */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative transition-transform duration-500 group-hover:scale-105">
-               <Image 
-                  src="/images/logo.png" 
-                  alt="SysHub365 Logo" 
+               <Image
+                  src="/images/logo.png"
+                  alt="SysHub365 Logo"
                   width={150}
                   height={50}
+                  style={{ width: "auto", height: "auto" }}
                   className="object-contain"
                   priority
-               />
-            </div>
+               />            </div>
           </Link>
 
           {/* Desktop Links */}
@@ -116,6 +116,19 @@ export function Navbar() {
                   </Link>
                 </motion.div>
               ))}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+              >
+                <Link
+                  href="/contact"
+                  className="inline-block px-8 py-4 bg-white text-black text-lg font-bold rounded-full text-center"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Contact Us
+                </Link>
+              </motion.div>
             </div>
           </motion.div>
         )}

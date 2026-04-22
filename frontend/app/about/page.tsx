@@ -21,8 +21,7 @@ const VALUES = [
 export default function About() {
   return (
     <main className="bg-[var(--obsidian-base)] selection:bg-neon-accent selection:text-black overflow-x-hidden pt-32 pb-20">
-      <div className="fixed inset-0 pointer-events-none z-0">
-          <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-electric-blue/15 rounded-full blur-[150px]" />
+      <div className="absolute inset-0 pointer-events-none z-0">          <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-electric-blue/15 rounded-full blur-[150px]" />
           <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-electric-blue/10 rounded-full blur-[180px]" />
       </div>
 
@@ -100,11 +99,10 @@ export default function About() {
             transition={{ duration: 1.2, ease: "easeOut" }}
             className="relative aspect-square rounded-3xl overflow-hidden group border border-white/10"
           >
-            <Image 
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200" 
-              alt="Our Collaboration" fill className="object-cover opacity-80 transition-transform duration-[2000ms] group-hover:scale-105" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--obsidian-base)] to-transparent" />
+            <Image
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
+              alt="Our Collaboration" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-80 transition-transform duration-[2000ms] group-hover:scale-105"
+            />            <div className="absolute inset-0 bg-gradient-to-t from-[var(--obsidian-base)] to-transparent" />
           </motion.div>
         </div>
       </section>

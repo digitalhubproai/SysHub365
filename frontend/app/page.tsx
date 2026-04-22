@@ -214,13 +214,13 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="relative aspect-square lg:aspect-[4/5] rounded-3xl overflow-hidden group"
           >
-            <Image 
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200" 
-              fill 
-              alt="Our Team" 
+            <Image
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              alt="Our Team"
               className="object-cover scale-105 group-hover:scale-100 transition-transform duration-[2000ms]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            />            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute bottom-8 left-8 right-8 border border-white/10 rounded-2xl bg-black/40 backdrop-blur-xl p-6">
               <p className="text-white font-bold text-lg">"Quality is not an act, it is a habit."</p>
               <p className="text-white/60 text-sm mt-2 uppercase tracking-widest">— The SysHub365 Ethos</p>
