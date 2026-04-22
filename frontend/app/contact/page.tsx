@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, Variants } from "framer-motion";
-import { LuMail, LuMapPin, LuPhone, LuSend, LuUser, LuMessageSquare, LuBuilding2, LuChevronRight, LuCheckCircle, LuAlertCircle } from "react-icons/lu";
+import { LuMail, LuMapPin, LuPhone, LuSend, LuUser, LuMessageSquare, LuBuilding2, LuChevronRight, LuCheck, LuTriangleAlert } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 
 const fadeUp: Variants = {
@@ -165,7 +165,7 @@ export default function Contact() {
                       <div className={`flex items-center gap-3 p-4 rounded-xl border ${
                         status.type === "success" ? "bg-green-500/10 border-green-500/20 text-green-400" : "bg-red-500/10 border-red-500/20 text-red-400"
                       }`}>
-                        {status.type === "success" ? <LuCheckCircle size={18} /> : <LuAlertCircle size={18} />}
+                        {status.type === "success" ? <LuCheck size={18} /> : <LuTriangleAlert size={18} />}
                         <span className="text-sm font-medium">{status.text}</span>
                       </div>
                     )}
