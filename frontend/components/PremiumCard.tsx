@@ -24,7 +24,6 @@ export default function PremiumCard({ children, className = "" }: PremiumCardPro
     <motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
-      whileHover={{ y: -10, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }}
       style={{
         // @ts-ignore
         "--mouse-x": `${coords.x}px`,
@@ -34,8 +33,8 @@ export default function PremiumCard({ children, className = "" }: PremiumCardPro
       className={`group obsidian-card ${className}`}
     >
       <div className="obsidian-card-glow" />
-      <div className="border-beam" />
-      <div className="relative z-10 h-full flex flex-col">
+      {/* Removed border-beam */}
+      <div className="relative z-10 flex flex-col">
         {children}
       </div>
     </motion.div>
