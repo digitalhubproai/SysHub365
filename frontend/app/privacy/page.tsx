@@ -1,81 +1,83 @@
-import { LuShieldCheck, LuLock, LuEye, LuFileText } from "react-icons/lu";
+import { LuShieldCheck, LuLock, LuEye, LuFileText, LuArrowUpRight } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen pt-32 pb-20 px-6 md:px-12 lg:px-24">
-      <div className="max-w-4xl mx-auto flex flex-col gap-12">
+      <div className="max-w-[70rem] mx-auto flex flex-col gap-20">
         
         {/* Header */}
-        <div className="flex flex-col gap-6 text-center mb-10">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-electric-blue/10 text-electric-blue border border-electric-blue/20 mx-auto mb-4">
-            <LuShieldCheck size={32} />
+        <div className="flex flex-col gap-6 text-center">
+          <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md mx-auto">
+            <span className="w-2 h-2 rounded-full bg-electric-blue animate-pulse" />
+            <span className="text-xs font-bold uppercase tracking-widest text-white/80">Simple Privacy</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tighter">
-            Privacy <span className="text-electric-blue">Policy</span>
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter text-white">
+            Privacy <span className="text-gradient">Policy</span>
           </h1>
-          <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-            Your trust is our most valuable asset. Learn how we protect, manage, and secure your data with elite-level standards.
+          <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            Your trust is everything. Here is how we handle your data in plain, simple language.
           </p>
         </div>
 
         {/* Content Sections */}
-        <div className="flex flex-col gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           
-          <PremiumCard>
-            <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-4 text-white font-bold text-xl">
-                <LuEye className="text-electric-blue" />
-                Data Collection
+          <PremiumCard className="p-10">
+            <div className="flex flex-col gap-6 h-full">
+              <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-electric-blue">
+                <LuEye size={28} />
               </div>
-              <p className="text-slate-400 leading-relaxed">
-                We collect information that you provide directly to us when you inquire about our services, subscribe to our newsletter, or interact with our platform. This may include your name, email address, company details, and any project-specific information shared during consultations.
+              <h3 className="text-2xl font-bold text-white">What We Collect</h3>
+              <p className="text-slate-400 leading-relaxed flex-grow">
+                We only ask for what we need to help you. This includes your name, email, and project details when you get in touch with us to start a conversation.
               </p>
             </div>
           </PremiumCard>
 
-          <PremiumCard>
-            <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-4 text-white font-bold text-xl">
-                <LuLock className="text-electric-blue" />
-                Information Security
+          <PremiumCard className="p-10">
+            <div className="flex flex-col gap-6 h-full">
+              <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-electric-blue">
+                <LuLock size={28} />
               </div>
-              <p className="text-slate-400 leading-relaxed">
-                We implement industry-standard encryption and security protocols to safeguard your personal and business data. Our infrastructure is designed to prevent unauthorized access, disclosure, or modification of your information.
+              <h3 className="text-2xl font-bold text-white">Keeping It Safe</h3>
+              <p className="text-slate-400 leading-relaxed flex-grow">
+                Your data is protected. We use standard security measures to make sure your personal and project information stays private and safe from unauthorized access.
               </p>
             </div>
           </PremiumCard>
 
-          <PremiumCard>
-            <div className="flex flex-col gap-6">
-              <div className="flex items-center gap-4 text-white font-bold text-xl">
-                <LuFileText className="text-electric-blue" />
-                Usage of Information
+          <PremiumCard className="p-10">
+            <div className="flex flex-col gap-6 h-full">
+              <div className="w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-electric-blue">
+                <LuFileText size={28} />
               </div>
-              <p className="text-slate-400 leading-relaxed">
-                SysHub365 uses collected data solely for providing and improving our digital services, communicating project updates, and personalizing your experience. We never sell or lease your data to third-party marketers.
+              <h3 className="text-2xl font-bold text-white">No Selling Data</h3>
+              <p className="text-slate-400 leading-relaxed flex-grow">
+                We use your info only to serve you better, like sending project updates. We never sell, lease, or rent your data to anyone else. Period.
               </p>
             </div>
           </PremiumCard>
+        </div>
 
-          <div className="mt-12 p-8 rounded-[2rem] border border-white/5 bg-white/[0.02] backdrop-blur-3xl text-center">
-            <h3 className="text-white font-bold text-xl mb-4 text-center">Questions about your privacy?</h3>
-            <p className="text-slate-400 mb-8 max-w-md mx-auto text-center">
-              Our legal team is available to discuss any concerns regarding data protection and your rights.
-            </p>
-            <a 
-              href="/contact" 
-              className="btn-obsidian inline-flex px-10 py-4"
-            >
-              Contact Legal Hub
-            </a>
-          </div>
-
+        {/* Call to Action */}
+        <div className="relative p-12 rounded-[2rem] border border-white/10 bg-white/[0.02] backdrop-blur-3xl overflow-hidden text-center">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-electric-blue/5 rounded-full blur-[100px]" />
+          <h3 className="text-3xl font-bold text-white mb-6">Have concerns?</h3>
+          <p className="text-slate-400 mb-10 max-w-xl mx-auto text-lg leading-relaxed">
+            If you have any questions about how your information is handled, we are happy to talk about it.
+          </p>
+          <a 
+            href="/contact" 
+            className="btn-obsidian-primary inline-flex items-center gap-2 px-10 py-4"
+          >
+            Get in Touch <LuArrowUpRight />
+          </a>
         </div>
 
         {/* Footer Note */}
-        <div className="text-center text-slate-500 text-sm mt-12">
-          Last Updated: April 2026 • © SysHub365 Global Operations
+        <div className="text-center text-slate-500 text-sm">
+          Last Updated: April 2026 • © SysHub365
         </div>
 
       </div>

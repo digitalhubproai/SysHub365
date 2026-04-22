@@ -22,13 +22,13 @@ interface SplashCursorProps {
 }
 
 export function Cursor({
-  SIM_RESOLUTION = 128,
-  DYE_RESOLUTION = 1440,
-  CAPTURE_RESOLUTION = 512,
+  SIM_RESOLUTION = 64,
+  DYE_RESOLUTION = 512,
+  CAPTURE_RESOLUTION = 256,
   DENSITY_DISSIPATION = 3.5,
   VELOCITY_DISSIPATION = 2,
   PRESSURE = 0.1,
-  PRESSURE_ITERATIONS = 20,
+  PRESSURE_ITERATIONS = 10,
   CURL = 3,
   SPLAT_RADIUS = 0.2,
   SPLAT_FORCE = 6000,
@@ -43,6 +43,11 @@ export function Cursor({
   const animationFrameId = useRef<number | null>(null);
 
   useEffect(() => {
+    // Only run on non-touch devices to save resources
+    if (typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        return;
+    }
+
     const canvas = canvasRef.current;
     if (!canvas) return;
 
