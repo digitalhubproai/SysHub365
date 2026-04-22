@@ -51,8 +51,8 @@ export function Navbar() {
                <Image
                   src="/images/logo.png"
                   alt="SysHub365 Logo"
-                  width={150}
-                  height={50}
+                  width={120}
+                  height={40}
                   style={{ width: "auto", height: "auto" }}
                   className="object-contain"
                   priority
