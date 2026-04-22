@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LuArrowUpRight, LuSearch, LuMail, LuFilter } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
+import { Button } from "@/components/ui/Button";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -100,9 +101,9 @@ export default function Blog() {
                     {featuredPost.excerpt}
                   </p>
                   <div className="flex items-center gap-6 pt-4">
-                     <Link href="#" className="btn-obsidian-primary !px-10 !py-4 text-sm">
+                      <Button href="#" variant="primary" className="!px-10 !py-4 text-sm">
                         Keep Reading
-                     </Link>
+                      </Button>
                   </div>
                </div>
             </div>
@@ -215,9 +216,9 @@ export default function Blog() {
                  placeholder="Enter email address" 
                  className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-6 px-8 text-white focus:outline-none focus:border-electric-blue transition-all placeholder:text-slate-600" 
                />
-               <button className="absolute right-3 top-1/2 -translate-y-1/2 px-8 py-3 bg-white text-black font-extrabold text-xs uppercase tracking-widest rounded-xl hover:bg-electric-blue hover:text-white transition-all">
-                  Subscribe
-               </button>
+                <Button variant="shimmer" className="absolute right-3 top-1/2 -translate-y-1/2 !px-8 !py-3 !rounded-xl">
+                   Subscribe
+                </Button>
             </div>
          </div>
       </section>

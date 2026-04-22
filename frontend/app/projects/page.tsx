@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LuArrowUpRight, LuFolderSymlink } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
+import { Button } from "@/components/ui/Button";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -135,9 +136,9 @@ export default function Projects() {
             Have a project in mind?
           </h2>
           <p className="text-slate-400 text-lg max-w-lg">Let's discuss your requirements and build the perfect technological solution for your business.</p>
-          <Link href="/contact" className="btn-obsidian-primary">
+          <Button href="/contact" variant="primary">
             Initiate Project
-          </Link>
+          </Button>
         </div>
       </section>
     </main>

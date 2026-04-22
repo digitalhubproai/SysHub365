@@ -5,6 +5,7 @@ import Image from "next/image";
 import { LuX, LuSend, LuBot, LuUser } from "react-icons/lu";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
+import { Button } from "./ui/Button";
 
 type Message = {
   id: string;
@@ -72,12 +73,12 @@ export function Chatbot() {
           )}
           aria-label="Open Chat"
         >
-          <div className="absolute inset-0 bg-electric-blue/30 rounded-[2rem] blur-[30px] group-hover:bg-electric-blue/50 group-hover:blur-[40px] transition-all duration-700 animate-pulse" />
-          <div className="absolute inset-0 rounded-[1.8rem] overflow-hidden p-[1.5px] bg-white/5">
-            <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--beam-angle,0deg),transparent_70%,#2563eb_80%,#38bdf8_90%,transparent_100%)] animate-[beam-rotate_4s_linear_infinite]" />
-            <div className="absolute inset-[1.5px] bg-[#030509]/90 backdrop-blur-2xl rounded-[1.7rem] flex items-center justify-center overflow-hidden border border-white/5">
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_50%_50%,#2563eb,transparent_70%)]" />
-              <Image src="/images/favicon.svg" alt="SysHub365" width={32} height={32} className="relative z-10 transition-all duration-500 group-hover:scale-110" />
+          <div className="absolute inset-0 bg-electric-blue/10 rounded-full blur-[30px] group-hover:bg-electric-blue/30 group-hover:blur-[40px] transition-all duration-1000" />
+          <div className="absolute inset-0 rounded-full overflow-hidden p-[1.5px] bg-white/5">
+            <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--beam-angle,0deg),transparent_70%,#2563eb_80%,#38bdf8_90%,transparent_100%)] animate-[beam-rotate_8s_linear_infinite]" />
+            <div className="absolute inset-[1.5px] bg-[#030509]/95 backdrop-blur-3xl rounded-full flex items-center justify-center overflow-hidden border border-white/10">
+              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,#2563eb,transparent_70%)]" />
+              <Image src="/images/favicon.svg" alt="SysHub365" width={32} height={32} className="relative z-10 transition-all duration-700 group-hover:scale-110 group-hover:brightness-125" />
             </div>
           </div>
           <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#030509] border border-white/10 flex items-center justify-center p-[2px]">
@@ -107,9 +108,14 @@ export function Chatbot() {
                   <p className="text-[10px] text-cyber-cyan font-medium uppercase tracking-[0.2em]">Online</p>
                 </div>
               </div>
-              <button onClick={() => setIsOpen(false)} className="w-8 h-8 flex items-center justify-center text-white/50 hover:text-white bg-white/5 rounded-full hover:bg-white/10 transition-all">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="!p-2 hover:bg-white/10" 
+                onClick={() => setIsOpen(false)}
+              >
                 <LuX size={14} />
-              </button>
+              </Button>
             </div>
 
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
@@ -143,9 +149,15 @@ export function Chatbot() {
             <div className="p-6 bg-gradient-to-t from-black/80 to-transparent">
               <form onSubmit={handleSend} className="relative flex items-center bg-white/[0.03] border border-white/10 rounded-full p-2 focus-within:border-cyber-cyan/50 transition-colors">
                 <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Query system..." className="w-full bg-transparent text-sm text-white px-4 py-2 focus:outline-none placeholder:text-white/20" />
-                <button type="submit" disabled={!input.trim() || isLoading} className="p-3 bg-gradient-to-br from-electric-blue to-cyber-cyan rounded-full text-white hover:brightness-110 disabled:opacity-50 transition-all">
+                <Button 
+                  type="submit" 
+                  variant="primary" 
+                  size="sm" 
+                  className="!p-3" 
+                  disabled={!input.trim() || isLoading}
+                >
                   <LuSend size={14} />
-                </button>
+                </Button>
               </form>
             </div>
           </motion.div>

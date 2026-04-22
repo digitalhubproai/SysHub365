@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { LuTarget, LuShield, LuCpu, LuDna, LuGlobe, LuCircleCheck } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
+import { Button } from "@/components/ui/Button";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -167,9 +168,9 @@ export default function About() {
             Ready to Build <br/> 
             <span className="text-gradient">Something Exceptional?</span>
           </h2>
-          <Link href="/contact" className="btn-obsidian-primary">
+          <Button href="/contact" variant="primary">
             Get in Touch
-          </Link>
+          </Button>
         </div>
       </section>
     </main>

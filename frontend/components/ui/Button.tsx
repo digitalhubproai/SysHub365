@@ -1,38 +1,82 @@
 import { ButtonHTMLAttributes, FC } from 'react';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 import clsx from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'obsidian' | 'neon' | 'shimmer' | 'outline' | 'ghost';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  showShimmer?: boolean;
+  href?: string;
 }
 
 export const Button: FC<ButtonProps> = ({ 
   className, 
   variant = 'primary', 
   size = 'md', 
+  showShimmer = true,
+  href,
+  children,
   ...props 
 }) => {
   const variants = {
-    primary: 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white border-transparent hover:shadow-[0_0_25px_rgba(37,99,235,0.4)]',
-    secondary: 'bg-white/[0.05] text-white border-white/10 backdrop-blur-md hover:bg-white/[0.1] hover:border-white/30',
-    outline: 'bg-transparent text-white border-white/20 hover:bg-white hover:text-black hover:border-white'
+    primary: 'btn-obsidian-primary',
+    obsidian: 'btn-obsidian',
+    neon: 'btn-neon',
+    shimmer: 'btn-premium',
+    outline: 'btn-outline-premium',
+    ghost: 'bg-transparent text-white/60 hover:text-white hover:bg-white/5 border-transparent transition-all rounded-full'
   };
 
   const sizes = {
-    sm: 'px-4 py-2 text-xs',
-    md: 'px-8 py-3 text-sm',
-    lg: 'px-10 py-4 text-base'
+    sm: 'px-4 py-2 text-[10px]',
+    md: 'px-6 py-3.5 text-xs',
+    lg: 'px-8 py-4.5 text-sm',
+    xl: 'px-10 py-5.5 text-base'
   };
 
-  return (
-    <button
-      className={clsx(
-        'relative inline-flex items-center justify-center rounded-full font-bold transition-all duration-300 active:scale-95 disabled:opacity-50 overflow-hidden border',
-        variants[variant],
-        sizes[size],
-        className
+  const MotionLink = motion(Link);
+  const isPremium = ['primary', 'obsidian', 'neon', 'shimmer'].includes(variant);
+  
+  const content = (
+    <>
+      <span className="btn-border-beam" />
+      <span className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+      {showShimmer && isPremium && (
+        <span className="shimmer-sweep" />
       )}
-      {...props}
-    />
+      <span className="relative z-10 flex items-center gap-2 transition-transform duration-500 group-hover:scale-105">
+        {children}
+      </span>
+    </>
+  );
+  
+  const commonProps = {
+    whileHover: { 
+      scale: 1.05, 
+      y: -4,
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }
+    },
+    whileTap: { scale: 0.94 },
+    className: clsx(
+      variants[variant as keyof typeof variants],
+      !isPremium && sizes[size as keyof typeof sizes],
+      'group relative overflow-hidden flex items-center justify-center disabled:opacity-50 select-none cursor-pointer',
+      className
+    )
+  };
+
+  if (href) {
+    return (
+      <MotionLink href={href} {...commonProps}>
+        {content}
+      </MotionLink>
+    );
+  }
+
+  return (
+    <motion.button {...commonProps} {...props as any}>
+      {content}
+    </motion.button>
   );
 };

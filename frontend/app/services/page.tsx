@@ -4,6 +4,7 @@ import { motion, Variants } from "framer-motion";
 import Link from "next/link";
 import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuRocket, LuArrowUpRight } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
+import { Button } from "@/components/ui/Button";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -122,9 +123,9 @@ export default function Services() {
           <p className="text-lg text-slate-400 max-w-xl">
              Join over 150+ international clients who have trusted SysHub365 with their most critical digital infrastructure.
           </p>
-          <Link href="/contact" className="btn-obsidian-primary">
+          <Button href="/contact" variant="primary">
             Start Your Journey
-          </Link>
+          </Button>
         </div>
       </section>
     </main>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, Variants } from "framer-motion";
 import { LuMail, LuMapPin, LuPhone, LuSend, LuUser, LuMessageSquare, LuBuilding2, LuChevronRight, LuCheck, LuTriangleAlert } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
+import { Button } from "@/components/ui/Button";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -187,14 +188,15 @@ export default function Contact() {
                       </div>
                     )}
 
-                    <button 
+                    <Button 
                       type="submit" 
+                      variant="primary"
                       disabled={isSubmitting}
-                      className="btn-obsidian-primary w-full !rounded-xl flex items-center justify-center gap-3 mt-4 disabled:opacity-50 disabled:cursor-not-allowed group relative overflow-hidden"
+                      className="w-full !rounded-xl gap-3 mt-4"
                     >
-                      <span className="relative z-10">{isSubmitting ? "Sending..." : "Send Message"}</span>
-                      <LuSend size={18} className={`relative z-10 ${isSubmitting ? "animate-pulse" : "group-hover:translate-x-1 transition-transform"}`} />
-                    </button>
+                      <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
+                      <LuSend size={18} className={isSubmitting ? "animate-pulse" : "group-hover:translate-x-1 transition-transform"} />
+                    </Button>
                   </form>
               </div>
             </PremiumCard>

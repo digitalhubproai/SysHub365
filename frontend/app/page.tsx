@@ -10,6 +10,7 @@ import {
   LuMail, LuUser, LuMessageSquare, LuSend, LuPhone
 } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
+import { Button } from "@/components/ui/Button";
 
 /* ── HELPERS & ANIMATIONS ── */
 const fadeUp: Variants = {
@@ -182,13 +183,13 @@ export default function Home() {
             </motion.p>
             
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-6 mt-6">
-              <Link href="#contact" className="btn-obsidian-primary w-full sm:w-auto px-10 py-5 text-sm">
+              <Button href="#contact" variant="primary" className="w-full sm:w-auto">
                 Start a Project
-              </Link>
-              <Link href="#projects" className="group flex items-center justify-center gap-4 px-10 py-5 text-sm font-bold uppercase tracking-widest text-white/60 hover:text-white transition-colors w-full sm:w-auto">
+              </Button>
+              <Button href="#projects" variant="outline" className="w-full sm:w-auto gap-4">
                 View Our Work 
                 <LuArrowUpRight size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-              </Link>
+              </Button>
             </motion.div>
           </motion.div>
         </div>
@@ -373,9 +374,9 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center mt-8">
-            <Link href="/projects" className="btn-obsidian !px-12 !py-5">
+            <Button href="/projects" variant="outline">
               View All Projects
-            </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -430,7 +431,7 @@ export default function Home() {
               <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Insights</span>
               <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">Latest Articles.</h2>
             </div>
-            <Link href="/blog" className="btn-obsidian !px-10 !py-4">View All News</Link>
+            <Button href="/blog" variant="outline">View All News</Button>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -553,10 +554,10 @@ export default function Home() {
                 </div>
               </div>
 
-              <button type="submit" className="btn-obsidian-primary w-full !rounded-xl flex items-center justify-center gap-3 mt-4">
+              <Button type="submit" variant="primary" className="w-full !rounded-xl gap-3 mt-4">
                 <span>Send Message</span>
                 <LuSend size={16} />
-              </button>
+              </Button>
             </form>
           </motion.div>
         </div>

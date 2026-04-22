@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { LuMenu, LuX } from "react-icons/lu";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
+import { Button } from "./ui/Button";
 
 const NAV_LINKS = [
   { name: "Services", href: "/services" },
@@ -83,9 +84,9 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="flex items-center gap-4">
-             <Link href="/contact" className="hidden sm:inline-flex px-6 py-2.5 rounded-full bg-white text-black text-xs font-bold hover:bg-slate-200 transition-colors">
+             <Button href="/contact" variant="shimmer" size="sm" className="hidden sm:inline-flex">
                 Contact Us
-             </Link>
+             </Button>
              
              <button
                className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-white/5 text-white hover:bg-white/10 transition-colors"
@@ -128,13 +129,15 @@ export function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <Link
+                <Button
                   href="/contact"
-                  className="inline-block px-8 py-4 bg-white text-black text-lg font-bold rounded-full text-center"
+                  variant="shimmer"
+                  size="lg"
+                  className="w-full"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Contact Us
-                </Link>
+                </Button>
               </motion.div>
             </div>
           </motion.div>
