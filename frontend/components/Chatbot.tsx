@@ -93,7 +93,7 @@ export function Chatbot() {
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
             exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed bottom-28 right-8 z-[9999] w-[380px] h-[480px] max-h-[80vh] flex flex-col bg-black/40 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_0_100px_-20px_rgba(37,99,235,0.3)] overflow-hidden"
+            className="fixed inset-4 sm:bottom-28 sm:right-8 sm:w-[380px] sm:h-[480px] sm:max-h-[80vh] z-[9999] flex flex-col bg-black/40 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-[0_0_100px_-20px_rgba(37,99,235,0.3)] overflow-hidden"
           >
             <div className="relative flex items-center justify-between p-6 border-b border-white/5">
               <div className="flex items-center gap-4">
