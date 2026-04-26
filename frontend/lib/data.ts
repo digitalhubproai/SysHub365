@@ -22,6 +22,7 @@ export const PROJECTS: Project[] = [
       "Anomaly Identification: Extracts biomarkers and identifies clinical anomalies."
     ],
     img: "/images/Obvis-–-AI-Medical-Intelligence.png",
+    link: "https://obvis-yyes.vercel.app/",
     tags: ["Next.js", "Python", "AI", "Healthcare", "Decision Support"]
   },
   {
