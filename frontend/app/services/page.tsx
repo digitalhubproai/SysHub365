@@ -92,9 +92,23 @@ export default function Services() {
               transition={{ delay: i * 0.1, duration: 0.6 }}
             >
               <PremiumCard className="p-10 gap-8 items-start">
-                <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue transition-colors duration-500 shadow-lg">
+                <motion.div 
+                  whileHover={{ scale: 1.2, rotate: 15 }}
+                  animate={{ 
+                    y: [0, -10, 0],
+                    rotate: [0, 3, -3, 0],
+                    scale: [1, 1.05, 1]
+                  }}
+                  transition={{ 
+                    duration: 4, 
+                    repeat: Infinity, 
+                    ease: "easeInOut", 
+                    delay: i * 0.1 
+                  }}
+                  className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue transition-colors duration-500 shadow-[0_0_40px_rgba(37,99,235,0.15)]"
+                >
                   {s.icon}
-                </div>
+                </motion.div>
                 <div className="flex flex-col gap-4">
                   <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>
                   <p className="text-slate-400 leading-relaxed group-hover:text-slate-200 transition-colors">

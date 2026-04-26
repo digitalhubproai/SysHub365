@@ -14,6 +14,7 @@ import {
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
 import { PROJECTS } from "@/lib/data";
+import { LoaderIcon } from "@/components/ui/loader-icon";
 
 /* ── HELPERS & ANIMATIONS ── */
 const fadeUp: Variants = {
@@ -186,7 +187,7 @@ export default function Home() {
         <div className="max-w-[80rem] mx-auto w-full relative z-10 flex flex-col items-center text-center">
           <motion.div initial="hidden" animate="show" variants={staggerContainer} className="flex flex-col items-center gap-8">
             <motion.div variants={fadeUp} className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-electric-blue animate-pulse" />
+              <LoaderIcon size={14} className="text-electric-blue" />
               <span className="text-xs font-bold uppercase tracking-widest text-white/80">Premium Development Studio</span>
             </motion.div>
 
@@ -228,8 +229,8 @@ export default function Home() {
         {/* Scroll Indicator */}
         <motion.div
            initial={{ opacity: 0 }}
-           animate={{ opacity: 1, y: [0, 10, 0] }}
-           transition={{ delay: 1.5, duration: 2, repeat: Infinity }}
+           animate={{ opacity: 1, y: [0, 15, 0] }}
+           transition={{ delay: 1.5, duration: 2, repeat: Infinity, ease: "easeInOut" }}
            className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/20"
         >
           <LuChevronDown size={32} />
@@ -337,9 +338,22 @@ export default function Home() {
               transition={{ delay: i * 0.1, duration: 0.6 }}
               className="flex flex-col items-center text-center px-4"
             >
-              <div className="w-14 h-14 rounded-full bg-electric-blue/10 flex items-center justify-center text-electric-blue mb-6">
+              <motion.div 
+                animate={{ 
+                  y: [0, -10, 0],
+                  rotate: [0, 5, -5, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{ 
+                  duration: 5, 
+                  repeat: Infinity, 
+                  ease: "easeInOut", 
+                  delay: i * 0.2 
+                }}
+                className="w-14 h-14 rounded-full bg-electric-blue/10 flex items-center justify-center text-electric-blue mb-6 border border-electric-blue/20 shadow-[0_0_30px_rgba(37,99,235,0.2)]"
+              >
                 {stat.icon}
-              </div>
+              </motion.div>
               <div className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-2">
                 <AnimatedNumber target={stat.value} suffix={stat.suffix} />
               </div>
@@ -374,9 +388,23 @@ export default function Home() {
                 transition={{ delay: i * 0.1, duration: 0.6 }}
               >
                 <PremiumCard className="p-10 gap-8 items-start">
-                  <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue group-hover:text-white transition-all duration-500 shadow-xl">
+                  <motion.div 
+                    whileHover={{ scale: 1.2, rotate: 15 }}
+                    animate={{ 
+                      y: [0, -10, 0],
+                      rotate: [0, 3, -3, 0],
+                      scale: [1, 1.05, 1]
+                    }}
+                    transition={{ 
+                      duration: 4, 
+                      repeat: Infinity, 
+                      ease: "easeInOut", 
+                      delay: i * 0.1 
+                    }}
+                    className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue group-hover:text-white transition-all duration-500 shadow-[0_0_40px_rgba(37,99,235,0.15)]"
+                  >
                     {s.icon}
-                  </div>
+                  </motion.div>
                   <div className="flex flex-col gap-4">
                     <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>
                     <p className="text-slate-400 leading-relaxed group-hover:text-slate-200 transition-colors">
@@ -420,9 +448,23 @@ export default function Home() {
                 transition={{ delay: i * 0.1, duration: 0.6 }}
               >
                 <PremiumCard className="p-10 gap-8 items-start">
-                  <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue group-hover:text-white transition-all duration-500 shadow-xl">
+                  <motion.div 
+                    whileHover={{ scale: 1.2, rotate: -15 }}
+                    animate={{ 
+                      y: [0, -10, 0],
+                      rotate: [0, -3, 3, 0],
+                      scale: [1, 1.05, 1]
+                    }}
+                    transition={{ 
+                      duration: 4, 
+                      repeat: Infinity, 
+                      ease: "easeInOut", 
+                      delay: i * 0.15 
+                    }}
+                    className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue group-hover:text-white transition-all duration-500 shadow-[0_0_40px_rgba(37,99,235,0.15)]"
+                  >
                     {s.icon}
-                  </div>
+                  </motion.div>
                   <div className="flex flex-col gap-4">
                     <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>
                     <p className="text-slate-400 leading-relaxed group-hover:text-slate-200 transition-colors">
