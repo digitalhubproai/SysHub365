@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuRocket, LuArrowUpRight } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
+import { GradientIcon } from "@/components/GradientIcon";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -16,31 +17,37 @@ const SERVICES_DETAILED = [
     icon: <LuCode size={28} />,
     title: "Enterprise Web Systems",
     desc: "Architecting high-availability, low-latency web platforms that serve as the backbone of modern enterprise operations.",
+    gradient: ["#06b6d4", "#2563eb"], id: "grad-web-det"
   },
   {
     icon: <LuBrainCog size={28} />,
     title: "AI Integration",
     desc: "Embed intelligent automation, chatbots, and generative AI into your existing business workflows for maximum efficiency.",
+    gradient: ["#8b5cf6", "#d946ef"], id: "grad-ai-det"
   },
   {
     icon: <LuPalette size={28} />,
     title: "UI/UX Product Design",
     desc: "Beautiful, intuitive interfaces designed to maximize user engagement and conversion rates through scientific design.",
+    gradient: ["#f43f5e", "#fb923c"], id: "grad-design-det"
   },
   {
     icon: <LuCloud size={28} />,
     title: "Cloud Infrastructure",
     desc: "Secure, highly-available infrastructure setup on AWS and GCP with full CI/CD automation and global sync.",
+    gradient: ["#3b82f6", "#06b6d4"], id: "grad-cloud-det"
   },
   {
     icon: <LuShieldCheck size={28} />,
     title: "Cybersecurity Defense",
     desc: "Enterprise-grade security audits and implementation to protect your digital assets and ensure compliance.",
+    gradient: ["#ef4444", "#8b5cf6"], id: "grad-security-det"
   },
   {
     icon: <LuRocket size={28} />,
     title: "MVP Sprints",
     desc: "Rapid prototyping and development to get your core product to market in record time without compromising quality.",
+    gradient: ["#10b981", "#3b82f6"], id: "grad-mvp-det"
   }
 ];
 
@@ -93,7 +100,6 @@ export default function Services() {
             >
               <PremiumCard className="p-10 gap-8 items-start">
                 <motion.div 
-                  whileHover={{ scale: 1.2, rotate: 15 }}
                   animate={{ 
                     y: [0, -10, 0],
                     rotate: [0, 3, -3, 0],
@@ -105,9 +111,9 @@ export default function Services() {
                     ease: "easeInOut", 
                     delay: i * 0.1 
                   }}
-                  className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue transition-colors duration-500 shadow-[0_0_40px_rgba(37,99,235,0.15)]"
+                  className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.05)] group-hover:border-white/20"
                 >
-                  {s.icon}
+                  <GradientIcon icon={s.icon} id={s.id} colors={s.gradient} />
                 </motion.div>
                 <div className="flex flex-col gap-4">
                   <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>

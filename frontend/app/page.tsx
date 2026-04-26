@@ -15,6 +15,7 @@ import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
 import { PROJECTS } from "@/lib/data";
 import { LoaderIcon } from "@/components/ui/loader-icon";
+import { GradientIcon } from "@/components/GradientIcon";
 
 /* ── HELPERS & ANIMATIONS ── */
 const fadeUp: Variants = {
@@ -86,12 +87,12 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 /* ── DATA ── */
 const SERVICES = [
-  { icon: <LuCode size={28} />, title: "Web Development", desc: "High-performance, scalable web applications built with React, Next.js, and modern architectures." },
-  { icon: <LuBrainCog size={28} />, title: "AI Integration", desc: "Embed intelligent automation, chatbots, and generative AI into your existing business workflows." },
-  { icon: <LuPalette size={28} />, title: "UI/UX Design", desc: "Beautiful, intuitive interfaces designed to maximize user engagement and conversion rates." },
-  { icon: <LuCloud size={28} />, title: "Cloud Solutions", desc: "Secure, highly-available infrastructure setup on AWS and GCP with full CI/CD automation." },
-  { icon: <LuRocket size={28} />, title: "MVP Sprints", desc: "Rapid prototyping and development to get your core product to market in 4-6 weeks." },
-  { icon: <LuShieldCheck size={28} />, title: "Cybersecurity", desc: "Enterprise-grade security audits and implementation to protect your digital assets." },
+  { icon: <LuCode size={28} />, title: "Web Development", desc: "High-performance, scalable web applications built with React, Next.js, and modern architectures.", gradient: ["#06b6d4", "#2563eb"], id: "grad-web" },
+  { icon: <LuBrainCog size={28} />, title: "AI Integration", desc: "Embed intelligent automation, chatbots, and generative AI into your existing business workflows.", gradient: ["#8b5cf6", "#d946ef"], id: "grad-ai" },
+  { icon: <LuPalette size={28} />, title: "UI/UX Design", desc: "Beautiful, intuitive interfaces designed to maximize user engagement and conversion rates.", gradient: ["#f43f5e", "#fb923c"], id: "grad-design" },
+  { icon: <LuCloud size={28} />, title: "Cloud Solutions", desc: "Secure, highly-available infrastructure setup on AWS and GCP with full CI/CD automation.", gradient: ["#3b82f6", "#06b6d4"], id: "grad-cloud" },
+  { icon: <LuRocket size={28} />, title: "MVP Sprints", desc: "Rapid prototyping and development to get your core product to market in 4-6 weeks.", gradient: ["#10b981", "#3b82f6"], id: "grad-mvp" },
+  { icon: <LuShieldCheck size={28} />, title: "Cybersecurity", desc: "Enterprise-grade security audits and implementation to protect your digital assets.", gradient: ["#ef4444", "#8b5cf6"], id: "grad-security" },
 ];
 
 const SOLUTIONS = [
@@ -99,16 +100,19 @@ const SOLUTIONS = [
     icon: <LuLayoutDashboard size={28} />,
     title: "ERP Solutions",
     desc: "Unify your entire business — finance, inventory, HR, and supply chain — into one powerful, real-time ERP platform built to scale with your growth.",
+    gradient: ["#3b82f6", "#8b5cf6"], id: "grad-erp"
   },
   {
     icon: <LuHeartHandshake size={28} />,
     title: "CRM Solutions",
     desc: "Give your sales team a 360° view of every customer. AI-powered insights, automated pipelines, and omnichannel communication in one place.",
+    gradient: ["#d946ef", "#f43f5e"], id: "grad-crm"
   },
   {
     icon: <LuKey size={28} />,
     title: "Software Licensing",
     desc: "Comprehensive licensing for all types of software — from enterprise operating systems to specialized SaaS tools. We handle procurement, renewals, and compliance.",
+    gradient: ["#fb923c", "#f43f5e"], id: "grad-license"
   },
 ];
 
@@ -389,7 +393,6 @@ export default function Home() {
               >
                 <PremiumCard className="p-10 gap-8 items-start">
                   <motion.div 
-                    whileHover={{ scale: 1.2, rotate: 15 }}
                     animate={{ 
                       y: [0, -10, 0],
                       rotate: [0, 3, -3, 0],
@@ -401,9 +404,9 @@ export default function Home() {
                       ease: "easeInOut", 
                       delay: i * 0.1 
                     }}
-                    className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue group-hover:text-white transition-all duration-500 shadow-[0_0_40px_rgba(37,99,235,0.15)]"
+                    className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.05)] group-hover:border-white/20"
                   >
-                    {s.icon}
+                    <GradientIcon icon={s.icon} id={s.id} colors={s.gradient} />
                   </motion.div>
                   <div className="flex flex-col gap-4">
                     <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>
@@ -449,7 +452,6 @@ export default function Home() {
               >
                 <PremiumCard className="p-10 gap-8 items-start">
                   <motion.div 
-                    whileHover={{ scale: 1.2, rotate: -15 }}
                     animate={{ 
                       y: [0, -10, 0],
                       rotate: [0, -3, 3, 0],
@@ -461,9 +463,9 @@ export default function Home() {
                       ease: "easeInOut", 
                       delay: i * 0.15 
                     }}
-                    className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue group-hover:text-white transition-all duration-500 shadow-[0_0_40px_rgba(37,99,235,0.15)]"
+                    className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.05)] group-hover:border-white/20"
                   >
-                    {s.icon}
+                    <GradientIcon icon={s.icon} id={s.id} colors={s.gradient} />
                   </motion.div>
                   <div className="flex flex-col gap-4">
                     <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>

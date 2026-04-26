@@ -3,8 +3,9 @@
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { LuTarget, LuShield, LuCpu, LuDna, LuGlobe, LuCircleCheck, LuArrowUpRight } from "react-icons/lu";
+import { LuTarget, LuUsers, LuLightbulb, LuShield, LuMapPin, LuChevronRight, LuCircleCheck, LuArrowUpRight } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
+import { GradientIcon } from "@/components/GradientIcon";
 import { Button } from "@/components/ui/Button";
 
 const fadeUp: Variants = {
@@ -13,10 +14,10 @@ const fadeUp: Variants = {
 };
 
 const VALUES = [
-  { icon: <LuTarget size={28} />, title: "Precision", desc: "Rigorous standards applied to every architectural decision and line of code." },
-  { icon: <LuShield size={28} />, title: "Integrity", desc: "Building long-term value through transparent partnerships and robust engineering." },
-  { icon: <LuCpu size={28} />, title: "Innovation", desc: "Executing at the frontier of intelligence systems and digital ecosystems." },
-  { icon: <LuDna size={28} />, title: "Scalability", desc: "Architecting for global impact with systems that grow seamlessly with your business." },
+  { icon: <LuTarget size={28} />, title: "Precision", desc: "We aim for absolute technical accuracy in every line of code we ship.", gradient: ["#3b82f6", "#06b6d4"], id: "v-prec" },
+  { icon: <LuUsers size={28} />, title: "Collaboration", desc: "Your goals are our goals. We work as an extension of your own team.", gradient: ["#8b5cf6", "#d946ef"], id: "v-coll" },
+  { icon: <LuLightbulb size={28} />, title: "Innovation", desc: "Constantly exploring the boundaries of AI and cloud architecture.", gradient: ["#fb923c", "#f43f5e"], id: "v-inno" },
+  { icon: <LuShield size={28} />, title: "Security", desc: "Protection of your data and reputation is our primary directive.", gradient: ["#ef4444", "#8b5cf6"], id: "v-sec" },
 ];
 
 export default function About() {
@@ -157,7 +158,6 @@ export default function About() {
               >
                 <PremiumCard className="p-10 gap-8 items-start">
                   <motion.div 
-                    whileHover={{ scale: 1.2, rotate: 15 }}
                     animate={{ 
                       y: [0, -10, 0],
                       rotate: [0, 3, -3, 0],
@@ -169,9 +169,9 @@ export default function About() {
                       ease: "easeInOut", 
                       delay: i * 0.1 
                     }}
-                    className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue transition-colors duration-500 shadow-[0_0_40px_rgba(37,99,235,0.15)]"
+                    className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.05)] group-hover:border-white/20"
                   >
-                    {v.icon}
+                    <GradientIcon icon={v.icon} id={v.id} colors={v.gradient} />
                   </motion.div>
                   <div className="flex flex-col gap-4">
                     <h3 className="text-2xl font-bold text-white tracking-tight group-hover:text-gradient transition-all duration-500">{v.title}</h3>
