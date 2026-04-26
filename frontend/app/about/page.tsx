@@ -36,7 +36,7 @@ export default function About() {
           <motion.h1 
             initial="hidden" animate="show" variants={fadeUp} 
             transition={{ delay: 0.1, duration: 1, ease: [0.16, 1, 0.3, 1] }} 
-            className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-tight"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-tight"
           >
             Engineering The <br/>
             <span className="text-gradient">Next Standard.</span>
@@ -97,7 +97,7 @@ export default function About() {
               <span className="inline-flex items-center gap-2 text-electric-blue font-black tracking-[0.3em] uppercase text-sm">
                 <span className="w-8 h-px bg-electric-blue"></span> Who We Are
               </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
                 Your Dedicated <br/><span className="text-gradient">Technical Partners.</span>
               </h2>
             </div>
@@ -146,7 +146,7 @@ export default function About() {
         <div className="max-w-[90rem] mx-auto flex flex-col gap-20">
           <div className="flex flex-col gap-6 items-center text-center">
              <span className="text-electric-blue font-black tracking-[0.4em] uppercase text-sm">Core Principles</span>
-             <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">Our Values & Culture.</h2>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">Our Values & Culture.</h2>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -176,7 +176,7 @@ export default function About() {
            <Image src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&q=80&w=2500" alt="Karachi Office" fill className="object-cover opacity-30 transition-transform duration-[3s] group-hover:scale-105" />
            <div className="absolute inset-0 bg-gradient-to-r from-[var(--obsidian-base)] via-transparent to-transparent flex items-center px-10 md:px-24">
               <div className="max-w-2xl flex flex-col gap-8">
-                 <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                 <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
                    From Karachi <br/> to the Global Stage.
                  </h2>
                  <p className="text-xl text-slate-300 leading-relaxed">
@@ -197,7 +197,7 @@ export default function About() {
       <section className="py-40 bg-[var(--obsidian-deep)] relative overflow-hidden border-t border-white/5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.08),transparent_70%)] animate-pulse" />
         <div className="max-w-[50rem] mx-auto text-center flex flex-col items-center gap-12 relative z-10 px-6">
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
             Ready to Build <br/> 
             <span className="text-gradient">Something Exceptional?</span>
           </h2>

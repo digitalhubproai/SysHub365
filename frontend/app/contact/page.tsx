@@ -58,7 +58,7 @@ export default function Contact() {
               </motion.div>
               <motion.h1 
                 initial="hidden" animate="show" variants={fadeUp} transition={{ delay: 0.1 }}
-                className="text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-tight"
+                className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-tight"
               >
                 Let&apos;s Build <br/>
                 <span className="text-gradient">Something Great.</span>
@@ -209,7 +209,7 @@ export default function Contact() {
          <div className="max-w-[90rem] mx-auto flex flex-col gap-16">
             <div className="flex flex-col gap-4 text-center md:text-left">
                <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Our Offices</span>
-               <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">Global Presence.</h2>
+               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">Global Presence.</h2>
             </div>
             
             <div className="grid md:grid-cols-2 gap-8">

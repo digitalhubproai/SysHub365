@@ -51,12 +51,12 @@ export function Navbar() {
                <Image
                   src="/images/logo.png"
                   alt="SysHub365 Logo"
-                  width={120}
-                  height={40}
-                  style={{ width: "auto", height: "auto" }}
-                  className="object-contain"
+                  width={110}
+                  height={35}
+                  className="w-[100px] sm:w-[120px] h-auto object-contain"
                   priority
-               />            </div>
+               />
+            </div>
           </Link>
 
           {/* Desktop Links */}
@@ -102,10 +102,11 @@ export function Navbar() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="lg:hidden fixed inset-0 z-[49] bg-[#05070a] p-10 flex flex-col justify-center"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "spring", damping: 25, stiffness: 200 }}
+            className="lg:hidden fixed inset-0 z-[49] bg-[#05070a] p-6 sm:p-10 flex flex-col justify-center"
           >
             <div className="flex flex-col gap-8">
               {NAV_LINKS.map((link, i) => (
@@ -117,7 +118,7 @@ export function Navbar() {
                 >
                   <Link
                     href={link.href}
-                    className="text-4xl font-bold text-white uppercase block hover:text-neon-accent"
+                    className="text-3xl sm:text-4xl font-bold text-white uppercase block hover:text-neon-accent transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.name}

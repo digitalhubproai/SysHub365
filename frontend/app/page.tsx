@@ -190,7 +190,7 @@ export default function Home() {
               <span className="text-xs font-bold uppercase tracking-widest text-white/80">Premium Development Studio</span>
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="text-5xl md:text-[4rem] lg:text-[5rem] font-extrabold text-white tracking-tight leading-[1.1]">
+            <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-[4rem] lg:text-[5rem] font-extrabold text-white tracking-tight leading-[1.1]">
               We Build Software <br/>
               That Drives{" "}
               <span className="inline-grid sm:text-left text-center">
@@ -237,7 +237,7 @@ export default function Home() {
       </section>
 
       {/* 2. ABOUT US */}
-      <section id="about" className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10 overflow-hidden">
+      <section id="about" className="section-padding bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10 overflow-hidden">
         {/* Background ambient glows */}
         <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-electric-blue/5 rounded-full blur-[150px] -translate-y-1/2 pointer-events-none" />
 
@@ -281,7 +281,7 @@ export default function Home() {
               <span className="inline-flex items-center gap-2 text-electric-blue font-black tracking-[0.3em] uppercase text-sm">
                 <span className="w-8 h-px bg-electric-blue"></span> About Us
               </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
                 Your Dedicated <br/><span className="text-gradient">Technical Partners.</span>
               </h2>
             </div>
@@ -326,8 +326,8 @@ export default function Home() {
       </section>
 
       {/* 3. STATS COUNTERS */}
-      <section className="py-24 px-6 md:px-12 bg-[var(--obsidian-deep)] relative z-10">
-        <div className="max-w-[90rem] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 divide-x-0 lg:divide-x divide-white/10">
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-[var(--obsidian-deep)] relative z-10">
+        <div className="max-w-[90rem] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-8 divide-x-0 lg:divide-x divide-white/10">
           {STATS.map((stat, i) => (
             <motion.div 
               key={i}
@@ -340,7 +340,7 @@ export default function Home() {
               <div className="w-14 h-14 rounded-full bg-electric-blue/10 flex items-center justify-center text-electric-blue mb-6">
                 {stat.icon}
               </div>
-              <div className="text-5xl md:text-6xl font-black text-white tracking-tight mb-2">
+              <div className="text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-2">
                 <AnimatedNumber target={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-sm font-bold text-slate-400 uppercase tracking-widest">{stat.label}</div>
@@ -350,12 +350,12 @@ export default function Home() {
       </section>
 
       {/* 4. SERVICES / WHAT WE DO */}
-      <section id="services" className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-base)] relative z-10 border-t border-white/5">
+      <section id="services" className="section-padding bg-[var(--obsidian-base)] relative z-10 border-t border-white/5">
         <div className="max-w-[90rem] mx-auto flex flex-col gap-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="flex flex-col gap-4">
               <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">What We Do</span>
-              <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight max-w-2xl">
+              <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-tight max-w-2xl">
                 Comprehensive Digital Solutions.
               </h2>
             </div>
@@ -396,12 +396,12 @@ export default function Home() {
       </section>
 
       {/* 5. SOLUTIONS */}
-      <section id="solutions" className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10">
+      <section id="solutions" className="section-padding bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10">
         <div className="max-w-[90rem] mx-auto flex flex-col gap-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="flex flex-col gap-4">
               <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Our Solutions</span>
-              <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight max-w-2xl">
+              <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-tight max-w-2xl">
                 Powerful Solutions.
               </h2>
             </div>
@@ -442,12 +442,12 @@ export default function Home() {
       </section>
 
       {/* 6. PROJECTS SHOWCASE */}
-      <section id="projects" className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10">
+      <section id="projects" className="section-padding bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10">
         <div className="max-w-[90rem] mx-auto flex flex-col gap-16">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-4">
             <div className="flex flex-col gap-4">
               <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Portfolio</span>
-              <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">Featured Work.</h2>
+              <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-tight">Featured Work.</h2>
             </div>
             
             {/* Native Slider Navigation */}
@@ -532,11 +532,11 @@ export default function Home() {
       </section>
 
       {/* 6. TESTIMONIALS */}
-      <section className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-deep)] relative z-10">
+      <section className="section-padding bg-[var(--obsidian-deep)] relative z-10">
         <div className="max-w-[90rem] mx-auto flex flex-col gap-20">
           <div className="flex flex-col items-center text-center gap-4">
             <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Client Success</span>
-            <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">Don&apos;t Just Take Our Word For It.</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-tight">Don&apos;t Just Take Our Word For It.</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -574,12 +574,12 @@ export default function Home() {
       </section>
 
       {/* 7. BLOG / INSIGHTS */}
-      <section className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-base)] border-y border-white/5 relative z-10">
+      <section className="section-padding bg-[var(--obsidian-base)] border-y border-white/5 relative z-10">
         <div className="max-w-[90rem] mx-auto flex flex-col gap-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div className="flex flex-col gap-4">
               <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Insights</span>
-              <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">Latest Articles.</h2>
+              <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-tight">Latest Articles.</h2>
             </div>
             <Button href="/blog" variant="outline">View All News</Button>
           </div>
@@ -613,11 +613,11 @@ export default function Home() {
       </section>
 
       {/* 8. FAQ */}
-      <section className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-surface)] relative z-10">
+      <section className="section-padding bg-[var(--obsidian-surface)] relative z-10">
         <div className="max-w-[60rem] mx-auto flex flex-col gap-16">
           <div className="flex flex-col items-center text-center gap-4">
             <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Knowledge Base</span>
-            <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">Common Questions.</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-tight">Common Questions.</h2>
           </div>
           
           <div className="flex flex-col">
@@ -629,7 +629,7 @@ export default function Home() {
       </section>
 
       {/* 9. CONTACT FORM / INITIATE CTA */}
-      <section id="contact" className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-deep)] border-t border-white/5 relative z-10 overflow-hidden">
+      <section id="contact" className="section-padding bg-[var(--obsidian-deep)] border-t border-white/5 relative z-10 overflow-hidden">
         {/* Background glow for form */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-electric-blue/5 rounded-full blur-[200px] pointer-events-none" />
         
@@ -637,7 +637,7 @@ export default function Home() {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
               <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Get in touch</span>
-              <h2 className="text-5xl md:text-7xl font-extrabold text-white leading-tight">
+              <h2 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white leading-tight">
                 Let's Build Something <br/>
                 <span className="text-gradient">Extraordinary.</span>
               </h2>

@@ -71,7 +71,7 @@ export default function Blog() {
            </motion.div>
            <motion.h1 
              initial="hidden" animate="show" variants={fadeUp} transition={{ delay: 0.1 }}
-             className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-tight"
+             className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-tight"
            >
              Our Blog & <span className="text-gradient">Insights.</span>
            </motion.h1>
@@ -94,7 +94,7 @@ export default function Blog() {
             <div className="absolute inset-0 bg-gradient-to-t from-[var(--obsidian-base)] via-transparent to-transparent flex flex-col justify-end p-8 md:p-16">
                <div className="flex flex-col gap-6 max-w-3xl">
                   <span className="text-xs font-bold text-electric-blue uppercase tracking-widest">Featured Insight</span>
-                  <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                  <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
                     {featuredPost.title}
                   </h2>
                   <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">
@@ -203,7 +203,7 @@ export default function Blog() {
                <LuMail size={28} />
             </div>
             <div className="flex flex-col gap-4">
-              <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
                  Subscribe for Technical Updates.
               </h2>
               <p className="text-lg text-slate-400 max-w-xl">

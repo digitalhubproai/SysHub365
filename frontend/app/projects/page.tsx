@@ -29,7 +29,7 @@ export default function Projects() {
           <motion.div initial="hidden" animate="show" variants={fadeUp} className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md">
              <span className="text-xs font-bold uppercase tracking-widest text-white/80">Case Studies</span>
           </motion.div>
-          <motion.h1 initial="hidden" animate="show" variants={fadeUp} transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-[1.1]">
+          <motion.h1 initial="hidden" animate="show" variants={fadeUp} transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }} className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-[1.1]">
             Our Recent <br/>
             <span className="text-gradient">Deployments.</span>
           </motion.h1>
@@ -116,7 +116,7 @@ export default function Projects() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-electric-blue/10 rounded-full blur-[200px] pointer-events-none" />
         <div className="max-w-[50rem] mx-auto text-center flex flex-col items-center gap-12 relative z-10 px-6">
           <LuFolderSymlink size={48} className="text-electric-blue" />
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
             Have a project in mind?
           </h2>
           <p className="text-slate-400 text-lg max-w-lg">Let's discuss your requirements and build the perfect technological solution for your business.</p>

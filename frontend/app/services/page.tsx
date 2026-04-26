@@ -64,7 +64,7 @@ export default function Services() {
           <motion.h1 
             initial="hidden" animate="show" variants={fadeUp} 
             transition={{ delay: 0.1, duration: 1 }} 
-            className="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-tight"
+            className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-tight"
           >
             Our Specialist <br/>
             <span className="text-gradient">Services.</span>
@@ -116,7 +116,7 @@ export default function Services() {
       <section className="py-40 bg-[var(--obsidian-deep)] relative overflow-hidden border-t border-white/5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.05),transparent_70%)] animate-pulse" />
         <div className="max-w-[50rem] mx-auto text-center flex flex-col items-center gap-12 relative z-10 px-6">
-          <h2 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-tight">
             Ready to Accelerate <br/> 
             <span className="text-gradient">Your Growth?</span>
           </h2>
