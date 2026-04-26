@@ -10,6 +10,8 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg' | 'xl';
   showShimmer?: boolean;
   href?: string;
+  target?: string;
+  rel?: string;
 }
 
 export const Button: FC<ButtonProps> = ({ 
@@ -18,6 +20,8 @@ export const Button: FC<ButtonProps> = ({
   size = 'md', 
   showShimmer = true,
   href,
+  target,
+  rel,
   children,
   ...props 
 }) => {
@@ -70,7 +74,7 @@ export const Button: FC<ButtonProps> = ({
 
   if (href) {
     return (
-      <MotionLink href={href} {...commonProps}>
+      <MotionLink href={href} target={target} rel={rel} {...commonProps} {...props as any}>
         {content}
       </MotionLink>
     );
