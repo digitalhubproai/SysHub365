@@ -1,7 +1,9 @@
+"use client";
+
 import { ButtonHTMLAttributes, FC } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'obsidian' | 'neon' | 'shimmer' | 'outline' | 'ghost';
@@ -58,7 +60,7 @@ export const Button: FC<ButtonProps> = ({
       transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const }
     },
     whileTap: { scale: 0.94 },
-    className: clsx(
+    className: cn(
       variants[variant as keyof typeof variants],
       !isPremium && sizes[size as keyof typeof sizes],
       'group relative overflow-hidden flex items-center justify-center disabled:opacity-50 select-none cursor-pointer',

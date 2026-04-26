@@ -13,7 +13,7 @@ import {
 } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
-import { PROJECTS } from "@/lib/data";
+import { PROJECTS, BLOG_POSTS } from "@/lib/data";
 import { LoaderIcon } from "@/components/ui/loader-icon";
 import { GradientIcon } from "@/components/GradientIcon";
 
@@ -123,8 +123,6 @@ const STATS = [
   { icon: <LuTrendingUp size={24} />, label: "Years Experience", value: 8, suffix: "+" },
 ];
 
-
-
 const TESTIMONIALS = [
   { quote: "SysHub365 delivered our complex web app ahead of schedule. The quality of the code and the attention to design was simply outstanding.", name: "Sarah Jenkins", role: "CEO, TechFlow", img: "https://randomuser.me/api/portraits/women/44.jpg" },
   { quote: "Their AI integration completely automated our customer support triage. We saved hundreds of hours within the first month.", name: "Marcus Thorne", role: "VP Operations, NeuralSync", img: "https://randomuser.me/api/portraits/men/32.jpg" },
@@ -138,14 +136,15 @@ const FAQS = [
   { q: "Do you provide ongoing support after launch?", a: "Absolutely. We offer dedicated post-launch maintenance plans to handle updates, scaling, and the addition of new features as your business grows." },
 ];
 
-const BLOGS = [
-  { title: "Why Next.js is the Future of Enterprise Web Apps", category: "Engineering", img: "https://images.unsplash.com/photo-1555066931-4365d14431b9?auto=format&fit=crop&q=80&w=800", date: "Apr 12, 2026" },
-  { title: "How to Integrate AI Workflows into SaaS Tools", category: "Artificial Intelligence", img: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&q=80&w=800", date: "Apr 5, 2026" },
-  { title: "Designing High-Converting E-Commerce Interfaces", category: "UI/UX Design", img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800", date: "Mar 28, 2026" },
-];
-
 /* ── MAIN PAGE COMPONENT ── */
 export default function Home() {
+  const [randomBlogs, setRandomBlogs] = useState<typeof BLOG_POSTS>([]);
+  
+  useEffect(() => {
+    const shuffled = [...BLOG_POSTS].sort(() => 0.5 - Math.random());
+    setRandomBlogs(shuffled.slice(0, 3));
+  }, []);
+
   const heroRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
   const heroOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
@@ -324,8 +323,6 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
-
-
           </div>
         </div>
       </section>
@@ -513,52 +510,38 @@ export default function Home() {
 
             <div 
               ref={sliderRef}
-              className="flex overflow-x-auto pb-16 pt-8 -mx-6 px-6 md:-mx-12 md:px-12 lg:-mx-24 lg:px-24 snap-x snap-mandatory gap-6 lg:gap-10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth relative z-10"
+              className="flex overflow-x-auto pb-16 pt-8 -mx-6 px-6 md:-mx-12 md:px-12 lg:-mx-24 lg:px-24 snap-x snap-mandatory gap-8 lg:gap-12 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth relative z-10"
             >
               {PROJECTS.map((proj, i) => (
                 <Link
-                  href={`/projects/${proj.title.toLowerCase().replace(/\s+/g, '-')}`}
+                  href={`/projects/${proj.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`}
                   key={proj.title}
-                  className="group relative flex-shrink-0 w-[80vw] md:w-[40vw] lg:w-[28vw] snap-center block h-[420px]"
+                  className="group relative flex-shrink-0 w-[85vw] md:w-[45vw] lg:w-[32vw] snap-center block h-auto"
                 >
-                  <div className="rounded-[2.5rem] overflow-hidden border border-white/5 group-hover:border-electric-blue/50 transition-all duration-700 h-full w-full flex flex-col justify-end relative shadow-2xl bg-black cursor-pointer">
-                    <Image 
-                      src={proj.img} 
-                      alt={proj.title} 
-                      fill 
-                      className="object-cover scale-105 group-hover:scale-110 transition-transform duration-[2s] ease-out z-0"
-                    />
+                  <div className="flex flex-col gap-6">
+                    {/* Image Container */}
+                    <div className="relative aspect-video rounded-3xl overflow-hidden border border-white/10 bg-black cursor-pointer shadow-2xl group-hover:border-electric-blue/30 transition-all duration-500">
+                      <Image 
+                        src={proj.img} 
+                        alt={proj.title} 
+                        fill 
+                        className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                      />
+                      {/* Subtle Overlay on hover only */}
+                      <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-500" />
+                    </div>
                     
-                    {/* Dynamic Overlay Gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent group-hover:from-black/95 group-hover:via-black/80 transition-all duration-700 z-10" />
-                    
-                    {/* Content Container */}
-                    <div className="relative z-20 p-6 w-full flex flex-col justify-end overflow-hidden">
-                      <div className="transform translate-y-[85px] group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col gap-4">
-                        
-                        {/* Always visible titles */}
-                        <div className="flex flex-col gap-1">
-                          <span className="text-electric-blue text-[10px] font-black uppercase tracking-[0.3em] drop-shadow-[0_0_10px_rgba(37,99,235,0.5)]">{proj.category}</span>
-                          <h3 className="text-[1.85rem] font-black text-white leading-tight tracking-tighter">{proj.title}</h3>
-                        </div>
-                        
-                        {/* Hover details */}
-                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200 flex flex-col gap-6 h-[85px]">
-                          <p className="text-slate-300 text-sm line-clamp-2 leading-relaxed font-medium">
-                            {proj.desc || "Explore the cutting-edge architectural implementation and business logic behind this elite deployment."}
-                          </p>
-                          
-                          <div className="flex items-center gap-3">
-                            <div className="relative">
-                              <div className="absolute -inset-1.5 bg-electric-blue/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-                              <div className="relative w-10 h-10 rounded-full bg-electric-blue text-white flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.5)] group-hover:scale-110 transition-transform duration-300">
-                                <LuArrowUpRight size={22} className="text-white" />
-                              </div>
-                            </div>
-                            <span className="text-white font-black text-[10px] uppercase tracking-[0.2em] group-hover:tracking-[0.3em] transition-all">View Project</span>
-                          </div>
-                        </div>
-
+                    {/* Content Section (Below Image) */}
+                    <div className="flex flex-col gap-3 px-2">
+                      <div className="flex items-center justify-between">
+                        <span className="text-electric-blue text-[10px] font-black uppercase tracking-[0.2em]">{proj.category}</span>
+                      </div>
+                      <h3 className="text-2xl font-bold text-white tracking-tight group-hover:text-electric-blue transition-colors">{proj.title}</h3>
+                      <p className="text-slate-400 text-sm line-clamp-2 leading-relaxed font-medium">
+                        {proj.desc}
+                      </p>
+                      <div className="flex items-center gap-2 pt-2 text-white/40 group-hover:text-electric-blue transition-colors text-[10px] font-black uppercase tracking-widest">
+                         Explore Project <LuArrowUpRight size={14} />
                       </div>
                     </div>
                   </div>
@@ -629,28 +612,32 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {BLOGS.map((blog, i) => (
-              <motion.article
+            {randomBlogs.map((blog, i) => (
+              <Link
+                href={`/blog/${blog.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`}
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1, duration: 0.6 }}
-                className="group cursor-pointer flex flex-col gap-6"
               >
-                <div className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-white/10">
-                  <Image src={blog.img} alt={blog.title} fill className="object-cover scale-105 group-hover:scale-100 transition-transform duration-700" />
-                </div>
-                <div className="flex flex-col gap-3 px-2">
-                  <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-slate-400">
-                    <span className="text-electric-blue">{blog.category}</span>
-                    <span>{blog.date}</span>
+                <motion.article
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.6 }}
+                  className="group cursor-pointer flex flex-col gap-6"
+                >
+                  <div className="relative aspect-[16/10] rounded-2xl overflow-hidden border border-white/10">
+                    <Image src={blog.img} alt={blog.title} fill className="object-cover scale-105 group-hover:scale-100 transition-transform duration-700" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white group-hover:text-electric-blue transition-colors leading-snug">
-                    {blog.title}
-                  </h3>
-                </div>
-              </motion.article>
+                  <div className="flex flex-col gap-3 px-2">
+                    <div className="flex items-center justify-between text-xs font-bold uppercase tracking-widest text-slate-400">
+                      <span className="text-electric-blue">{blog.category}</span>
+                      <span>{blog.date}</span>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white group-hover:text-electric-blue transition-colors leading-snug">
+                      {blog.title}
+                    </h3>
+                  </div>
+                </motion.article>
+              </Link>
             ))}
           </div>
         </div>
