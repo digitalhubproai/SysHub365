@@ -7,10 +7,13 @@ import { motion, useInView, useScroll, useTransform, AnimatePresence, Variants }
 import {
   LuArrowUpRight, LuCode, LuBrainCog, LuShieldCheck, LuCloud, LuPalette,
   LuRocket, LuChevronDown, LuStar, LuCircleCheck, LuGlobe, LuUsers, LuTrendingUp,
-  LuMail, LuUser, LuMessageSquare, LuSend, LuPhone
+  LuMail, LuUser, LuMessageSquare, LuSend, LuPhone,
+  LuLayoutDashboard, LuHeartHandshake, LuKey,
+  LuChevronLeft, LuChevronRight
 } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
+import { PROJECTS } from "@/lib/data";
 
 /* ── HELPERS & ANIMATIONS ── */
 const fadeUp: Variants = {
@@ -90,6 +93,24 @@ const SERVICES = [
   { icon: <LuShieldCheck size={28} />, title: "Cybersecurity", desc: "Enterprise-grade security audits and implementation to protect your digital assets." },
 ];
 
+const SOLUTIONS = [
+  {
+    icon: <LuLayoutDashboard size={28} />,
+    title: "ERP Solutions",
+    desc: "Unify your entire business — finance, inventory, HR, and supply chain — into one powerful, real-time ERP platform built to scale with your growth.",
+  },
+  {
+    icon: <LuHeartHandshake size={28} />,
+    title: "CRM Solutions",
+    desc: "Give your sales team a 360° view of every customer. AI-powered insights, automated pipelines, and omnichannel communication in one place.",
+  },
+  {
+    icon: <LuKey size={28} />,
+    title: "Software Licensing",
+    desc: "Comprehensive licensing for all types of software — from enterprise operating systems to specialized SaaS tools. We handle procurement, renewals, and compliance.",
+  },
+];
+
 const STATS = [
   { icon: <LuRocket size={24} />, label: "Projects Delivered", value: 150, suffix: "+" },
   { icon: <LuGlobe size={24} />,  label: "Countries Served",  value: 24,  suffix: "" },
@@ -97,12 +118,7 @@ const STATS = [
   { icon: <LuTrendingUp size={24} />, label: "Years Experience", value: 8, suffix: "+" },
 ];
 
-const PROJECTS = [
-  { title: "Finnova Banking", category: "Fintech Platform", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200" },
-  { title: "NeuralSync Dashboard", category: "AI Analytics", img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1200" },
-  { title: "OmniStore", category: "E-Commerce", img: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1200" },
-  { title: "HealthNet", category: "Healthcare SaaS", img: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=1200" },
-];
+
 
 const TESTIMONIALS = [
   { quote: "SysHub365 delivered our complex web app ahead of schedule. The quality of the code and the attention to design was simply outstanding.", name: "Sarah Jenkins", role: "CEO, TechFlow", img: "https://randomuser.me/api/portraits/women/44.jpg" },
@@ -132,6 +148,21 @@ export default function Home() {
 
   const words = ["Growth.", "Innovation.", "Success.", "Scale."];
   const [wordIndex, setWordIndex] = useState(0);
+  
+  // Projects Slider Native Scroll
+  const sliderRef = useRef<HTMLDivElement>(null);
+  
+  const scrollLeft = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: -400, behavior: "smooth" });
+    }
+  };
+  
+  const scrollRight = () => {
+    if (sliderRef.current) {
+      sliderRef.current.scrollBy({ left: 400, behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -159,7 +190,7 @@ export default function Home() {
               <span className="text-xs font-bold uppercase tracking-widest text-white/80">Premium Development Studio</span>
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.1]">
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-[4rem] lg:text-[5rem] font-extrabold text-white tracking-tight leading-[1.1]">
               We Build Software <br/>
               That Drives{" "}
               <span className="inline-grid sm:text-left text-center">
@@ -206,14 +237,17 @@ export default function Home() {
       </section>
 
       {/* 2. ABOUT US */}
-      <section id="about" className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10">
-        <div className="max-w-[90rem] mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <section id="about" className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10 overflow-hidden">
+        {/* Background ambient glows */}
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-electric-blue/5 rounded-full blur-[150px] -translate-y-1/2 pointer-events-none" />
+
+        <div className="max-w-[90rem] mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24 items-center relative z-10">
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="relative aspect-square lg:aspect-[4/5] rounded-3xl overflow-hidden group"
+            className="relative aspect-square lg:aspect-[4/5] rounded-3xl overflow-hidden group border border-white/10"
           >
             <Image
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
@@ -221,21 +255,37 @@ export default function Home() {
               sizes="(max-width: 768px) 100vw, 50vw"
               alt="Our Team"
               className="object-cover scale-105 group-hover:scale-100 transition-transform duration-[2000ms]"
-            />            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            <div className="absolute bottom-8 left-8 right-8 border border-white/10 rounded-2xl bg-black/40 backdrop-blur-xl p-6">
-              <p className="text-white font-bold text-lg">"Quality is not an act, it is a habit."</p>
-              <p className="text-white/60 text-sm mt-2 uppercase tracking-widest">— The SysHub365 Ethos</p>
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+            
+            {/* Floating Experience Badge */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="absolute top-8 right-8 bg-black/60 backdrop-blur-md border border-white/10 rounded-2xl p-4 flex flex-col items-center justify-center min-w-[120px] shadow-2xl"
+            >
+              <span className="text-3xl font-black text-electric-blue">8+</span>
+              <span className="text-xs font-bold text-white uppercase tracking-widest text-center mt-1">Years<br/>Experience</span>
+            </motion.div>
+
+            <div className="absolute bottom-8 left-8 right-8 border border-white/10 rounded-2xl bg-black/40 backdrop-blur-xl p-8 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+              <p className="text-white font-bold text-lg leading-snug">"Quality is not an act, it is a habit."</p>
+              <div className="w-12 h-1 bg-electric-blue mt-4 mb-2 rounded-full" />
+              <p className="text-white/60 text-sm uppercase tracking-widest font-semibold">— The SysHub365 Ethos</p>
             </div>
           </motion.div>
 
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-4">
-              <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">About Us</span>
+              <span className="inline-flex items-center gap-2 text-electric-blue font-black tracking-[0.3em] uppercase text-sm">
+                <span className="w-8 h-px bg-electric-blue"></span> About Us
+              </span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight">
-                Your Dedicated Technical Partners.
+                Your Dedicated <br/><span className="text-gradient">Technical Partners.</span>
               </h2>
             </div>
-            <div className="flex flex-col gap-6 text-slate-400 text-lg leading-relaxed">
+            <div className="flex flex-col gap-5 text-slate-400 text-base leading-relaxed">
               <p>
                 SysHub365 isn&apos;t just an outsourced vendor. We integrate deeply with your business to understand your goals, target audience, and market challenges before writing a single line of code.
               </p>
@@ -244,19 +294,33 @@ export default function Home() {
               </p>
             </div>
             
-            <div className="grid sm:grid-cols-2 gap-6 mt-8">
+            <div className="grid sm:grid-cols-2 gap-3 mt-4">
               {[
-                { icon: <LuCircleCheck size={20} className="text-electric-blue"/>, text: "Transparent Communication" },
-                { icon: <LuCircleCheck size={20} className="text-electric-blue"/>, text: "Top 1% Engineering Talent" },
-                { icon: <LuCircleCheck size={20} className="text-electric-blue"/>, text: "Strict Quality Assurance" },
-                { icon: <LuCircleCheck size={20} className="text-electric-blue"/>, text: "On-Time Delivery Guarantee" },
+                { icon: <LuCircleCheck size={18} className="text-white"/>, text: "Transparent Communication", desc: "No hidden costs or technical jargon." },
+                { icon: <LuCircleCheck size={18} className="text-white"/>, text: "Top 1% Engineering Talent", desc: "Rigorous vetting for excellence." },
+                { icon: <LuCircleCheck size={18} className="text-white"/>, text: "Strict Quality Assurance", desc: "Automated & manual testing protocols." },
+                { icon: <LuCircleCheck size={18} className="text-white"/>, text: "On-Time Delivery Guarantee", desc: "Agile sprints that meet deadlines." },
               ].map((item, i) => (
-                <div key={i} className="flex items-center gap-4 bg-white/[0.02] p-4 rounded-xl border border-white/5">
-                  {item.icon}
-                  <span className="text-white font-semibold text-sm">{item.text}</span>
-                </div>
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1, duration: 0.5 }}
+                  className="group flex flex-col gap-1.5 bg-white/[0.02] hover:bg-electric-blue hover:scale-[1.02] p-3.5 rounded-xl border border-white/5 hover:border-electric-blue transition-all duration-300 cursor-default"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="text-electric-blue group-hover:text-white transition-colors flex-shrink-0">
+                      {item.icon}
+                    </div>
+                    <span className="text-white font-bold text-xs group-hover:text-white transition-colors leading-tight">{item.text}</span>
+                  </div>
+                  <span className="text-slate-400 text-[11px] pl-7 group-hover:text-white/80 transition-colors leading-snug">{item.desc}</span>
+                </motion.div>
               ))}
             </div>
+
+
           </div>
         </div>
       </section>
@@ -331,46 +395,132 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. PROJECTS SHOWCASE */}
-      <section id="projects" className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10">
+      {/* 5. SOLUTIONS */}
+      <section id="solutions" className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10">
         <div className="max-w-[90rem] mx-auto flex flex-col gap-20">
-          <div className="flex flex-col items-center text-center gap-4">
-            <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Portfolio</span>
-            <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">Featured Work.</h2>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div className="flex flex-col gap-4">
+              <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Our Solutions</span>
+              <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight max-w-2xl">
+                Powerful Solutions.
+              </h2>
+            </div>
+            <p className="text-slate-400 max-w-md text-lg">
+              From enterprise resource planning to CRM and software licensing — integrated solutions that drive real outcomes.
+            </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-12 pl-0">
-            {PROJECTS.map((proj, i) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {SOLUTIONS.map((s, i) => (
               <motion.div
-                key={proj.title}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
+                key={s.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ delay: i * 0.1, duration: 0.6 }}
-                className="group relative cursor-pointer"
               >
-                <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-white/10 mb-6">
-                  <Image 
-                    src={proj.img} 
-                    alt={proj.title} 
-                    fill 
-                    className="object-cover scale-105 group-hover:scale-100 transition-transform duration-1000 grayscale-[30%] group-hover:grayscale-0"
-                  />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
-                  
-                  {/* Hover Overlay Button */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                    <div className="w-16 h-16 rounded-full bg-electric-blue text-white flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-500 shadow-2xl">
-                      <LuArrowUpRight size={28} />
-                    </div>
+                <PremiumCard className="p-10 gap-8 items-start">
+                  <div className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center text-white group-hover:bg-electric-blue group-hover:text-white transition-all duration-500 shadow-xl">
+                    {s.icon}
                   </div>
-                </div>
-                <div className="flex flex-col gap-2 px-2">
-                  <span className="text-electric-blue text-xs font-bold uppercase tracking-widest">{proj.category}</span>
-                  <h3 className="text-2xl font-bold text-white group-hover:text-electric-blue transition-colors">{proj.title}</h3>
-                </div>
+                  <div className="flex flex-col gap-4">
+                    <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>
+                    <p className="text-slate-400 leading-relaxed group-hover:text-slate-200 transition-colors">
+                      {s.desc}
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-6">
+                    <span className="inline-flex items-center gap-2 text-sm font-bold text-electric-blue uppercase tracking-widest opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
+                      Learn More <LuArrowUpRight />
+                    </span>
+                  </div>
+                </PremiumCard>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6. PROJECTS SHOWCASE */}
+      <section id="projects" className="py-32 px-6 md:px-12 lg:px-24 bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10">
+        <div className="max-w-[90rem] mx-auto flex flex-col gap-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-4">
+            <div className="flex flex-col gap-4">
+              <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Portfolio</span>
+              <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">Featured Work.</h2>
+            </div>
+            
+            {/* Native Slider Navigation */}
+            <div className="flex items-center gap-4">
+              <button onClick={scrollLeft} className="w-12 h-12 rounded-full border border-white/10 bg-white/[0.03] flex items-center justify-center text-white hover:bg-electric-blue hover:border-electric-blue transition-colors">
+                <LuChevronLeft size={24} />
+              </button>
+              <button onClick={scrollRight} className="w-12 h-12 rounded-full border border-white/10 bg-white/[0.03] flex items-center justify-center text-white hover:bg-electric-blue hover:border-electric-blue transition-colors">
+                <LuChevronRight size={24} />
+              </button>
+            </div>
+          </div>
+
+          {/* Premium Native Slider Container */}
+          <div className="relative">
+            {/* Ambient background glow for the slider */}
+            <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-electric-blue/10 rounded-full blur-[120px] -translate-y-1/2 pointer-events-none" />
+            <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-power-indigo/10 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none" />
+
+            <div 
+              ref={sliderRef}
+              className="flex overflow-x-auto pb-16 pt-8 -mx-6 px-6 md:-mx-12 md:px-12 lg:-mx-24 lg:px-24 snap-x snap-mandatory gap-6 lg:gap-10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] scroll-smooth relative z-10"
+            >
+              {PROJECTS.map((proj, i) => (
+                <Link
+                  href={`/projects/${proj.title.toLowerCase().replace(/\s+/g, '-')}`}
+                  key={proj.title}
+                  className="group relative flex-shrink-0 w-[80vw] md:w-[40vw] lg:w-[28vw] snap-center block h-[420px]"
+                >
+                  <div className="rounded-[2.5rem] overflow-hidden border border-white/5 group-hover:border-electric-blue/50 transition-all duration-700 h-full w-full flex flex-col justify-end relative shadow-2xl bg-black cursor-pointer">
+                    <Image 
+                      src={proj.img} 
+                      alt={proj.title} 
+                      fill 
+                      className="object-cover scale-105 group-hover:scale-110 transition-transform duration-[2s] ease-out z-0"
+                    />
+                    
+                    {/* Dynamic Overlay Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent group-hover:from-black/95 group-hover:via-black/80 transition-all duration-700 z-10" />
+                    
+                    {/* Content Container */}
+                    <div className="relative z-20 p-6 w-full flex flex-col justify-end overflow-hidden">
+                      <div className="transform translate-y-[85px] group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col gap-4">
+                        
+                        {/* Always visible titles */}
+                        <div className="flex flex-col gap-1">
+                          <span className="text-electric-blue text-[10px] font-black uppercase tracking-[0.3em] drop-shadow-[0_0_10px_rgba(37,99,235,0.5)]">{proj.category}</span>
+                          <h3 className="text-[1.85rem] font-black text-white leading-tight tracking-tighter">{proj.title}</h3>
+                        </div>
+                        
+                        {/* Hover details */}
+                        <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-200 flex flex-col gap-6 h-[85px]">
+                          <p className="text-slate-300 text-sm line-clamp-2 leading-relaxed font-medium">
+                            {proj.desc || "Explore the cutting-edge architectural implementation and business logic behind this elite deployment."}
+                          </p>
+                          
+                          <div className="flex items-center gap-3">
+                            <div className="relative">
+                              <div className="absolute -inset-1.5 bg-electric-blue/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
+                              <div className="relative w-10 h-10 rounded-full bg-electric-blue text-white flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.5)] group-hover:scale-110 transition-transform duration-300">
+                                <LuArrowUpRight size={22} className="text-white" />
+                              </div>
+                            </div>
+                            <span className="text-white font-black text-[10px] uppercase tracking-[0.2em] group-hover:tracking-[0.3em] transition-all">View Project</span>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
 
           <div className="flex justify-center mt-8">

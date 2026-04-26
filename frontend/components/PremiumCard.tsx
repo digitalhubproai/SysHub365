@@ -34,7 +34,7 @@ export default function PremiumCard({ children, className = "" }: PremiumCardPro
     >
       <div className="obsidian-card-glow" />
       {/* Removed border-beam */}
-      <div className="relative z-10 flex flex-col">
+      <div className="relative z-10 flex flex-col h-full w-full">
         {children}
       </div>
     </motion.div>

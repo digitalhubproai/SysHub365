@@ -6,50 +6,13 @@ import Link from "next/link";
 import { LuArrowUpRight, LuFolderSymlink } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
+import { PROJECTS } from "@/lib/data";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }
 };
 
-const PROJECTS = [
-  { 
-    title: "Finnova Banking", category: "Fintech Platform", 
-    desc: "A complete overhaul of a legacy banking platform into a blazing fast Next.js application, supporting over 2 million active users with sub-50ms latency.",
-    img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1200",
-    tags: ["Next.js", "React", "Node.js", "AWS"]
-  },
-  { 
-    title: "NeuralSync Analytics", category: "AI Analytics", 
-    desc: "An enterprise intelligence dashboard integrating custom LLMs to provide real-time market sentiment analysis.",
-    img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=1200",
-    tags: ["Python", "FastAPI", "React", "OpenAI"]
-  },
-  { 
-    title: "OmniStore Global", category: "E-Commerce", 
-    desc: "A headless e-commerce architecture supporting high-volume global sales and complex multi-currency checkouts.",
-    img: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=1200",
-    tags: ["Shopify Plus", "Next.js", "Tailwind"]
-  },
-  { 
-    title: "HealthNet Secure", category: "Healthcare SaaS", 
-    desc: "A fully HIPAA-compliant patient management system featuring end-to-end encrypted real-time video consultations.",
-    img: "https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&q=80&w=1200",
-    tags: ["React Native", "WebRTC", "PostgreSQL"]
-  },
-  { 
-    title: "Apex Logistics", category: "Supply Chain", 
-    desc: "An IoT-enabled dashboard tracking fleet telemetry across North America in real-time.",
-    img: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=1200",
-    tags: ["Vue.js", "Go", "Docker"]
-  },
-  { 
-    title: "Studio Lumina", category: "Creative Portfolio", 
-    desc: "A high-fidelity WebGL driven portfolio for an award-winning architectural firm.",
-    img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200",
-    tags: ["Three.js", "GSAP", "React"]
-  }
-];
 
 export default function Projects() {
   return (
@@ -78,8 +41,11 @@ export default function Projects() {
 
       {/* Projects Grid */}
       <section className="py-20 px-6 md:px-12 lg:px-24 relative z-10">
-        <div className="max-w-[90rem] mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+        <div className="absolute top-[10%] left-0 w-[500px] h-[500px] bg-electric-blue/10 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-[10%] right-0 w-[400px] h-[400px] bg-power-indigo/10 rounded-full blur-[120px] pointer-events-none" />
+        
+        <div className="max-w-[95rem] mx-auto relative z-10">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {PROJECTS.map((proj, i) => (
               <motion.div 
                 key={i} 
@@ -88,39 +54,57 @@ export default function Projects() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6 }}
               >
-                <PremiumCard className="p-8 gap-6">
-                  <div className="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden border border-white/10 shadow-2xl">
+                <Link href={`/projects/${proj.title.toLowerCase().replace(/\s+/g, '-')}`} className="block group cursor-pointer h-[450px]">
+                  <div className="rounded-[2.5rem] overflow-hidden border border-white/10 group-hover:border-electric-blue/50 transition-all duration-700 h-full w-full flex flex-col justify-end relative shadow-2xl bg-black">
                     <Image 
                       src={proj.img} 
                       alt={proj.title} 
                       fill 
-                      className="object-cover scale-105 group-hover:scale-100 transition-transform duration-[1500ms] grayscale-[40%] group-hover:grayscale-0"
+                      className="object-cover scale-105 group-hover:scale-110 transition-transform duration-[2s] ease-out z-0"
                     />
-                    <div className="absolute inset-0 bg-black/30 group-hover:bg-transparent transition-colors duration-500" />
                     
-                    <div className="absolute top-4 left-4 flex gap-2">
-                       {proj.tags.map(tag => (
-                         <span key={tag} className="px-3 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-white text-[9px] uppercase tracking-widest font-bold">
-                           {tag}
-                         </span>
-                       ))}
-                    </div>
+                    {/* Dynamic Overlay Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/20 to-transparent group-hover:via-black/90 group-hover:from-black transition-all duration-700 z-10" />
+                    
+                    {/* Content Container */}
+                    <div className="relative z-20 p-10 w-full flex flex-col justify-end overflow-hidden">
+                      <div className="transform translate-y-[100px] group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col gap-5">
+                        
+                        {/* Title Section (Stays partially visible) */}
+                        <div className="flex flex-col gap-2">
+                          <motion.span 
+                            initial={{ opacity: 0.8 }}
+                            className="text-electric-blue text-[11px] font-black uppercase tracking-[0.3em] drop-shadow-[0_0_8px_rgba(37,99,235,0.4)]"
+                          >
+                            {proj.category}
+                          </motion.span>
+                          <h3 className="text-[1.85rem] font-black text-white leading-tight tracking-tighter group-hover:text-gradient transition-all duration-500">{proj.title}</h3>
+                        </div>
+                        
+                        {/* Hidden Details (Slide and Fade In) */}
+                        <div className="opacity-0 group-hover:opacity-100 transition-all duration-500 delay-150 flex flex-col gap-8 h-[100px]">
+                          <p className="text-slate-300 text-base line-clamp-2 leading-relaxed font-medium">
+                            {proj.desc || "Experience the architectural brilliance and engineering precision behind this enterprise deployment."}
+                          </p>
+                          
+                          <div className="flex items-center gap-4">
+                            <div className="relative flex items-center justify-center">
+                               <div className="absolute inset-0 bg-electric-blue/20 rounded-full blur-lg group-hover:blur-xl transition-all" />
+                               <div className="relative w-12 h-12 rounded-full bg-electric-blue text-white flex items-center justify-center shadow-[0_0_20px_rgba(37,99,235,0.4)] group-hover:scale-110 transition-transform">
+                                 <LuArrowUpRight size={24} />
+                               </div>
+                            </div>
+                            <span className="text-white font-black text-[10px] uppercase tracking-[0.2em] group-hover:tracking-[0.3em] transition-all">View Project</span>
+                          </div>
+                        </div>
 
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <div className="w-16 h-16 rounded-full bg-electric-blue text-white flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-500 shadow-2xl">
-                        <LuArrowUpRight size={28} />
                       </div>
                     </div>
-                  </div>
 
-                  <div className="flex flex-col gap-3 px-2">
-                    <div className="flex items-center justify-between">
-                       <span className="text-electric-blue text-xs font-bold uppercase tracking-widest">{proj.category}</span>
-                    </div>
-                    <h3 className="text-3xl font-extrabold text-white group-hover:text-gradient transition-all duration-500">{proj.title}</h3>
-                    <p className="text-slate-400 text-lg leading-relaxed mt-2 group-hover:text-slate-200 transition-colors">{proj.desc}</p>
+                    {/* Subtle Scanline Overlay for Texture */}
+                    <div className="absolute inset-0 pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.03] z-15" />
                   </div>
-                </PremiumCard>
+                </Link>
               </motion.div>
             ))}
           </div>
