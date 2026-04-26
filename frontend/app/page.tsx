@@ -209,7 +209,7 @@ export default function Home() {
               </span>
             </motion.h1>
 
-            <motion.p variants={fadeUp} className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed">
+            <motion.p variants={fadeUp} className="text-[17px] md:text-lg text-slate-400 max-w-2xl leading-relaxed">
               From fast-moving startups to established enterprises, we engineer scalable web applications, AI integrations, and digital platforms that deliver real business results.
             </motion.p>
             
