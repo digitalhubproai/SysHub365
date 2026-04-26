@@ -3,7 +3,7 @@
 import { motion, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { LuTarget, LuUsers, LuLightbulb, LuShield, LuMapPin, LuChevronRight, LuCircleCheck, LuArrowUpRight } from "react-icons/lu";
+import { LuTarget, LuUsers, LuLightbulb, LuShield, LuMapPin, LuChevronRight, LuCircleCheck, LuArrowUpRight, LuGlobe } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { GradientIcon } from "@/components/GradientIcon";
 import { Button } from "@/components/ui/Button";

@@ -11,7 +11,7 @@ export const GradientIcon = ({ icon, id, colors }: { icon: React.ReactNode, id: 
       </linearGradient>
     </svg>
     <div style={{ stroke: `url(#${id})`, color: `url(#${id})` }} className="relative z-10 transition-transform duration-500 group-hover/icon:scale-110">
-      {React.cloneElement(icon as React.ReactElement, { stroke: `url(#${id})` })}
+      {React.cloneElement(icon as React.ReactElement<any>, { stroke: `url(#${id})` })}
     </div>
     <div className="absolute inset-0 blur-2xl opacity-20 group-hover/icon:opacity-40 transition-opacity duration-500" style={{ backgroundColor: colors[0] }} />
   </div>
