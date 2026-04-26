@@ -39,7 +39,7 @@ export function Navbar() {
       >
         <div
           className={clsx(
-            "flex items-center justify-between transition-all duration-500 pointer-events-auto rounded-full px-8 py-3 w-full max-w-5xl border backdrop-blur-2xl shadow-xl",
+            "flex items-center justify-between transition-all duration-500 pointer-events-auto rounded-full px-5 sm:px-8 py-3 w-full max-w-5xl border backdrop-blur-2xl shadow-xl",
             scrolled
               ? "bg-[#05070a]/80 border-white/[0.08]"
               : "bg-[#05070a]/40 border-white/[0.05]"

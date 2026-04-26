@@ -241,13 +241,13 @@ export default function Home() {
         {/* Background ambient glows */}
         <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-electric-blue/5 rounded-full blur-[150px] -translate-y-1/2 pointer-events-none" />
 
-        <div className="max-w-[90rem] mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24 items-center relative z-10">
+        <div className="max-w-[90rem] mx-auto grid lg:grid-cols-2 gap-10 lg:gap-24 items-center relative z-10">
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.8 }}
-            className="relative aspect-square lg:aspect-[4/5] rounded-3xl overflow-hidden group border border-white/10"
+            className="relative aspect-square sm:aspect-video lg:aspect-[4/5] rounded-2xl sm:rounded-3xl overflow-hidden group border border-white/10"
           >
             <Image
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
@@ -269,10 +269,10 @@ export default function Home() {
               <span className="text-xs font-bold text-white uppercase tracking-widest text-center mt-1">Years<br/>Experience</span>
             </motion.div>
 
-            <div className="absolute bottom-8 left-8 right-8 border border-white/10 rounded-2xl bg-black/40 backdrop-blur-xl p-8 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-              <p className="text-white font-bold text-lg leading-snug">"Quality is not an act, it is a habit."</p>
-              <div className="w-12 h-1 bg-electric-blue mt-4 mb-2 rounded-full" />
-              <p className="text-white/60 text-sm uppercase tracking-widest font-semibold">— The SysHub365 Ethos</p>
+            <div className="absolute bottom-4 left-4 right-4 sm:bottom-8 sm:left-8 sm:right-8 border border-white/10 rounded-xl sm:rounded-2xl bg-black/40 backdrop-blur-xl p-5 sm:p-8 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
+              <p className="text-white font-bold text-sm sm:text-lg leading-snug">"Quality is not an act, it is a habit."</p>
+              <div className="w-10 h-1 bg-electric-blue mt-3 sm:mt-4 mb-2 rounded-full" />
+              <p className="text-white/60 text-[10px] sm:text-sm uppercase tracking-widest font-semibold">— The SysHub365 Ethos</p>
             </div>
           </motion.div>
 
@@ -294,7 +294,7 @@ export default function Home() {
               </p>
             </div>
             
-            <div className="grid sm:grid-cols-2 gap-3 mt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4">
               {[
                 { icon: <LuCircleCheck size={18} className="text-white"/>, text: "Transparent Communication", desc: "No hidden costs or technical jargon." },
                 { icon: <LuCircleCheck size={18} className="text-white"/>, text: "Top 1% Engineering Talent", desc: "Rigorous vetting for excellence." },
@@ -410,7 +410,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {SOLUTIONS.map((s, i) => (
               <motion.div
                 key={s.title}
@@ -539,7 +539,7 @@ export default function Home() {
             <h2 className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-white leading-tight">Don&apos;t Just Take Our Word For It.</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {TESTIMONIALS.map((t, i) => (
               <motion.div
                 key={i}
