@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuRocket, LuArrowUpRight } from "react-icons/lu";
+import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuArrowUpRight, LuMegaphone, LuKey } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
 import { GradientIcon } from "@/components/GradientIcon";
@@ -44,10 +44,16 @@ const SERVICES_DETAILED = [
     gradient: ["#ef4444", "#8b5cf6"], id: "grad-security-det"
   },
   {
-    icon: <LuRocket size={28} />,
-    title: "MVP Sprints",
-    desc: "Rapid prototyping and development to get your core product to market in record time without compromising quality.",
-    gradient: ["#10b981", "#3b82f6"], id: "grad-mvp-det"
+    icon: <LuMegaphone size={28} />,
+    title: "Digital Marketing",
+    desc: "Data-driven SEO, performance marketing, and targeted campaigns to drastically scale your online presence and revenue.",
+    gradient: ["#10b981", "#3b82f6"], id: "grad-marketing-det"
+  },
+  {
+    icon: <LuKey size={28} />,
+    title: "Software Licensing",
+    desc: "Comprehensive licensing for all types of software — from enterprise operating systems to specialized SaaS tools.",
+    gradient: ["#fb923c", "#f43f5e"], id: "grad-license-det"
   }
 ];
 
@@ -57,8 +63,9 @@ export default function Services() {
       <div className="noise-overlay" />
       
       {/* Background Glows matching Homepage */}
-      <div className="absolute inset-0 pointer-events-none z-0">          <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-electric-blue/15 rounded-full blur-[150px]" />
-          <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-electric-blue/10 rounded-full blur-[180px]" />
+      <div className="absolute inset-0 pointer-events-none z-0">
+          <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%)' }} />
+          <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.10) 0%, transparent 70%)' }} />
       </div>
 
       {/* Hero Header */}
@@ -87,9 +94,9 @@ export default function Services() {
         </div>
       </section>
 
-      {/* Service Grid - Standard 3-column to match Homepage */}
+      {/* Service Grid - 4-column layout */}
       <section className="py-20 px-6 md:px-12 lg:px-24 relative z-10">
-        <div className="max-w-[90rem] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="max-w-[90rem] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {SERVICES_DETAILED.map((s, i) => (
             <motion.div
               key={i}

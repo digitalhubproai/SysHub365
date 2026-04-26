@@ -9,7 +9,7 @@ import {
   LuRocket, LuChevronDown, LuStar, LuCircleCheck, LuGlobe, LuUsers, LuTrendingUp,
   LuMail, LuUser, LuMessageSquare, LuSend, LuPhone,
   LuLayoutDashboard, LuHeartHandshake, LuKey,
-  LuChevronLeft, LuChevronRight
+  LuChevronLeft, LuChevronRight, LuMegaphone
 } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
@@ -86,13 +86,21 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 }
 
 /* ── DATA ── */
+const PARTNER_LOGOS = [
+  "adobe-2.svg",
+  "cisco-2.svg",
+  "ibm.svg",
+  "logo-amazon.svg",
+  "microsoft-6.svg",
+];
 const SERVICES = [
   { icon: <LuCode size={28} />, title: "Web Development", desc: "High-performance, scalable web applications built with React, Next.js, and modern architectures.", gradient: ["#06b6d4", "#2563eb"], id: "grad-web" },
   { icon: <LuBrainCog size={28} />, title: "AI Integration", desc: "Embed intelligent automation, chatbots, and generative AI into your existing business workflows.", gradient: ["#8b5cf6", "#d946ef"], id: "grad-ai" },
   { icon: <LuPalette size={28} />, title: "UI/UX Design", desc: "Beautiful, intuitive interfaces designed to maximize user engagement and conversion rates.", gradient: ["#f43f5e", "#fb923c"], id: "grad-design" },
   { icon: <LuCloud size={28} />, title: "Cloud Solutions", desc: "Secure, highly-available infrastructure setup on AWS and GCP with full CI/CD automation.", gradient: ["#3b82f6", "#06b6d4"], id: "grad-cloud" },
-  { icon: <LuRocket size={28} />, title: "MVP Sprints", desc: "Rapid prototyping and development to get your core product to market in 4-6 weeks.", gradient: ["#10b981", "#3b82f6"], id: "grad-mvp" },
+  { icon: <LuMegaphone size={28} />, title: "Digital Marketing", desc: "Data-driven SEO, performance marketing, and targeted campaigns to drastically scale your online presence and revenue.", gradient: ["#10b981", "#3b82f6"], id: "grad-marketing" },
   { icon: <LuShieldCheck size={28} />, title: "Cybersecurity", desc: "Enterprise-grade security audits and implementation to protect your digital assets.", gradient: ["#ef4444", "#8b5cf6"], id: "grad-security" },
+  { icon: <LuKey size={28} />, title: "Software Licensing", desc: "Comprehensive licensing for all types of software — from enterprise operating systems to specialized SaaS tools.", gradient: ["#fb923c", "#f43f5e"], id: "grad-license" },
 ];
 
 const SOLUTIONS = [
@@ -107,12 +115,6 @@ const SOLUTIONS = [
     title: "CRM Solutions",
     desc: "Give your sales team a 360° view of every customer. AI-powered insights, automated pipelines, and omnichannel communication in one place.",
     gradient: ["#d946ef", "#f43f5e"], id: "grad-crm"
-  },
-  {
-    icon: <LuKey size={28} />,
-    title: "Software Licensing",
-    desc: "Comprehensive licensing for all types of software — from enterprise operating systems to specialized SaaS tools. We handle procurement, renewals, and compliance.",
-    gradient: ["#fb923c", "#f43f5e"], id: "grad-license"
   },
 ];
 
@@ -182,9 +184,9 @@ export default function Home() {
       {/* 1. HERO SECTION */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-6 md:px-12 lg:px-24 overflow-hidden">
         {/* Animated Background Orbs */}
-        <motion.div style={{ opacity: heroOpacity, scale: heroScale }} className="absolute inset-0 z-0">
-          <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-electric-blue/15 rounded-full blur-[150px] animate-mesh-pulse" />
-          <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-power-indigo/10 rounded-full blur-[180px]" />
+        <motion.div style={{ opacity: heroOpacity, scale: heroScale, willChange: "transform, opacity" }} className="absolute inset-0 z-0">
+          <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] rounded-full animate-mesh-pulse pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%)' }} />
+          <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%)' }} />
         </motion.div>
 
         <div className="max-w-[80rem] mx-auto w-full relative z-10 flex flex-col items-center text-center">
@@ -240,10 +242,12 @@ export default function Home() {
         </motion.div>
       </section>
 
+
+
       {/* 2. ABOUT US */}
       <section id="about" className="section-padding bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10 overflow-hidden">
         {/* Background ambient glows */}
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-electric-blue/5 rounded-full blur-[150px] -translate-y-1/2 pointer-events-none" />
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] rounded-full -translate-y-1/2 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.05) 0%, transparent 70%)' }} />
 
         <div className="max-w-[90rem] mx-auto grid lg:grid-cols-2 gap-10 lg:gap-24 items-center relative z-10">
           <motion.div 
@@ -256,6 +260,7 @@ export default function Home() {
             <Image
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
               fill
+              priority
               sizes="(max-width: 768px) 100vw, 50vw"
               alt="Our Team"
               className="object-cover scale-105 group-hover:scale-100 transition-transform duration-[2000ms]"
@@ -379,7 +384,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {SERVICES.map((s, i) => (
               <motion.div
                 key={s.title}
@@ -423,6 +428,56 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 1.5. TRUSTED PARTNERS (MARQUEE) */}
+      <section className="py-16 relative z-10 overflow-hidden">
+        <style dangerouslySetInnerHTML={{__html: `
+          @keyframes scroll-marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.333333%); }
+          }
+          .animate-marquee-track {
+            animation: scroll-marquee 25s linear infinite;
+          }
+          .group-marquee:hover .animate-marquee-track {
+            animation-play-state: paused;
+          }
+        `}} />
+
+        <div className="flex flex-col items-center gap-10 max-w-[90rem] mx-auto relative z-10">
+          <h3 className="text-sm md:text-base font-black text-slate-500 uppercase tracking-[0.3em] text-center px-6">
+            Trusted By Industry Leaders
+          </h3>
+          
+          <div className="w-full overflow-hidden relative group-marquee group/marquee mt-2">
+            {/* Soft Edge Fades */}
+            <div className="absolute inset-y-0 left-0 w-24 md:w-64 bg-gradient-to-r from-[var(--obsidian-base)] to-transparent z-20 pointer-events-none" />
+            <div className="absolute inset-y-0 right-0 w-24 md:w-64 bg-gradient-to-l from-[var(--obsidian-base)] to-transparent z-20 pointer-events-none" />
+            
+            <div className="flex items-center gap-16 md:gap-32 w-max px-8 py-8 animate-marquee-track">
+              {[1, 2, 3].map((set) => (
+                <div key={set} className="flex items-center gap-16 md:gap-32">
+                  {PARTNER_LOGOS.map((logo, i) => (
+                    <div key={`${set}-${i}`} className="flex items-center gap-16 md:gap-32">
+                      <div className="flex items-center justify-center brightness-0 invert opacity-40 group-hover/marquee:opacity-15 hover:!opacity-100 hover:scale-[1.15] hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.6)] transition-all duration-500 cursor-pointer">
+                        <Image 
+                          src={`/images/company logos/${logo}`} 
+                          alt="Partner Logo" 
+                          width={200} 
+                          height={80} 
+                          className="object-contain h-10 md:h-12 w-auto" 
+                        />
+                      </div>
+                      {/* Futuristic Power-Up Separators */}
+                      <div className="w-1.5 h-1.5 rounded-full bg-white/10 group-hover/marquee:bg-electric-blue group-hover/marquee:shadow-[0_0_12px_rgba(37,99,235,1)] transition-all duration-700" />
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 5. SOLUTIONS */}
       <section id="solutions" className="section-padding bg-[var(--obsidian-surface)] border-y border-white/5 relative z-10">
         <div className="max-w-[90rem] mx-auto flex flex-col gap-20">
@@ -434,11 +489,11 @@ export default function Home() {
               </h2>
             </div>
             <p className="text-slate-400 max-w-md text-lg">
-              From enterprise resource planning to CRM and software licensing — integrated solutions that drive real outcomes.
+              From enterprise resource planning to CRM platforms — integrated solutions that drive real business outcomes.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {SOLUTIONS.map((s, i) => (
               <motion.div
                 key={s.title}
@@ -505,8 +560,8 @@ export default function Home() {
           {/* Premium Native Slider Container */}
           <div className="relative">
             {/* Ambient background glow for the slider */}
-            <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] bg-electric-blue/10 rounded-full blur-[120px] -translate-y-1/2 pointer-events-none" />
-            <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] bg-power-indigo/10 rounded-full blur-[100px] -translate-y-1/2 pointer-events-none" />
+            <div className="absolute top-1/2 left-1/4 w-[500px] h-[500px] rounded-full -translate-y-1/2 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 70%)' }} />
+            <div className="absolute top-1/2 right-1/4 w-[400px] h-[400px] rounded-full -translate-y-1/2 pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%)' }} />
 
             <div 
               ref={sliderRef}
@@ -662,7 +717,7 @@ export default function Home() {
       {/* 9. CONTACT FORM / INITIATE CTA */}
       <section id="contact" className="section-padding bg-[var(--obsidian-deep)] border-t border-white/5 relative z-10 overflow-hidden">
         {/* Background glow for form */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-electric-blue/5 rounded-full blur-[200px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.05) 0%, transparent 70%)' }} />
         
         <div className="max-w-[90rem] mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24 relative z-10">
           <div className="flex flex-col gap-8">
@@ -699,7 +754,7 @@ export default function Home() {
             className="obsidian-glass rounded-3xl p-8 md:p-12 shadow-2xl border border-white/10 relative overflow-hidden"
           >
             {/* Form Glow Effect inside card */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-electric-blue/10 rounded-full blur-[80px]" />
+            <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 70%)' }} />
             
             <form className="relative z-10 flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
               <div className="grid md:grid-cols-2 gap-6">
