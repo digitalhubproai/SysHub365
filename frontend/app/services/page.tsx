@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuArrowUpRight, LuMegaphone, LuKey } from "react-icons/lu";
+import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuArrowUpRight, LuMegaphone, LuKey, LuPenTool } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
 import { GradientIcon } from "@/components/GradientIcon";
@@ -54,6 +54,12 @@ const SERVICES_DETAILED = [
     title: "Software Licensing",
     desc: "Comprehensive licensing for all types of software — from enterprise operating systems to specialized SaaS tools.",
     gradient: ["#fb923c", "#f43f5e"], id: "grad-license-det"
+  },
+  {
+    icon: <LuPenTool size={28} />,
+    title: "Graphic Design",
+    desc: "Professional brand identity, modern logos, and custom marketing materials to visually elevate your brand and communicate your core message effectively.",
+    gradient: ["#eab308", "#f97316"], id: "grad-graphic-det"
   }
 ];
 

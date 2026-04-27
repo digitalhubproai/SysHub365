@@ -9,7 +9,7 @@ import {
   LuRocket, LuChevronDown, LuStar, LuCircleCheck, LuGlobe, LuUsers, LuTrendingUp,
   LuMail, LuUser, LuMessageSquare, LuSend, LuPhone,
   LuLayoutDashboard, LuHeartHandshake, LuKey,
-  LuChevronLeft, LuChevronRight, LuMegaphone
+  LuChevronLeft, LuChevronRight, LuMegaphone, LuPenTool
 } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
@@ -101,6 +101,7 @@ const SERVICES = [
   { icon: <LuMegaphone size={28} />, title: "Digital Marketing", desc: "Data-driven SEO, performance marketing, and targeted campaigns to drastically scale your online presence and revenue.", gradient: ["#10b981", "#3b82f6"], id: "grad-marketing" },
   { icon: <LuShieldCheck size={28} />, title: "Cybersecurity", desc: "Enterprise-grade security audits and implementation to protect your digital assets.", gradient: ["#ef4444", "#8b5cf6"], id: "grad-security" },
   { icon: <LuKey size={28} />, title: "Software Licensing", desc: "Comprehensive licensing for all types of software — from enterprise operating systems to specialized SaaS tools.", gradient: ["#fb923c", "#f43f5e"], id: "grad-license" },
+  { icon: <LuPenTool size={28} />, title: "Graphic Design", desc: "Professional brand identity, modern logos, and custom marketing materials to elevate your visual presence.", gradient: ["#eab308", "#f97316"], id: "grad-graphic" },
 ];
 
 const SOLUTIONS = [
