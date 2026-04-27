@@ -743,6 +743,16 @@ export default function Home() {
                   <a href="mailto:hello@syshub365.com" className="text-white hover:text-electric-blue transition-colors text-lg font-medium">hello@syshub365.com</a>
                 </div>
               </div>
+
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/60 bg-white/[0.02]">
+                  <LuPhone size={20} />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-sm text-slate-400 font-bold uppercase tracking-widest">Call Us</span>
+                  <a href="tel:+923356660365" className="text-white hover:text-electric-blue transition-colors text-lg font-medium">+92 335 6660365</a>
+                </div>
+              </div>
             </div>
           </div>
 

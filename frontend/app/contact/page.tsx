@@ -91,7 +91,7 @@ export default function Contact() {
                   </div>
                   <div className="flex flex-col">
                      <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Call Us</span>
-                     <a href="tel:+923000000000" className="text-lg font-bold text-white hover:text-electric-blue transition-colors">+92 300 0000000</a>
+                     <a href="tel:+923356660365" className="text-lg font-bold text-white hover:text-electric-blue transition-colors">+92 335 6660365</a>
                   </div>
                </div>
             </motion.div>
