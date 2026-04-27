@@ -32,53 +32,82 @@ export default function Blog() {
     <main className="bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden pt-32 pb-20">
       <div className="noise-overlay" />
 
-      {/* Hero Header */}
-      <section className="relative px-6 md:px-12 lg:px-24 py-16 overflow-hidden flex flex-col items-center text-center">
-        <div className="max-w-[75rem] mx-auto flex flex-col gap-8">
-           <motion.div initial="hidden" animate="show" variants={fadeUp} className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md">
-              <span className="text-xs font-bold uppercase tracking-widest text-white/80">Technical Archive</span>
-           </motion.div>
-           <motion.h1 
-             initial="hidden" animate="show" variants={fadeUp} transition={{ delay: 0.1 }}
-             className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-extrabold text-white tracking-tight leading-tight"
-           >
-             Our Blog & <span className="text-gradient">Insights.</span>
-           </motion.h1>
-           <motion.p initial="hidden" animate="show" variants={fadeUp} transition={{ delay: 0.2 }} className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed">
-             Sharing technical observations, architectural patterns, and strategic engineering updates from our lead experts.
-           </motion.p>
+      {/* Unified Elite Hero Section */}
+      <section className="px-6 md:px-12 lg:px-24 pb-24">
+        <div className="max-w-[90rem] mx-auto">
+          {/* Section Header */}
+          <div className="flex flex-col items-center text-center mb-16 gap-4">
+             <motion.div initial="hidden" animate="show" variants={fadeUp} className="inline-flex items-center gap-3 px-6 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-md">
+                <span className="text-xs font-bold uppercase tracking-widest text-white/80">Technical Archive</span>
+             </motion.div>
+             <motion.h1 
+               initial="hidden" animate="show" variants={fadeUp} transition={{ delay: 0.1 }}
+               className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white tracking-tight leading-tight"
+             >
+               Blog & <span className="text-gradient">Insights.</span>
+             </motion.h1>
+             <motion.p initial="hidden" animate="show" variants={fadeUp} transition={{ delay: 0.2 }} className="text-base md:text-lg text-slate-400 max-w-2xl leading-relaxed">
+               Sharing technical observations, architectural patterns, and strategic engineering updates.
+             </motion.p>
+          </div>
+
+          {/* Featured Post Card - Full Image with Glass Overlay */}
+          {featuredPost && (
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 1, delay: 0.3 }}
+              className="relative h-[75vh] md:h-[80vh] rounded-[3rem] overflow-hidden group border border-white/10 shadow-2xl"
+            >
+              {/* Full Background Image */}
+              <Image 
+                src={featuredPost.img} 
+                alt={featuredPost.title} 
+                fill 
+                className="object-cover opacity-90 group-hover:scale-105 transition-transform duration-[6s] ease-out" 
+                priority
+              />
+              
+              {/* Gradient Scrims for Readability - Enhanced for non-glass layout */}
+              <div className="absolute inset-0 bg-gradient-to-r from-[#05070a]/90 via-[#05070a]/40 to-transparent z-10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#05070a] via-transparent to-transparent z-10" />
+
+              {/* Content Overlay */}
+              <div className="absolute inset-0 z-20 flex flex-col justify-center p-6 md:p-16 lg:p-24">
+                 <div className="max-w-2xl flex flex-col gap-5 lg:gap-6">
+                    <div className="flex items-center gap-4">
+                      <span className="px-4 py-1.5 rounded-full bg-electric-blue/10 border border-electric-blue/20 text-[10px] font-bold text-electric-blue uppercase tracking-[0.2em]">
+                        Featured Insight
+                      </span>
+                      <span className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">
+                        {featuredPost.date} — {featuredPost.readTime}
+                      </span>
+                    </div>
+
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.2]">
+                      {featuredPost.title}
+                    </h2>
+
+                    <p className="text-base md:text-lg text-slate-400 leading-relaxed font-medium line-clamp-3">
+                      {featuredPost.excerpt}
+                    </p>
+
+                    <div className="flex items-center gap-6 pt-2">
+                        <Button 
+                          href={`/blog/${featuredPost.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`} 
+                          variant="primary" 
+                          size="md"
+                          className="!px-10"
+                        >
+                          Keep Reading
+                        </Button>
+                    </div>
+                 </div>
+              </div>
+            </motion.div>
+          )}
         </div>
       </section>
-
-      {/* Featured Section */}
-      {featuredPost && (
-        <section className="px-6 md:px-12 lg:px-24 pb-24">
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }} 
-            animate={{ opacity: 1, y: 0 }} 
-            transition={{ duration: 1 }}
-            className="max-w-[90rem] mx-auto relative h-[60vh] md:h-[70vh] rounded-[2.5rem] overflow-hidden group border border-white/10"
-          >
-            <Image src={featuredPost.img} alt={featuredPost.title} fill className="object-cover opacity-80 group-hover:scale-105 transition-transform duration-[3s]" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[var(--obsidian-base)] via-transparent to-transparent flex flex-col justify-end p-8 md:p-16">
-               <div className="flex flex-col gap-6 max-w-3xl">
-                  <span className="text-xs font-bold text-electric-blue uppercase tracking-widest">Featured Insight</span>
-                  <h2 className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
-                    {featuredPost.title}
-                  </h2>
-                  <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl">
-                    {featuredPost.excerpt}
-                  </p>
-                  <div className="flex items-center gap-6 pt-4">
-                      <Button href={`/blog/${featuredPost.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`} variant="primary" className="!px-10 !py-4 text-sm">
-                        Keep Reading
-                      </Button>
-                  </div>
-               </div>
-            </div>
-          </motion.div>
-        </section>
-      )}
 
       {/* Search & Filter */}
       <section className="px-6 md:px-12 lg:px-24 py-12 sticky top-20 z-40 bg-[var(--obsidian-base)]/80 backdrop-blur-xl border-y border-white/5">
