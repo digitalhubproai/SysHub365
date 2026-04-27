@@ -1,5 +1,11 @@
 import { LuSignature, LuGavel, LuScale, LuBriefcase, LuArrowUpRight } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Service | SysHub365",
+  description: "Read the SysHub365 Terms of Service. Simple, transparent agreements for our digital solutions.",
+};
 
 export default function TermsPage() {
   return (

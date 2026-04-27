@@ -4,6 +4,25 @@ import Image from "next/image";
 import Link from "next/link";
 import { LuArrowLeft, LuCircleCheck } from "react-icons/lu";
 import { Button } from "@/components/ui/Button";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const project = PROJECTS.find(p => p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') === slug);
+  
+  if (!project) return { title: "Project Not Found" };
+
+  return {
+    title: `${project.title} | SysHub365 Portfolio`,
+    description: project.desc,
+    openGraph: {
+      title: project.title,
+      description: project.desc,
+      images: [project.img],
+    },
+  };
+}
+
 
 // Generates static params for all known projects
 export async function generateStaticParams() {

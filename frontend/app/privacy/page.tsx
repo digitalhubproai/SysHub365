@@ -1,5 +1,11 @@
 import { LuShieldCheck, LuLock, LuEye, LuFileText, LuArrowUpRight } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | SysHub365",
+  description: "Learn how SysHub365 handles your data with our simple, transparent Privacy Policy.",
+};
 
 export default function PrivacyPage() {
   return (
