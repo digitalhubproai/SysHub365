@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     description: "The elite standard for technical orchestration and digital product delivery.",
     type: "website",
   },
+  verification: {
+    google: "958484ae40003b1f",
+  },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
