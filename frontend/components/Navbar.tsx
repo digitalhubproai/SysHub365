@@ -46,7 +46,7 @@ export function Navbar() {
           )}
         >
           {/* Brand */}
-          <Link href="/" className="flex items-center gap-3 group">
+          <Link href="/" className="flex items-center gap-3 group" aria-label="SysHub365 Home">
             <div className="relative transition-transform duration-500 group-hover:scale-105">
                <Image
                   src="/images/logo.png"
@@ -60,7 +60,7 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Links */}
-          <nav className="hidden lg:flex items-center gap-2">
+          <nav className="hidden lg:flex items-center gap-2" aria-label="Main Navigation">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.name}
@@ -91,10 +91,13 @@ export function Navbar() {
              <button
                className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-white/5 text-white hover:bg-white/10 transition-colors"
                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+               aria-expanded={mobileMenuOpen}
+               aria-label={mobileMenuOpen ? "Close Menu" : "Open Menu"}
              >
                {mobileMenuOpen ? <LuX size={20} /> : <LuMenu size={20} />}
              </button>
           </div>
+
         </div>
       </motion.header>
 

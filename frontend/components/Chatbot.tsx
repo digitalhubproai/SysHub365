@@ -71,8 +71,9 @@ export function Chatbot() {
             "relative group w-20 h-20 flex items-center justify-center transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
             isOpen ? "scale-0 opacity-0 rotate-[180deg]" : "scale-100 opacity-100 hover:scale-110"
           )}
-          aria-label="Open Chat"
+          aria-label={isOpen ? "Close Chatbot" : "Open Chatbot"}
         >
+
           <div className="absolute inset-0 bg-electric-blue/10 rounded-full blur-[30px] group-hover:bg-electric-blue/30 group-hover:blur-[40px] transition-all duration-1000" />
           <div className="absolute inset-0 rounded-full overflow-hidden p-[1.5px] bg-white/5">
             <div className="absolute inset-[-100%] bg-[conic-gradient(from_var(--beam-angle,0deg),transparent_70%,#2563eb_80%,#38bdf8_90%,transparent_100%)] animate-[beam-rotate_8s_linear_infinite]" />
@@ -113,10 +114,12 @@ export function Chatbot() {
                 size="sm" 
                 className="!p-2 hover:bg-white/10" 
                 onClick={() => setIsOpen(false)}
+                aria-label="Close Chat"
               >
                 <LuX size={14} />
               </Button>
             </div>
+
 
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
               {messages.map((msg) => (

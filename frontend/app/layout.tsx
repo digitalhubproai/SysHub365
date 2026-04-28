@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
-import { Sora, Inter, Geist } from "next/font/google";
+import { Sora, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Cursor } from "@/components/Cursor";
-import { Chatbot } from "@/components/Chatbot";
+import { ClientComponentsProvider } from "@/components/ClientComponentsProvider";
 import { cn } from "@/lib/utils";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const sora = Sora({
   variable: "--font-sora",
@@ -44,15 +41,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={cn("scroll-smooth", sora.variable, inter.variable, "font-sans", geist.variable)}>
-      <body className="bg-transparent text-slate-400 antialiased min-h-screen flex flex-col relative z-0">
+    <html lang="en" className={cn("scroll-smooth", sora.variable, inter.variable, "font-sans")}>
+      <body className="bg-transparent antialiased min-h-screen flex flex-col relative z-0">
+
         <div className="dynamic-bg" />
-        <Cursor />
+        <ClientComponentsProvider />
         <Navbar />
         <div className="flex-grow">{children}</div>
         <Footer />
-        <Chatbot />
       </body>
     </html>
   );
 }
+
+
+
