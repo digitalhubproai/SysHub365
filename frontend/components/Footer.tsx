@@ -27,7 +27,8 @@ const SOCIAL_LINKS = [
   { icon: <LuLinkedin size={20} />, href: "https://www.linkedin.com/company/syshub365/", label: "LinkedIn" },
   { icon: <LuFacebook size={20} />, href: "https://facebook.com/syshub365", label: "Facebook" },
   { icon: <LuTwitter size={20} />, href: "https://www.x.com/syshub365", label: "Twitter" },
-  { icon: <LuInstagram size={20} />, href: "https://www.instagram.com/syshub365/", label: "Instagram" },];
+  { icon: <LuInstagram size={20} />, href: "https://www.instagram.com/syshub365/", label: "Instagram" },
+];
 
 export function Footer() {
   const year = new Date().getFullYear();
