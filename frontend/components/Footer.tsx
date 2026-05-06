@@ -24,7 +24,7 @@ const FOOTER_LINKS = [
 ];
 
 const SOCIAL_LINKS = [
-  { icon: <LuLinkedin size={20} />, href: "https://linkedin.com/company/syshub365", label: "LinkedIn" },
+  { icon: <LuLinkedin size={20} />, href: "https://www.linkedin.com/company/syshub365/", label: "LinkedIn" },
   { icon: <LuFacebook size={20} />, href: "https://facebook.com/syshub365", label: "Facebook" },
   { icon: <LuTwitter size={20} />, href: "https://www.x.com/syshub365", label: "Twitter" },
   { icon: <LuInstagram size={20} />, href: "https://instagram.com/syshub365", label: "Instagram" },
