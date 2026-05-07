@@ -61,7 +61,7 @@ export function Footer() {
               
               <div className="flex flex-col gap-1">
                 <span className="text-white font-bold text-xs uppercase tracking-widest">Headquarters</span>
-                <span className="text-slate-500 text-sm">A-407, Maymar Tower, Sector X-2, Gulshan-e-Maymar, Karachi • Available 24/7</span>
+                <span className="text-slate-500 text-sm">A-407, Maymar Tower, Sector X-2, Gulshan-e-Maymar, Karachi</span>
               </div>
             </div>
             
