@@ -212,10 +212,9 @@ export default function Contact() {
                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">Global Presence.</h2>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-1 gap-8 max-w-2xl">
                 {[
                   { city: "Karachi", loc: "Shahrah-e-Faisal HQ", status: "Operational Hub" },
-                  { city: "Doha", loc: "Digital District", status: "Strategic Center" }
                 ].map((node, i) => (
                   <motion.div 
                     key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
