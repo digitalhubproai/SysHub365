@@ -214,7 +214,7 @@ export default function Contact() {
             
             <div className="grid md:grid-cols-1 gap-8 max-w-2xl">
                 {[
-                  { city: "Karachi", loc: "Shahrah-e-Faisal HQ", status: "Operational Hub" },
+                  { city: "Karachi", loc: "A-407, Maymar Tower, Sector X-2, Gulshan-e-Maymar", status: "Operational Hub" },
                 ].map((node, i) => (
                   <motion.div 
                     key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
