@@ -30,10 +30,10 @@ export default function HomePage() {
     <>
       {/* Hidden SEO content for crawlers to prioritize correct context over component text */}
       <div className="sr-only">
-        <h1>SYSHUB365 - Premium Software Engineering Studio</h1>
+        <h1>SYSHUB365 - Professional Software Engineering House</h1>
         <p>
-          Specializing in high-performance web applications, AI-driven solutions, and enterprise digital ecosystems.
-          Our team of digital architects builds high-integrity systems for the next era of global infrastructure.
+          We design and build high-performance web systems, custom ERPs, and AI-integrated applications. 
+          Our team focuses on solving complex technical challenges with precision-engineered code that helps businesses scale efficiently.
         </p>
       </div>
       <HomeClient />

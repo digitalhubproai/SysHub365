@@ -9,13 +9,13 @@ const SOLUTIONS = [
   {
     icon: <LuLayoutDashboard size={28} />,
     title: "ERP Solutions",
-    desc: "Unify your entire business — finance, inventory, HR, and supply chain — into one powerful, real-time ERP platform built to scale with your growth.",
+    desc: "Stop juggling disconnected tools. We build centralized ERP systems that connect your finance, operations, and people in one place.",
     gradient: ["#3b82f6", "#8b5cf6"], id: "grad-erp"
   },
   {
     icon: <LuHeartHandshake size={28} />,
     title: "CRM Solutions",
-    desc: "Give your sales team a 360° view of every customer. AI-powered insights, automated pipelines, and omnichannel communication in one place.",
+    desc: "Turn customer data into relationships. Custom CRM workflows that help your team close deals faster without the manual busywork.",
     gradient: ["#d946ef", "#f43f5e"], id: "grad-crm"
   },
 ];
