@@ -4,10 +4,12 @@ import Image from "next/image";
 
 const PARTNER_LOGOS = [
   "adobe-2.svg",
+  "azure-2.svg",
   "cisco-2.svg",
   "ibm.svg",
   "logo-amazon.svg",
   "microsoft-6.svg",
+  "oracle-logo.svg",
 ];
 
 export function PartnersSection() {
