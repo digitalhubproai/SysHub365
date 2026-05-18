@@ -16,48 +16,56 @@ const SERVICES_DETAILED = [
   {
     icon: <LuCode size={28} />,
     title: "Enterprise Web Systems",
+    slug: "web-development",
     desc: "Architecting high-availability, low-latency web platforms that serve as the backbone of modern enterprise operations.",
     gradient: ["#06b6d4", "#2563eb"], id: "grad-web-det"
   },
   {
     icon: <LuBrainCog size={28} />,
     title: "AI Integration",
+    slug: "ai-integration",
     desc: "Embed intelligent automation, chatbots, and generative AI into your existing business workflows for maximum efficiency.",
     gradient: ["#8b5cf6", "#d946ef"], id: "grad-ai-det"
   },
   {
     icon: <LuPalette size={28} />,
     title: "UI/UX Product Design",
+    slug: "ui-ux-design",
     desc: "Beautiful, intuitive interfaces designed to maximize user engagement and conversion rates through scientific design.",
     gradient: ["#f43f5e", "#fb923c"], id: "grad-design-det"
   },
   {
     icon: <LuCloud size={28} />,
     title: "Cloud Infrastructure",
+    slug: "cloud-solutions",
     desc: "Secure, highly-available infrastructure setup on AWS and GCP with full CI/CD automation and global sync.",
     gradient: ["#3b82f6", "#06b6d4"], id: "grad-cloud-det"
   },
   {
     icon: <LuShieldCheck size={28} />,
     title: "Cybersecurity Defense",
+    slug: "cybersecurity",
     desc: "Enterprise-grade security audits and implementation to protect your digital assets and ensure compliance.",
     gradient: ["#ef4444", "#8b5cf6"], id: "grad-security-det"
   },
   {
     icon: <LuMegaphone size={28} />,
     title: "Digital Marketing",
+    slug: "digital-marketing",
     desc: "Data-driven SEO, performance marketing, and targeted campaigns to drastically scale your online presence and revenue.",
     gradient: ["#10b981", "#3b82f6"], id: "grad-marketing-det"
   },
   {
     icon: <LuKey size={28} />,
     title: "Software Licensing",
+    slug: "software-licensing",
     desc: "Comprehensive licensing for all types of software — from enterprise operating systems to specialized SaaS tools.",
     gradient: ["#fb923c", "#f43f5e"], id: "grad-license-det"
   },
   {
     icon: <LuPenTool size={28} />,
     title: "Graphic Design",
+    slug: "graphic-design",
     desc: "Professional brand identity, modern logos, and custom marketing materials to visually elevate your brand and communicate your core message effectively.",
     gradient: ["#eab308", "#f97316"], id: "grad-graphic-det"
   }
@@ -135,8 +143,8 @@ export default function Services() {
                   </p>
                 </div>
                 <div className="mt-auto pt-6">
-                  <Link href="/contact" className="inline-flex items-center gap-2 text-sm font-bold text-electric-blue uppercase tracking-widest opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-                    Contact Specialist <LuArrowUpRight />
+                  <Link href={`/services/${s.slug}`} className="inline-flex items-center gap-2 text-sm font-bold text-electric-blue uppercase tracking-widest opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                    Explore Tech <LuArrowUpRight />
                   </Link>
                 </div>
               </PremiumCard>
