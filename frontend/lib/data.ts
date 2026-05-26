@@ -10,6 +10,54 @@ export interface Project {
 }
 
 export const PROJECTS: Project[] = [
+  {
+    title: "InsTranz", category: "Luxury Logistics",
+    desc: "Luxury high-performance logistics platform leveraging supersonic transport and AI-driven routing for global supply chains.",
+    fullDesc: "InsTranz is a premium logistics and supply chain ecosystem designed for global leaders who require unmatched speed, security, and precision. It features a dedicated aviation network, AI-powered maritime navigation, and fully automated, carbon-neutral fulfillment centers. The platform handles high-stakes verticals like bio-pharmaceuticals and luxury automotive with white-glove care, utilizing virtual telemetry twins and quantum-grade security for 24/7 hyper-monitoring.",
+    features: [
+      "Supersonic Air Cargo: Dedicated aviation corridors ensuring landing-to-transit times under 45 minutes.",
+      "AI Ocean Navigation: Predictive AI analyzing currents and port density to optimize maritime vectors.",
+      "Robotic Fulfillment: Climate-controlled automated vaults using cleanroom-grade swarm robotics.",
+      "Quantum Telemetry: 24/7 monitoring of vibrations, light penetration, and atmospheric changes.",
+      "Cryogenic Care: Specialized cold-chain logistics for sensitive goods with ±0.1°C thermal variance.",
+      "Self-Stabilizing Containers: Active stabilizer arrays to protect delicate luxury goods during transit."
+    ],
+    img: "/images/InsTranz.png",
+    link: "https://ins-tranz.vercel.app/",
+    tags: ["Logistics Tech", "AI", "Robotics", "IoT", "Aerospace", "Cold-Chain"]
+  },
+  {
+    title: "VRlogic", category: "Enterprise VR Solutions",
+    desc: "High-fidelity VR command interface platform for real-time global operations monitoring and spatial computing.",
+    fullDesc: "VRLogic is a cutting-edge enterprise platform designed to bridge the gap between human imagination and complex global operations. By architecting immersive realities, VRLogic provides a 'command interface' that renders real-time data into a high-fidelity VR environment. The platform leverages neural engineering and spatial computing to allow users to interact with their global physical locations via a unified hub. With a focus on sub-millisecond latency and quantum-encrypted security, it offers a futuristic approach to decision-making and predictive analytics.",
+    features: [
+      "Neural Interface: Immersive VR experiences responding to bio-signals for peak performance.",
+      "Spatial Computing Grid: Unified command hub for real-time global location mapping.",
+      "Biometric Security: Zero-trust, quantum-encrypted protocols for critical operational data.",
+      "AI Analytics Engine: High-speed, AI-driven insights for instant anomaly mitigation.",
+      "Reality Stack Integration: Seamless blend of AR overlays and full VR immersion.",
+      "Predictive AI Models: Advanced foresight tools to optimize strategic decision-making."
+    ],
+    img: "/images/VRlogic.png",
+    link: "https://v-rlogic.vercel.app/",
+    tags: ["VR/AR", "Spatial Computing", "Neural Engineering", "AI Analytics", "Quantum Encryption", "Three.js"]
+  },
+  {
+    title: "NexusAI", category: "Enterprise AI Automation",
+    desc: "High-performance platform for deploying autonomous agent swarms and custom AI systems with sub-millisecond latency.",
+    fullDesc: "Nexus AI is a cutting-edge AI orchestration platform engineered for high-performance enterprise operations. Leveraging a 'Neural Core' architecture, it delivers autonomous agent swarms that evolve through deep learning and self-optimizing phases. Designed for scale and security, Nexus AI features foundation models with 200B+ parameters, SOC 2 Type II certification, and AES-256 data isolation, enabling businesses to automate complex workflows with military-grade precision.",
+    features: [
+      "Multi-Agent Swarms: Specialized agents working in parallel to solve complex enterprise workflows.",
+      "Contextual Memory: Advanced core allowing agents to retain past interactions for intelligent decisions.",
+      "Neural Execution: High-speed processing with sub-2ms response times and 12 TFLOPS of power.",
+      "Military-Grade Security: AES-256 encryption and SOC 2 Type II certified data pipelines.",
+      "Auto-Healing Core: Self-optimizing system ensuring 99.99% uptime and automatic failover.",
+      "Rapid Integration: API-first architecture for seamless sync with existing systems in minutes."
+    ],
+    img: "/images/NexusAI.png",
+    link: "https://nexus-ai-iota-ashy.vercel.app/",
+    tags: ["Autonomous Agents", "LLM", "Multi-Agent Systems", "Neural Networks", "Enterprise Automation", "Deep Learning"]
+  },
   { 
     title: "Obvis AI Medical Intelligence", category: "AI & Healthcare", 
     desc: "AI-powered medical intelligence platform transforming healthcare data into actionable insights.",
