@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import PremiumCard from "@/components/PremiumCard";
 import { GradientIcon } from "@/components/GradientIcon";
 import { LuArrowUpRight, LuLayoutDashboard, LuHeartHandshake } from "react-icons/lu";
@@ -9,12 +10,14 @@ const SOLUTIONS = [
   {
     icon: <LuLayoutDashboard size={28} />,
     title: "ERP Solutions",
+    slug: "erp-solutions",
     desc: "Stop juggling disconnected tools. We build centralized ERP systems that connect your finance, operations, and people in one place.",
     gradient: ["#3b82f6", "#8b5cf6"], id: "grad-erp"
   },
   {
     icon: <LuHeartHandshake size={28} />,
     title: "CRM Solutions",
+    slug: "crm-solutions",
     desc: "Turn customer data into relationships. Custom CRM workflows that help your team close deals faster without the manual busywork.",
     gradient: ["#d946ef", "#f43f5e"], id: "grad-crm"
   },
@@ -44,36 +47,39 @@ export function SolutionsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ delay: i * 0.1, duration: 0.6 }}
+              className="h-full"
             >
-              <PremiumCard className="p-10 gap-8 items-start">
-                <motion.div 
-                  animate={{ 
-                    y: [0, -10, 0],
-                    rotate: [0, -3, 3, 0],
-                    scale: [1, 1.05, 1]
-                  }}
-                  transition={{ 
-                    duration: 4, 
-                    repeat: Infinity, 
-                    ease: "easeInOut", 
-                    delay: i * 0.15 
-                  }}
-                  className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.05)] group-hover:border-white/20"
-                >
-                  <GradientIcon icon={s.icon} id={s.id} colors={s.gradient} />
-                </motion.div>
-                <div className="flex flex-col gap-4">
-                  <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>
-                  <p className="text-slate-400 leading-relaxed group-hover:text-slate-200 transition-colors">
-                    {s.desc}
-                  </p>
-                </div>
-                <div className="mt-auto pt-6">
-                  <span className="inline-flex items-center gap-2 text-sm font-bold text-electric-blue uppercase tracking-widest opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
-                    Learn More <LuArrowUpRight />
-                  </span>
-                </div>
-              </PremiumCard>
+              <Link href={`/services/${s.slug}`} className="block h-full group">
+                <PremiumCard className="p-10 gap-8 items-start h-full">
+                  <motion.div 
+                    animate={{ 
+                      y: [0, -10, 0],
+                      rotate: [0, -3, 3, 0],
+                      scale: [1, 1.05, 1]
+                    }}
+                    transition={{ 
+                      duration: 4, 
+                      repeat: Infinity, 
+                      ease: "easeInOut", 
+                      delay: i * 0.15 
+                    }}
+                    className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.05)] group-hover:border-white/20"
+                  >
+                    <GradientIcon icon={s.icon} id={s.id} colors={s.gradient} />
+                  </motion.div>
+                  <div className="flex flex-col gap-4">
+                    <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>
+                    <p className="text-slate-400 leading-relaxed group-hover:text-slate-200 transition-colors">
+                      {s.desc}
+                    </p>
+                  </div>
+                  <div className="mt-auto pt-6">
+                    <span className="inline-flex items-center gap-2 text-sm font-bold text-electric-blue uppercase tracking-widest opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
+                      Learn More <LuArrowUpRight />
+                    </span>
+                  </div>
+                </PremiumCard>
+              </Link>
             </motion.div>
           ))}
         </div>

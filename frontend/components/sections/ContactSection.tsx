@@ -1,9 +1,33 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { LuMail, LuPhone, LuUser, LuMessageSquare } from "react-icons/lu";
+import { LuMail, LuPhone, LuUser, LuMessageSquare, LuLoader } from "react-icons/lu";
 
 export function ContactSection() {
+  const [formData, setFormData] = useState({ name: "", phone: "", email: "", message: "" });
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        setStatus("success");
+        setFormData({ name: "", phone: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
+  };
+
   return (
     <section id="contact" className="section-padding bg-[var(--obsidian-deep)] border-t border-white/5 relative z-10 overflow-hidden">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.05) 0%, transparent 70%)' }} />
@@ -53,20 +77,20 @@ export function ContactSection() {
         >
           <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 70%)' }} />
           
-          <form className="relative z-10 flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
+          <form className="relative z-10 flex flex-col gap-6" onSubmit={handleSubmit}>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-white/60 uppercase tracking-widest pl-2">Full Name</label>
                 <div className="relative">
                   <LuUser className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                  <input type="text" placeholder="John Doe" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
+                  <input required value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} type="text" placeholder="John Doe" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
                 </div>
               </div>
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-bold text-white/60 uppercase tracking-widest pl-2">Phone Number</label>
                 <div className="relative">
                   <LuPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                  <input type="tel" placeholder="+1 (555) 000-0000" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
+                  <input required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} type="tel" placeholder="+92 000 0000000" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
                 </div>
               </div>
             </div>
@@ -75,7 +99,7 @@ export function ContactSection() {
               <label className="text-xs font-bold text-white/60 uppercase tracking-widest pl-2">Email Address</label>
               <div className="relative">
                 <LuMail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                <input type="email" placeholder="john@company.com" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
+                <input required value={formData.email} onChange={(e) => setFormData({...formData, email: e.target.value})} type="email" placeholder="john@company.com" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
               </div>
             </div>
 
@@ -83,12 +107,13 @@ export function ContactSection() {
               <label className="text-xs font-bold text-white/60 uppercase tracking-widest pl-2">Project Details</label>
               <div className="relative">
                 <LuMessageSquare className="absolute left-4 top-5 text-white/30" />
-                <textarea placeholder="Tell us about your goals, timeline, and budget..." rows={4} className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20 resize-none"></textarea>
+                <textarea required value={formData.message} onChange={(e) => setFormData({...formData, message: e.target.value})} placeholder="Tell us about your goals, timeline, and budget..." rows={4} className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20 resize-none"></textarea>
               </div>
             </div>
 
-            <button type="submit" className="w-full bg-electric-blue hover:bg-electric-blue/90 text-white font-bold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] active:scale-[0.98]">
-              Send Inquiry
+            <button disabled={status === "loading"} type="submit" className="w-full bg-electric-blue hover:bg-electric-blue/90 text-white font-bold py-4 rounded-xl transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-50">
+              {status === "loading" ? <LuLoader className="animate-spin" /> : null}
+              {status === "success" ? "Message Sent!" : status === "error" ? "Failed to Send" : "Send Inquiry"}
             </button>
           </form>
         </motion.div>

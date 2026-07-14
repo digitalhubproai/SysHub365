@@ -1,6 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { LuTwitter, LuLinkedin, LuFacebook, LuInstagram, LuZap } from "react-icons/lu";
+import { LuTwitter, LuLinkedin, LuFacebook, LuInstagram, LuLoader } from "react-icons/lu";
 
 const FOOTER_LINKS = [
   {
@@ -29,6 +32,50 @@ const SOCIAL_LINKS = [
   { icon: <LuTwitter size={20} />, href: "https://www.x.com/syshub365", label: "Twitter" },
   { icon: <LuInstagram size={20} />, href: "https://www.instagram.com/syshub365/", label: "Instagram" },
 ];
+
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const response = await fetch("http://127.0.0.1:8000/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (response.ok) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
+  };
+
+  return (
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+      <input 
+        type="email" 
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email Address" 
+        className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-electric-blue transition-all placeholder:text-slate-700"
+        required
+        aria-label="Newsletter Email Address"
+      />
+
+      <button disabled={status === "loading"} type="submit" className="btn-obsidian-primary w-full py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50">
+        {status === "loading" ? <LuLoader2 size={12} className="animate-spin" /> : null}
+        {status === "success" ? "Subscribed!" : status === "error" ? "Failed" : "Subscribe Now"}
+      </button>
+    </form>
+  );
+}
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -108,19 +155,7 @@ export function Footer() {
                   <p className="text-xs text-slate-500 leading-relaxed">
                     Subscribe for elite AI insights and project updates.
                   </p>
-                  <form className="flex flex-col gap-3">
-                    <input 
-                      type="email" 
-                      placeholder="Email Address" 
-                      className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-electric-blue transition-all placeholder:text-slate-700"
-                      required
-                      aria-label="Newsletter Email Address"
-                    />
-
-                    <button type="submit" className="btn-obsidian-primary w-full py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-[0.98]">
-                      Subscribe Now
-                    </button>
-                  </form>
+                  <NewsletterForm />
                 </div>
               </div>
           </div>
@@ -141,5 +176,3 @@ export function Footer() {
     </footer>
   );
 }
-
-

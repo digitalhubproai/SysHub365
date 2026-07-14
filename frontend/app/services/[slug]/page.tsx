@@ -218,6 +218,56 @@ const SERVICE_DETAILS: Record<string, any> = {
       { title: "Emotional Connection", desc: "Visuals crafted specifically to evoke the right psychological response from your audience." }
     ],
     gradient: "from-[#eab308] to-[#f97316]",
+  },
+  "erp-solutions": {
+    title: "ERP Solutions",
+    description: "Centralized systems that connect finance, operations, and people in one high-performance source of truth.",
+    longDescription: "Legacy enterprises are often crippled by fragmented data and disconnected tools. We engineer custom Enterprise Resource Planning (ERP) systems that unify your entire operational lifecycle. By consolidating finance, supply chain, human resources, and customer data into a single, high-availability source of truth, we empower your leadership with real-time visibility and automated decision-making capabilities.",
+    features: [
+      "Custom Financial Management",
+      "Supply Chain Orchestration",
+      "Human Capital Management (HCM)",
+      "Inventory & Warehouse Automation",
+      "Business Intelligence Dashboards"
+    ],
+    approach: [
+      { step: "01", title: "Business Audit", desc: "Identifying friction points in your current operations and mapping out a unified data flow." },
+      { step: "02", title: "Architecture Design", desc: "Developing a scalable microservices structure to handle complex enterprise modules." },
+      { step: "03", title: "Data Migration", desc: "Executing a secure, zero-loss transition of your legacy data into the new ecosystem." },
+      { step: "04", title: "Deployment & Training", desc: "Launching your centralized hub and ensuring your team is fully empowered to use it." }
+    ],
+    technologies: ["PostgreSQL", "React", "Next.js", "Python", "FastAPI", "Docker", "AWS", "SAP Integration"],
+    benefits: [
+      { title: "Global Visibility", desc: "Real-time access to operational data from anywhere in the world on any device." },
+      { title: "Automated Compliance", desc: "Built-in audit trails and reporting to ensure global regulatory standards are met." },
+      { title: "Scalable Operations", desc: "Modular architecture that grows seamlessly as your business expands into new markets." }
+    ],
+    gradient: "from-[#3b82f6] to-[#8b5cf6]",
+  },
+  "crm-solutions": {
+    title: "CRM Solutions",
+    description: "Custom workflows that turn customer data into relationships and accelerated revenue growth.",
+    longDescription: "A generic CRM is just a database; a SysHub365 CRM is a revenue engine. We design and build bespoke Customer Relationship Management platforms that mirror your unique sales and support workflows. By integrating predictive AI, automated lead scoring, and seamless communication pipelines, we help your team close deals faster while providing a world-class experience to every customer across their entire lifecycle.",
+    features: [
+      "Predictive Lead Scoring",
+      "Automated Sales Pipelines",
+      "Omnichannel Communication Sync",
+      "Customer Sentiment Analysis",
+      "Advanced Reporting & Analytics"
+    ],
+    approach: [
+      { step: "01", title: "Workflow Mapping", desc: "Analyzing your sales and support cycles to design a CRM that follows your human processes." },
+      { step: "02", title: "UX Prototyping", desc: "Crafting intuitive interfaces that maximize team adoption and data entry speed." },
+      { step: "03", title: "Integration", desc: "Syncing your CRM with existing email, social, and financial tools for a unified view." },
+      { step: "04", title: "Optimization", desc: "Using AI to identify deal-closing patterns and continuously refining your sales funnel." }
+    ],
+    technologies: ["Node.js", "Redis", "Elasticsearch", "React", "Next.js", "Salesforce API", "HubSpot Sync"],
+    benefits: [
+      { title: "Accelerated Deal Velocity", desc: "AI-driven automation that reduces the time from initial lead to final closing." },
+      { title: "Deep Customer Insights", desc: "Uncover hidden behavioral patterns to provide hyper-personalized service." },
+      { title: "Reduced Manual Overhead", desc: "Automate repetitive data entry so your sales team can focus on relationships." }
+    ],
+    gradient: "from-[#d946ef] to-[#f43f5e]",
   }
 };
 
@@ -244,14 +294,10 @@ export default function ServiceDetail() {
     <main className="bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden pt-32 pb-32 min-h-screen relative">
       <div className="noise-overlay" />
 
-      {/* Cybernetic Grid Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-      </div>
-
-      {/* Background Glows */}
-      <div className="fixed inset-0 pointer-events-none z-0 flex justify-center">
-        <div className="absolute top-[-10%] w-[800px] h-[800px] rounded-full opacity-[0.15] blur-[120px]" style={{ background: `radial-gradient(circle, var(--tw-gradient-from) 0%, transparent 70%)` }} />
+      {/* Hero Background Elements - Matching Homepage */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[1000px] h-[1000px] rounded-full opacity-[0.1] blur-[120px] animate-mesh-pulse" style={{ background: `radial-gradient(circle, var(--color-electric-blue) 0%, transparent 70%)` }} />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[1000px] h-[1000px] rounded-full opacity-[0.1] blur-[120px]" style={{ background: `radial-gradient(circle, var(--color-vibrant-purple) 0%, transparent 70%)` }} />
       </div>
 
       <div className="max-w-[85rem] mx-auto px-6 md:px-12 lg:px-24 relative z-10">

@@ -2,10 +2,11 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import { LuX, LuSend, LuBot, LuUser } from "react-icons/lu";
+import { LuX, LuSend, LuBot, LuUser, LuTrash2 } from "react-icons/lu";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
 import { Button } from "./ui/Button";
+import ReactMarkdown from "react-markdown";
 
 type Message = {
   id: string;
@@ -15,12 +16,45 @@ type Message = {
 
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    { id: "1", role: "assistant", content: "Hello! I'm the SysHub365 AI Agent. How can I strategically support your goals today?" }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [sessionId, setSessionId] = useState<string>("");
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Initialize or retrieve session ID
+    let sId = localStorage.getItem("syshub_chat_session");
+    if (!sId) {
+      sId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      localStorage.setItem("syshub_chat_session", sId);
+    }
+    setSessionId(sId);
+
+    // Fetch history from backend
+    const fetchHistory = async () => {
+      try {
+        const response = await fetch(`http://127.0.0.1:8000/api/chat/history/${sId}`);
+        if (response.ok) {
+          const history = await response.json();
+          if (history.length > 0) {
+            setMessages(history.map((m: any, i: number) => ({ id: `h-${i}`, role: m.role, content: m.content })));
+          } else {
+            setMessages([
+              { id: "1", role: "assistant", content: "Welcome to **SysHub365**. How may I strategically support your digital objectives today?" }
+            ]);
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch chat history:", error);
+        setMessages([
+          { id: "1", role: "assistant", content: "Welcome to **SysHub365**. How may I strategically support your digital objectives today?" }
+        ]);
+      }
+    };
+
+    fetchHistory();
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -29,6 +63,24 @@ export function Chatbot() {
   useEffect(() => {
     scrollToBottom();
   }, [messages, isOpen]);
+
+  const handleClear = async () => {
+    if (!sessionId) return;
+    if (!confirm("Are you sure you want to clear your chat history?")) return;
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/api/chat/history/${sessionId}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        setMessages([
+          { id: "1", role: "assistant", content: "Welcome to **SysHub365**. How may I strategically support your digital objectives today?" }
+        ]);
+      }
+    } catch (error) {
+      console.error("Failed to clear chat history:", error);
+    }
+  };
 
   const handleSend = async (e?: React.FormEvent) => {
     e?.preventDefault();
@@ -45,6 +97,7 @@ export function Chatbot() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           message: userMessage.content,
+          session_id: sessionId,
           history: messages.map(m => ({ role: m.role, content: m.content }))
         })
       });
@@ -109,15 +162,27 @@ export function Chatbot() {
                   <p className="text-[10px] text-cyber-cyan font-medium uppercase tracking-[0.2em]">Online</p>
                 </div>
               </div>
-              <Button 
-                variant="ghost" 
-                size="sm" 
-                className="!p-2 hover:bg-white/10" 
-                onClick={() => setIsOpen(false)}
-                aria-label="Close Chat"
-              >
-                <LuX size={14} />
-              </Button>
+              <div className="flex items-center gap-2">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="!p-2 hover:bg-white/10 text-slate-400 hover:text-red-400" 
+                  onClick={handleClear}
+                  aria-label="Clear Chat"
+                  title="Clear Chat"
+                >
+                  <LuTrash2 size={16} />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="!p-2 hover:bg-white/10" 
+                  onClick={() => setIsOpen(false)}
+                  aria-label="Close Chat"
+                >
+                  <LuX size={14} />
+                </Button>
+              </div>
             </div>
 
 
@@ -129,8 +194,20 @@ export function Chatbot() {
                       <Image src="/images/favicon.svg" alt="SysHub365" width={16} height={16} />
                     </div>
                   )}
-                  <div className={clsx("px-5 py-3 text-sm rounded-[1.5rem] shadow-xl max-w-[80%]", msg.role === "user" ? "bg-gradient-to-r from-electric-blue to-vibrant-purple text-white rounded-br-none" : "bg-white/[0.03] text-slate-200 border border-white/5 rounded-bl-none")}>
-                    {msg.content}
+                  <div className={clsx("px-5 py-3 text-sm rounded-[1.5rem] shadow-xl max-w-[80%] prose prose-invert prose-sm", msg.role === "user" ? "bg-gradient-to-r from-electric-blue to-vibrant-purple text-white rounded-br-none" : "bg-white/[0.03] text-slate-200 border border-white/5 rounded-bl-none")}>
+                    <ReactMarkdown 
+                      components={{
+                        p: ({children}) => <p className="mb-2 last:mb-0 leading-relaxed text-slate-300">{children}</p>,
+                        strong: ({children}) => <strong className="text-electric-blue font-bold">{children}</strong>,
+                        ul: ({children}) => <ul className="list-disc ml-4 my-2 text-slate-300">{children}</ul>,
+                        li: ({children}) => <li className="mb-1">{children}</li>,
+                        h1: ({children}) => <h1 className="text-lg font-black text-white uppercase tracking-wider mb-2 mt-4 first:mt-0 border-l-2 border-electric-blue pl-2">{children}</h1>,
+                        h2: ({children}) => <h2 className="text-md font-bold text-white uppercase tracking-wide mb-2 mt-3 first:mt-0">{children}</h2>,
+                        h3: ({children}) => <h3 className="text-sm font-bold text-cyber-cyan uppercase mb-1 mt-2 first:mt-0">{children}</h3>
+                      }}
+                    >
+                      {msg.content}
+                    </ReactMarkdown>
                   </div>
                 </motion.div>
               ))}
