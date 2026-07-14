@@ -13,7 +13,13 @@ import models
 from database import engine, get_db
 from sqlalchemy.orm import Session
 
-app = FastAPI(title="SysHub365 API")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    get_embedder()
+    ensure_collection()
+    yield
+
+app = FastAPI(title="SysHub365 API", lifespan=lifespan)
 
 # Initialize database tables
 models.Base.metadata.create_all(bind=engine)
@@ -48,9 +54,19 @@ class ContactRequest(BaseModel):
 class NewsletterRequest(BaseModel):
     email: str
 
+class KnowledgeIngestRequest(BaseModel):
+    texts: list[str]
+    metadata: list[dict] = []
+
+class KnowledgeSearchRequest(BaseModel):
+    query: str
+    limit: int = 3
+
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from qdrant_store import search_knowledge, ingest_texts, ensure_collection, get_embedder
+from contextlib import asynccontextmanager
 
 # Email Configuration
 SMTP_SERVER = "smtp.office365.com"
@@ -125,14 +141,22 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
         "- When a client asks about services, mention these and direct them to the services page. "
 
         "PRICING: "
-        "- If asked about pricing, say: 'Pricing varies depending on your specific requirements. It's best to contact us directly via email at hello@syshub365.com or give us a call so we can understand your needs and provide an accurate quote.' "
-        "- Do NOT give specific numbers unless you're very sure. Keep it generic."
+        "- Websites start from $250 depending on features, pages, and complexity. "
+        "- Logo design, graphic design, social media, and all other services: pricing depends entirely on requirements and scope. "
+        "- If asked about any pricing, say: 'Pricing depends on your specific requirements. Please contact us at hello@syshub365.com for an accurate quote.' "
+        "- Do NOT give exact numbers. Always redirect to hello@syshub365.com for pricing."
         
         "STYLE: "
         "- Confident, direct, and helpful. "
         "- No bullet lists. No clichés. No robotic phrases. "
         "- If you don't know something specific, say so honestly and offer to connect them with the right person."
     )
+
+    # RAG: retrieve relevant knowledge from Qdrant
+    rag_context = search_knowledge(request.message, limit=3)
+    if rag_context:
+        knowledge_section = "\n\nRELEVANT KNOWLEDGE BASE CONTEXT:\n" + "\n---\n".join(rag_context)
+        system_prompt += knowledge_section
 
     # Construct messages list with history
     messages = [{"role": "system", "content": system_prompt}]
@@ -194,6 +218,18 @@ async def clear_chat_history(session_id: str, db: Session = Depends(get_db)):
     db.query(models.ChatMessageStore).filter(models.ChatMessageStore.session_id == session_id).delete()
     db.commit()
     return {"status": "success", "message": "Chat history cleared."}
+
+@app.post("/api/knowledge/ingest")
+async def ingest_knowledge(request: KnowledgeIngestRequest):
+    if not ensure_collection():
+        raise HTTPException(status_code=500, detail="Qdrant not available")
+    count = ingest_texts(request.texts, request.metadata if request.metadata else None)
+    return {"status": "success", "ingested": count}
+
+@app.post("/api/knowledge/search")
+async def search_knowledge_endpoint(request: KnowledgeSearchRequest):
+    results = search_knowledge(request.query, request.limit)
+    return {"results": results}
 
 @app.post("/api/contact")
 async def handle_contact(request: ContactRequest, db: Session = Depends(get_db)):
