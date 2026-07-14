@@ -70,7 +70,7 @@ function NewsletterForm() {
       />
 
       <button disabled={status === "loading"} type="submit" className="btn-obsidian-primary w-full py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50">
-        {status === "loading" ? <LuLoader2 size={12} className="animate-spin" /> : null}
+        {status === "loading" ? <LuLoader size={12} className="animate-spin" /> : null}
         {status === "success" ? "Subscribed!" : status === "error" ? "Failed" : "Subscribe Now"}
       </button>
     </form>
