@@ -18,10 +18,11 @@ app = FastAPI(title="SysHub365 API")
 # Initialize database tables
 models.Base.metadata.create_all(bind=engine)
 
-# Setup CORS to allow requests from the Next.js frontend
+# Setup CORS to allow requests from frontends
+ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -105,7 +106,7 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
     # OpenRouter API integration with fallback models
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "HTTP-Referer": "http://localhost:3000",
+        "HTTP-Referer": os.getenv("SITE_URL", "http://localhost:3000"),
         "X-Title": "SysHub365 Website",
     }
 

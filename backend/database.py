@@ -13,7 +13,7 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 # Example structure for Neon DB connection
-SQLALCHEMY_DATABASE_URL = os.getenv("NEON_DATABASE_URL", "sqlite:///./sql_app.db")
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL") or os.getenv("NEON_DATABASE_URL", "sqlite:///./sql_app.db")
 
 def create_database_engine_with_retries(max_retries=3, delay=1):
     """Create database engine with retry logic for connection issues"""

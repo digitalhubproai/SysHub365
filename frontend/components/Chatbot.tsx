@@ -34,7 +34,7 @@ export function Chatbot() {
     // Fetch history from backend
     const fetchHistory = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/chat/history/${sId}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat/history/${sId}`);
         if (response.ok) {
           const history = await response.json();
           if (history.length > 0) {
@@ -69,7 +69,7 @@ export function Chatbot() {
     if (!confirm("Are you sure you want to clear your chat history?")) return;
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/chat/history/${sessionId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat/history/${sessionId}`, {
         method: "DELETE",
       });
       if (response.ok) {
@@ -92,7 +92,7 @@ export function Chatbot() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/api/chat", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
