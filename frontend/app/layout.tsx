@@ -143,7 +143,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             src="https://www.googletagmanager.com/ns.html?id=GTM-NL7TQQ23"
             height="0"
             width="0"
-            style="display:none;visibility:hidden"
+            style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
         <div className="dynamic-bg" />
