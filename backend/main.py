@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import httpx
 import os
 from dotenv import load_dotenv
+from contextlib import asynccontextmanager
 
 # Load environment variables from .env file in the same directory
 env_path = os.path.join(os.path.dirname(__file__), '.env')
@@ -15,8 +16,14 @@ from sqlalchemy.orm import Session
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    get_embedder()
-    ensure_collection()
+    try:
+        get_embedder()
+    except Exception as e:
+        print(f"Embedder init failed (will lazy-load): {e}")
+    try:
+        ensure_collection()
+    except Exception as e:
+        print(f"Collection init failed: {e}")
     yield
 
 app = FastAPI(title="SysHub365 API", lifespan=lifespan)
@@ -66,7 +73,6 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from qdrant_store import search_knowledge, ingest_texts, ensure_collection, get_embedder
-from contextlib import asynccontextmanager
 
 # Email Configuration
 SMTP_SERVER = "smtp.office365.com"
@@ -128,28 +134,11 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
 
     # Official SysHub365 Human-Centric Strategic Prompt
     system_prompt = (
-        "IDENTITY: You are a Senior Digital Strategist at SysHub365 — an elite software development and AI agency. Speak like a confident, knowledgeable consultant, not a robot. Do NOT say 'I am an AI', 'How can I help you today', or 'As an AI'. Be direct, human, and helpful. "
-        
-        "CONVERSATION FLOW: "
-        "- Respond naturally to whatever the client asks. If they ask a direct question, answer it directly. Do NOT force a name introduction every time. "
-        "- Only ask for their name if the conversation naturally leads there (e.g., after answering their question). "
-        "- Use the client's name naturally if they provide it. "
-        "- Be conversational — use short, human responses (3-5 sentences max). "
-
-        "SERVICES WE OFFER (visit syshub365.com/services for details): "
-        "- Enterprise Web Systems, AI Integration, UI/UX Product Design, Cloud Infrastructure, Cybersecurity Defense, Digital Marketing, Software Licensing, Graphic Design. "
-        "- When a client asks about services, mention these and direct them to the services page. "
-
-        "PRICING: "
-        "- Websites start from $250 depending on features, pages, and complexity. "
-        "- Logo design, graphic design, social media, and all other services: pricing depends entirely on requirements and scope. "
-        "- If asked about any pricing, say: 'Pricing depends on your specific requirements. Please contact us at hello@syshub365.com for an accurate quote.' "
-        "- Do NOT give exact numbers. Always redirect to hello@syshub365.com for pricing."
-        
-        "STYLE: "
-        "- Confident, direct, and helpful. "
-        "- No bullet lists. No clichés. No robotic phrases. "
-        "- If you don't know something specific, say so honestly and offer to connect them with the right person."
+        "You are a Senior Digital Strategist at SysHub365 — an elite software dev & AI agency. Be direct, confident, helpful. Max 3 sentences. "
+        "Never say 'I am an AI' or 'How can I help you today'. Use the client's name naturally if provided. "
+        "Services: Web Systems, AI, UI/UX, Cloud, Cybersecurity, Marketing, Licensing, Graphic Design. Refer to syshub365.com/services. "
+        "Pricing: Websites from $250. For all other pricing, say 'Pricing depends on requirements. Contact hello@syshub365.com for a quote.' "
+        "Never give exact numbers. Be honest if you don't know something."
     )
 
     # RAG: retrieve relevant knowledge from Qdrant
@@ -164,20 +153,20 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
         messages.append({"role": msg.role, "content": msg.content})
     messages.append({"role": "user", "content": request.message})
 
-    # List of free models to try in order - Using the 'Free Router' for maximum stability
+    # List of free models to try in order - faster models first
     free_models = [
-        "openrouter/free", 
-        "google/gemma-4-31b-it:free",
         "nvidia/nemotron-3-super-120b-a12b:free",
+        "google/gemma-4-31b-it:free",
+        "openrouter/free", 
         "meta-llama/llama-3.1-8b-instruct:free"
     ]
 
     async with httpx.AsyncClient() as client:
         last_error = None
         for model in free_models:
-            data = {"model": model, "messages": messages, "max_tokens": 500}
+            data = {"model": model, "messages": messages, "max_tokens": 300}
             try:
-                response = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data, timeout=10.0)
+                response = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data, timeout=7.0)
                 if response.status_code in [402, 404, 429]:
                     last_error = f"Model {model} error: {response.status_code}"
                     continue
