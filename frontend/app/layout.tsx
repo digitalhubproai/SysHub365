@@ -118,6 +118,20 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" className={cn("scroll-smooth", sora.variable, inter.variable, "font-sans")}>
       <head>
         <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18145714125"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'AW-18145714125');
+            `,
+          }}
+        />
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
