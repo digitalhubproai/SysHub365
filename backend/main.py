@@ -81,16 +81,8 @@ class KnowledgeSearchRequest(BaseModel):
     query: str = Field(..., max_length=1000)
     limit: int = Field(default=3, ge=1, le=20)
 
-import smtplib
-import threading
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 from qdrant_store import search_knowledge, ingest_texts, ensure_collection, get_embedder
 
-SMTP_SERVER = "smtp.office365.com"
-SMTP_PORT = 587
-SMTP_USER = os.getenv("SMTP_USER")
-SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
 
 def verify_admin_key(x_api_key: str = Header(default="")):
     if not API_ADMIN_KEY:
@@ -98,30 +90,6 @@ def verify_admin_key(x_api_key: str = Header(default="")):
     if x_api_key != API_ADMIN_KEY:
         raise HTTPException(status_code=403, detail="Invalid API key")
     return x_api_key
-
-def notify_admin(subject: str, content: str):
-    print(f"PREPARING NOTIFICATION TO hello@syshub365.com")
-    
-    if not SMTP_USER or not SMTP_PASSWORD:
-        print("SMTP Credentials missing. Printing to terminal instead:")
-        print(f"Subject: {subject}\nContent: {content}")
-        return
-
-    try:
-        msg = MIMEMultipart()
-        msg['From'] = SMTP_USER
-        msg['To'] = "hello@syshub365.com"
-        msg['Subject'] = subject
-        msg.attach(MIMEText(content, 'plain'))
-
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=10)
-        server.starttls()
-        server.login(SMTP_USER, SMTP_PASSWORD)
-        server.send_message(msg)
-        server.quit()
-        print("Email notification sent successfully via Microsoft SMTP.")
-    except Exception as e:
-        print(f"Failed to send email notification: {e}")
 
 @app.post("/api/chat")
 @limiter.limit("10/minute")
@@ -295,13 +263,11 @@ async def handle_contact(request: Request, body: ContactRequest, db: Session = D
     except Exception as e:
         db.rollback()
         print(f"DB save failed (contact): {e}")
-    threading.Thread(target=notify_admin, args=(f"New Contact Inquiry from {body.name}", f"Name: {body.name}\nEmail: {body.email}\nPhone: {body.phone}\nMessage: {body.message}"), daemon=True).start()
     return {"status": "success", "message": "Message received and stored."}
 
 @app.post("/api/newsletter")
 @limiter.limit("5/minute")
 async def handle_newsletter(request: Request, body: NewsletterRequest):
-    threading.Thread(target=notify_admin, args=("New Newsletter Subscription", f"Email: {body.email}"), daemon=True).start()
     return {"status": "success", "message": "Subscribed successfully."}
 
 @app.get("/")
