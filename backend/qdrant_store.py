@@ -23,7 +23,7 @@ def get_qdrant_client():
         return None
     try:
         from qdrant_client import QdrantClient
-        _client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY)
+        _client = QdrantClient(url=QDRANT_URL, api_key=QDRANT_API_KEY, timeout=10)
         logger.info("Connected to Qdrant Cloud")
         return _client
     except Exception as e:

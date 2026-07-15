@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, EmailStr
 import httpx
@@ -8,6 +8,7 @@ from contextlib import asynccontextmanager
 from slowapi import Limiter, _rate_limit_exceeded_handler
 from slowapi.util import get_remote_address
 from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.requests import Request
 
 env_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path=env_path)
@@ -30,21 +31,16 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    try:
-        get_embedder()
-    except Exception as e:
-        print(f"Embedder init failed (will lazy-load): {e}")
-    try:
-        ensure_collection()
-    except Exception as e:
-        print(f"Collection init failed: {e}")
+    for fn, name in [(models.Base.metadata.create_all, "create_all"), (get_embedder, "embedder"), (ensure_collection, "collection")]:
+        try:
+            fn(bind=engine) if name == "create_all" else fn()
+        except Exception as e:
+            print(f"Lifespan: {name} failed ({e})")
     yield
 
 app = FastAPI(title="SysHub365 API", lifespan=lifespan)
 app.state.limiter = limiter
 app.add_exception_handler(429, _rate_limit_exceeded_handler)
-
-models.Base.metadata.create_all(bind=engine)
 
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",")
 app.add_middleware(
@@ -86,6 +82,7 @@ class KnowledgeSearchRequest(BaseModel):
     limit: int = Field(default=3, ge=1, le=20)
 
 import smtplib
+import threading
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from qdrant_store import search_knowledge, ingest_texts, ensure_collection, get_embedder
@@ -117,7 +114,7 @@ def notify_admin(subject: str, content: str):
         msg['Subject'] = subject
         msg.attach(MIMEText(content, 'plain'))
 
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
+        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT, timeout=10)
         server.starttls()
         server.login(SMTP_USER, SMTP_PASSWORD)
         server.send_message(msg)
@@ -128,20 +125,20 @@ def notify_admin(subject: str, content: str):
 
 @app.post("/api/chat")
 @limiter.limit("10/minute")
-async def chat(request: ChatRequest, db: Session = Depends(get_db)):
+async def chat(request: Request, body: ChatRequest, db: Session = Depends(get_db)):
     if not OPENROUTER_API_KEY:
         return {"response": "I am the SysHub365 Agentic AI. I am currently operating in offline stub mode until the OpenRouter API key is provided."}
 
-    chat_session = db.query(models.ChatSession).filter(models.ChatSession.id == request.session_id).first()
+    chat_session = db.query(models.ChatSession).filter(models.ChatSession.id == body.session_id).first()
     if not chat_session:
-        chat_session = models.ChatSession(id=request.session_id)
+        chat_session = models.ChatSession(id=body.session_id)
         db.add(chat_session)
         db.commit()
     
     user_msg_store = models.ChatMessageStore(
-        session_id=request.session_id,
+        session_id=body.session_id,
         role="user",
-        content=request.message
+        content=body.message
     )
     db.add(user_msg_store)
     db.commit()
@@ -207,15 +204,15 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
         "- Testimonials: Sarah Jenkins (CEO, TechFlow), Marcus Thorne (VP Ops, NeuralSync), Aisha Rahman (Founder, OmniStore)."
     )
 
-    rag_context = search_knowledge(request.message, limit=3)
+    rag_context = search_knowledge(body.message, limit=3)
     if rag_context:
         knowledge_section = "\n\nRELEVANT KNOWLEDGE BASE CONTEXT:\n" + "\n---\n".join(rag_context)
         system_prompt += knowledge_section
 
     messages = [{"role": "system", "content": system_prompt}]
-    for msg in request.history:
+    for msg in body.history:
         messages.append({"role": msg.role, "content": msg.content})
-    messages.append({"role": "user", "content": request.message})
+    messages.append({"role": "user", "content": body.message})
 
     free_models = [
         "google/gemma-4-26b-a4b-it:free",
@@ -238,7 +235,7 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
                 if not reply:
                     continue
                 
-                assistant_msg_store = models.ChatMessageStore(session_id=request.session_id, role="assistant", content=reply)
+                assistant_msg_store = models.ChatMessageStore(session_id=body.session_id, role="assistant", content=reply)
                 db.add(assistant_msg_store)
                 db.commit()
                 return {"response": reply, "model_used": model}
@@ -289,22 +286,22 @@ async def search_knowledge_endpoint(request: KnowledgeSearchRequest, _=Depends(v
 
 @app.post("/api/contact")
 @limiter.limit("5/minute")
-async def handle_contact(request: ContactRequest, db: Session = Depends(get_db)):
+async def handle_contact(request: Request, body: ContactRequest, db: Session = Depends(get_db)):
     try:
-        db_message = models.ContactMessage(name=request.name, email=request.email, message=request.message)
+        db_message = models.ContactMessage(name=body.name, email=body.email, message=body.message)
         db.add(db_message)
         db.commit()
         db.refresh(db_message)
-        notify_admin(subject=f"New Contact Inquiry from {request.name}", content=f"Name: {request.name}\nEmail: {request.email}\nPhone: {request.phone}\nMessage: {request.message}")
-        return {"status": "success", "message": "Message received and stored."}
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail="An internal error occurred")
+        print(f"DB save failed (contact): {e}")
+    threading.Thread(target=notify_admin, args=(f"New Contact Inquiry from {body.name}", f"Name: {body.name}\nEmail: {body.email}\nPhone: {body.phone}\nMessage: {body.message}"), daemon=True).start()
+    return {"status": "success", "message": "Message received and stored."}
 
 @app.post("/api/newsletter")
 @limiter.limit("5/minute")
-async def handle_newsletter(request: NewsletterRequest):
-    notify_admin(subject="New Newsletter Subscription", content=f"Email: {request.email}")
+async def handle_newsletter(request: Request, body: NewsletterRequest):
+    threading.Thread(target=notify_admin, args=("New Newsletter Subscription", f"Email: {body.email}"), daemon=True).start()
     return {"status": "success", "message": "Subscribed successfully."}
 
 @app.get("/")
