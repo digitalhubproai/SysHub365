@@ -23,7 +23,7 @@ def create_database_engine_with_retries(max_retries=3, delay=1):
                 SQLALCHEMY_DATABASE_URL,
                 pool_pre_ping=True,  # Enable connection health checks
                 pool_recycle=300,    # Recycle connections after 5 minutes
-                connect_args={"sslmode": "require"} if "neon.tech" in SQLALCHEMY_DATABASE_URL else {}
+                connect_args={"sslmode": "require"} if any(domain in SQLALCHEMY_DATABASE_URL for domain in ["neon.tech", "insforge.app"]) else {}
             )
             # Test the connection
             with engine.connect() as conn:
@@ -49,7 +49,7 @@ try:
 except Exception as e:
     logger.error(f"Could not initialize database engine: {str(e)}")
     # Fallback to SQLite for development if Neon fails
-    if "neon.tech" in SQLALCHEMY_DATABASE_URL:
+    if any(domain in SQLALCHEMY_DATABASE_URL for domain in ["neon.tech", "insforge.app"]):
         logger.warning("Falling back to SQLite database for development")
         engine = create_engine("sqlite:///./sql_app.db", connect_args={"check_same_thread": False})
     else:
