@@ -1,18 +1,32 @@
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, EmailStr
 import httpx
 import os
 from dotenv import load_dotenv
 from contextlib import asynccontextmanager
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from starlette.middleware.base import BaseHTTPMiddleware
 
-# Load environment variables from .env file in the same directory
 env_path = os.path.join(os.path.dirname(__file__), '.env')
 load_dotenv(dotenv_path=env_path)
 
 import models
 from database import engine, get_db
 from sqlalchemy.orm import Session
+
+limiter = Limiter(key_func=get_remote_address)
+
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        response = await call_next(request)
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["Permissions-Policy"] = "geolocation=(), camera=(), microphone=()"
+        return response
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -27,58 +41,71 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(title="SysHub365 API", lifespan=lifespan)
+app.state.limiter = limiter
+app.add_exception_handler(429, _rate_limit_exceeded_handler)
 
-# Initialize database tables
 models.Base.metadata.create_all(bind=engine)
 
-# Setup CORS to allow requests from frontends
 ALLOWED_ORIGINS = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
-    allow_headers=["*"],
+    allow_headers=["Content-Type", "Authorization", "X-API-Key", "X-Requested-With"],
 )
+app.add_middleware(SecurityHeadersMiddleware)
 
 OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+API_ADMIN_KEY = os.getenv("API_ADMIN_KEY", "")
 
 class ChatMessage(BaseModel):
-    role: str
-    content: str
+    role: str = Field(..., max_length=50)
+    content: str = Field(..., max_length=5000)
 
 class ChatRequest(BaseModel):
-    message: str
-    session_id: str
-    history: list[ChatMessage] = []
+    message: str = Field(..., max_length=4000)
+    session_id: str = Field(..., max_length=64)
+    history: list[ChatMessage] = Field(default_factory=list, max_length=50)
 
 class ContactRequest(BaseModel):
-    name: str
-    email: str
-    phone: str = ""
-    message: str
+    name: str = Field(..., max_length=200)
+    email: EmailStr
+    phone: str = Field("", max_length=50)
+    message: str = Field(..., max_length=5000)
 
 class NewsletterRequest(BaseModel):
-    email: str
+    email: EmailStr
 
 class KnowledgeIngestRequest(BaseModel):
-    texts: list[str]
-    metadata: list[dict] = []
+    texts: list[str] = Field(..., max_length=100)
+    metadata: list[dict] = Field(default_factory=list, max_length=100)
 
 class KnowledgeSearchRequest(BaseModel):
-    query: str
-    limit: int = 3
+    query: str = Field(..., max_length=1000)
+    limit: int = Field(default=3, ge=1, le=20)
 
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from qdrant_store import search_knowledge, ingest_texts, ensure_collection, get_embedder
 
-# Email Configuration
 SMTP_SERVER = "smtp.office365.com"
 SMTP_PORT = 587
-SMTP_USER = os.getenv("SMTP_USER") # Your full microsoft email
-SMTP_PASSWORD = os.getenv("SMTP_PASSWORD") # Your app password
+SMTP_USER = os.getenv("SMTP_USER")
+SMTP_PASSWORD = os.getenv("SMTP_PASSWORD")
+
+def verify_admin_key(x_api_key: str = Header(default="")):
+    if not API_ADMIN_KEY:
+        raise HTTPException(status_code=500, detail="Admin API key not configured")
+    if x_api_key != API_ADMIN_KEY:
+        raise HTTPException(status_code=403, detail="Invalid API key")
+    return x_api_key
+
+def verify_csrf(x_requested_with: str = Header(default="")):
+    if x_requested_with != "XMLHttpRequest":
+        raise HTTPException(status_code=403, detail="CSRF check failed")
+    return x_requested_with
 
 def notify_admin(subject: str, content: str):
     print(f"PREPARING NOTIFICATION TO hello@syshub365.com")
@@ -105,18 +132,17 @@ def notify_admin(subject: str, content: str):
         print(f"Failed to send email notification: {e}")
 
 @app.post("/api/chat")
-async def chat(request: ChatRequest, db: Session = Depends(get_db)):
+@limiter.limit("10/minute")
+async def chat(request: ChatRequest, db: Session = Depends(get_db), _=Depends(verify_csrf)):
     if not OPENROUTER_API_KEY:
         return {"response": "I am the SysHub365 Agentic AI. I am currently operating in offline stub mode until the OpenRouter API key is provided."}
 
-    # Session persistence logic
     chat_session = db.query(models.ChatSession).filter(models.ChatSession.id == request.session_id).first()
     if not chat_session:
         chat_session = models.ChatSession(id=request.session_id)
         db.add(chat_session)
         db.commit()
     
-    # Save user message
     user_msg_store = models.ChatMessageStore(
         session_id=request.session_id,
         role="user",
@@ -125,7 +151,6 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
     db.add(user_msg_store)
     db.commit()
 
-    # OpenRouter API integration with fallback models
     headers = {
         "Authorization": f"Bearer {OPENROUTER_API_KEY}",
         "HTTP-Referer": os.getenv("SITE_URL", "http://localhost:3000"),
@@ -187,19 +212,16 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
         "- Testimonials: Sarah Jenkins (CEO, TechFlow), Marcus Thorne (VP Ops, NeuralSync), Aisha Rahman (Founder, OmniStore)."
     )
 
-    # RAG: retrieve relevant knowledge from Qdrant
     rag_context = search_knowledge(request.message, limit=3)
     if rag_context:
         knowledge_section = "\n\nRELEVANT KNOWLEDGE BASE CONTEXT:\n" + "\n---\n".join(rag_context)
         system_prompt += knowledge_section
 
-    # Construct messages list with history
     messages = [{"role": "system", "content": system_prompt}]
     for msg in request.history:
         messages.append({"role": msg.role, "content": msg.content})
     messages.append({"role": "user", "content": request.message})
 
-    # List of free models to try in order - faster models first
     free_models = [
         "google/gemma-4-26b-a4b-it:free",
         "nvidia/nemotron-3-super-120b-a12b:free",
@@ -221,7 +243,6 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
                 if not reply:
                     continue
                 
-                # Save assistant response to DB
                 assistant_msg_store = models.ChatMessageStore(session_id=request.session_id, role="assistant", content=reply)
                 db.add(assistant_msg_store)
                 db.commit()
@@ -231,43 +252,48 @@ async def chat(request: ChatRequest, db: Session = Depends(get_db)):
                     last_error = f"Model {model} error: {e.response.status_code}"
                     continue
                 else:
-                    last_error = f"HTTP {e.response.status_code}: {str(e)}"
+                    last_error = f"HTTP error"
                     break
             except Exception as e:
-                last_error = str(e)
+                last_error = "internal_error"
                 continue
 
     if last_error:
         error_str = str(last_error).lower()
         if any(keyword in error_str for keyword in ["402", "payment", "credits"]):
             return {"response": "Premium API tokens reached limit.", "model_used": "fallback_payment"}
-        return {"response": f"Unexpected challenge (Error: {last_error}).", "model_used": "fallback_general"}
-    raise HTTPException(status_code=500, detail="Unknown error")
+        return {"response": "Unexpected challenge. Please try again later.", "model_used": "fallback_general"}
+    raise HTTPException(status_code=500, detail="An internal error occurred")
 
 @app.get("/api/chat/history/{session_id}")
 async def get_chat_history(session_id: str, db: Session = Depends(get_db)):
+    if len(session_id) > 64:
+        raise HTTPException(status_code=400, detail="Invalid session ID")
     messages = db.query(models.ChatMessageStore).filter(models.ChatMessageStore.session_id == session_id).order_by(models.ChatMessageStore.created_at.asc()).all()
     return [{"role": m.role, "content": m.content} for m in messages]
 
 @app.delete("/api/chat/history/{session_id}")
 async def clear_chat_history(session_id: str, db: Session = Depends(get_db)):
+    if len(session_id) > 64:
+        raise HTTPException(status_code=400, detail="Invalid session ID")
     db.query(models.ChatMessageStore).filter(models.ChatMessageStore.session_id == session_id).delete()
     db.commit()
     return {"status": "success", "message": "Chat history cleared."}
 
 @app.post("/api/knowledge/ingest")
-async def ingest_knowledge(request: KnowledgeIngestRequest):
+async def ingest_knowledge(request: KnowledgeIngestRequest, _=Depends(verify_admin_key)):
     if not ensure_collection():
         raise HTTPException(status_code=500, detail="Qdrant not available")
     count = ingest_texts(request.texts, request.metadata if request.metadata else None)
     return {"status": "success", "ingested": count}
 
 @app.post("/api/knowledge/search")
-async def search_knowledge_endpoint(request: KnowledgeSearchRequest):
+async def search_knowledge_endpoint(request: KnowledgeSearchRequest, _=Depends(verify_admin_key)):
     results = search_knowledge(request.query, request.limit)
     return {"results": results}
 
 @app.post("/api/contact")
+@limiter.limit("5/minute")
 async def handle_contact(request: ContactRequest, db: Session = Depends(get_db)):
     try:
         db_message = models.ContactMessage(name=request.name, email=request.email, message=request.message)
@@ -278,9 +304,10 @@ async def handle_contact(request: ContactRequest, db: Session = Depends(get_db))
         return {"status": "success", "message": "Message received and stored."}
     except Exception as e:
         db.rollback()
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="An internal error occurred")
 
 @app.post("/api/newsletter")
+@limiter.limit("5/minute")
 async def handle_newsletter(request: NewsletterRequest):
     notify_admin(subject="New Newsletter Subscription", content=f"Email: {request.email}")
     return {"status": "success", "message": "Subscribed successfully."}

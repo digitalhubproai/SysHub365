@@ -26,7 +26,7 @@ export function Chatbot() {
     // Initialize or retrieve session ID
     let sId = localStorage.getItem("syshub_chat_session");
     if (!sId) {
-      sId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+      sId = crypto.randomUUID();
       localStorage.setItem("syshub_chat_session", sId);
     }
     setSessionId(sId);
@@ -94,7 +94,7 @@ export function Chatbot() {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", "X-Requested-With": "XMLHttpRequest" },
         body: JSON.stringify({ 
           message: userMessage.content,
           session_id: sessionId,
