@@ -94,7 +94,7 @@ export function Chatbot() {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/chat`, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "X-Requested-With": "XMLHttpRequest" },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           message: userMessage.content,
           session_id: sessionId,

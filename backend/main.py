@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Depends, Header
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, EmailStr
 import httpx
@@ -102,11 +102,6 @@ def verify_admin_key(x_api_key: str = Header(default="")):
         raise HTTPException(status_code=403, detail="Invalid API key")
     return x_api_key
 
-def verify_csrf(x_requested_with: str = Header(default="")):
-    if x_requested_with != "XMLHttpRequest":
-        raise HTTPException(status_code=403, detail="CSRF check failed")
-    return x_requested_with
-
 def notify_admin(subject: str, content: str):
     print(f"PREPARING NOTIFICATION TO hello@syshub365.com")
     
@@ -133,7 +128,7 @@ def notify_admin(subject: str, content: str):
 
 @app.post("/api/chat")
 @limiter.limit("10/minute")
-async def chat(request: ChatRequest, db: Session = Depends(get_db), _=Depends(verify_csrf)):
+async def chat(request: ChatRequest, db: Session = Depends(get_db)):
     if not OPENROUTER_API_KEY:
         return {"response": "I am the SysHub365 Agentic AI. I am currently operating in offline stub mode until the OpenRouter API key is provided."}
 
