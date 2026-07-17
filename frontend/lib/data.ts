@@ -22,7 +22,7 @@ export const PROJECTS: Project[] = [
       "Cryogenic Care: Specialized cold-chain logistics for sensitive goods with ±0.1°C thermal variance.",
       "Self-Stabilizing Containers: Active stabilizer arrays to protect delicate luxury goods during transit."
     ],
-    img: "/images/InsTranz.png",
+    img: "/images/InsTranz.webp",
     link: "https://ins-tranz.vercel.app/",
     tags: ["Logistics Tech", "AI", "Robotics", "IoT", "Aerospace", "Cold-Chain"]
   },
@@ -38,7 +38,7 @@ export const PROJECTS: Project[] = [
       "Reality Stack Integration: Seamless blend of AR overlays and full VR immersion.",
       "Predictive AI Models: Advanced foresight tools to optimize strategic decision-making."
     ],
-    img: "/images/VRlogic.png",
+    img: "/images/VRlogic.webp",
     link: "https://v-rlogic.vercel.app/",
     tags: ["VR/AR", "Spatial Computing", "Neural Engineering", "AI Analytics", "Quantum Encryption", "Three.js"]
   },
@@ -54,7 +54,7 @@ export const PROJECTS: Project[] = [
       "Auto-Healing Core: Self-optimizing system ensuring 99.99% uptime and automatic failover.",
       "Rapid Integration: API-first architecture for seamless sync with existing systems in minutes."
     ],
-    img: "/images/NexusAI.png",
+    img: "/images/NexusAI.webp",
     link: "https://nexus-ai-iota-ashy.vercel.app/",
     tags: ["Autonomous Agents", "LLM", "Multi-Agent Systems", "Neural Networks", "Enterprise Automation", "Deep Learning"]
   },
@@ -69,7 +69,7 @@ export const PROJECTS: Project[] = [
       "Data Sovereignty: AES-256 encryption for sovereign-level health record security.",
       "Anomaly Identification: Extracts biomarkers and identifies clinical anomalies."
     ],
-    img: "/images/Obvis-–-AI-Medical-Intelligence.png",
+    img: "/images/Obvis-–-AI-Medical-Intelligence.webp",
     link: "https://obvis-yyes.vercel.app/",
     tags: ["Next.js", "Python", "AI", "Healthcare", "Decision Support"]
   },
@@ -84,8 +84,7 @@ export const PROJECTS: Project[] = [
       "Freelancer Toolkit: Tailored resources for independent creative professionals.",
       "Scalable Infrastructure: Built to grow alongside your consulting business."
     ],
-    img: "/images/passion-profit.png",
-    link: "https://www.passion-profit.com",
+    img: "/images/passion-profit.webp",
     tags: ["Consulting", "Marketing Automation", "B2B", "Next.js", "Lead Gen"]
   },
   {
@@ -103,7 +102,7 @@ export const PROJECTS: Project[] = [
       "Strategic Partnerships: Collaboration with Swisscom Blockchain for electronic seal technology and security support from Microsoft.",
       "Media Recognition: Featured in IT Magazine, WatchPro, Computerworld, FinTech News, MoneyToday, and other prominent publications."
     ],
-    img: "/images/adresta.png",
+    img: "/images/adresta.webp",
     link: "https://adresta.ch",
     tags: ["Blockchain", "SaaS", "Luxury", "NFT", "Watchmaking", "Fintech", "Swiss Made", "ETH Zurich Spinoff"]
   },
@@ -122,8 +121,7 @@ export const PROJECTS: Project[] = [
       "Client Success: Proven track record with Lake Michigan Credit Union and other financial institutions achieving 15% throughput increase alongside labor reduction.",
       "Services Framework: Comprehensive Advise, Assess, and Deliver methodology ensuring end-to-end automation success."
     ],
-    img: "/images/greenlight.png",
-    link: "https://greenlightconsulting.com",
+    img: "/images/greenlight.webp",
     tags: ["Agentic AI", "UiPath", "Orchestration", "IDP", "RPA", "Automation Cloud", "Strategic Partnerships", "Hybrid Delivery"]
   },
   { 
@@ -183,7 +181,7 @@ export const PROJECTS: Project[] = [
       "Professional Training: Expert-led modules for recall, lead work, and basic obedience.",
       "Fear-Free Environment: Purpose-built facilities designed to ensure a stress-free experience for all pets."
     ],
-    img: "/images/wagtails.png",
+    img: "/images/wagtails.webp",
     link: "https://www.wagtails.co.uk/",
     tags: ["Pet Care", "Booking System", "UI/UX", "Trainer-Led", "Enrichment"]
   },

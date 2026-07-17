@@ -5,6 +5,16 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy | SysHub365",
   description: "Learn how SysHub365 handles your data with our simple, transparent Privacy Policy.",
+  keywords: [
+    "SysHub365 privacy",
+    "privacy policy",
+    "data protection",
+    "data privacy",
+    "GDPR",
+  ],
+  alternates: {
+    canonical: "/privacy",
+  },
 };
 
 export default function PrivacyPage() {

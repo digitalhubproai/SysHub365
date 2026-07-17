@@ -18,6 +18,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${post.title} | SysHub365 Blog`,
     description: post.excerpt,
+    keywords: [
+      "SysHub365 blog",
+      "software engineering",
+      "tech insights",
+      post.title,
+    ],
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,

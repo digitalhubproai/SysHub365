@@ -3,6 +3,17 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact Us | SysHub365",
   description: "Get in touch with SysHub365. Ready to start your next project? Whether you need a full development squad or a technical consultation, we are here to help.",
+  keywords: [
+    "contact SysHub365",
+    "software consultation",
+    "hire software engineers",
+    "web development quote",
+    "tech project inquiry",
+    "get in touch",
+  ],
+  alternates: {
+    canonical: "/contact",
+  },
   openGraph: {
     title: "Contact SysHub365 - Let's Build Something Great",
     description: "Get in touch with SysHub365. Ready to start your next project?",

@@ -15,6 +15,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${project.title} | SysHub365 Portfolio`,
     description: project.desc,
+    keywords: [
+      "SysHub365 portfolio",
+      "software project",
+      "case study",
+      project.title,
+    ],
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
     openGraph: {
       title: project.title,
       description: project.desc,

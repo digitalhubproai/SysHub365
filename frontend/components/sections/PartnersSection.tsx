@@ -3,13 +3,13 @@
 import Image from "next/image";
 
 const PARTNER_LOGOS = [
-  "adobe-2.svg",
-  "azure-2.svg",
-  "cisco-2.svg",
-  "ibm.svg",
-  "logo-amazon.svg",
-  "microsoft-6.svg",
-  "oracle-logo.svg",
+  { file: "adobe-2.svg", name: "Adobe" },
+  { file: "azure-2.svg", name: "Microsoft Azure" },
+  { file: "cisco-2.svg", name: "Cisco" },
+  { file: "ibm.svg", name: "IBM" },
+  { file: "logo-amazon.svg", name: "Amazon Web Services" },
+  { file: "microsoft-6.svg", name: "Microsoft" },
+  { file: "oracle-logo.svg", name: "Oracle" },
 ];
 
 export function PartnersSection() {
@@ -46,8 +46,8 @@ export function PartnersSection() {
                   <div key={`${set}-${i}`} className="flex items-center gap-16 md:gap-32">
                     <div className="flex items-center justify-center brightness-0 invert opacity-40 group-hover/marquee:opacity-15 hover:!opacity-100 hover:scale-[1.15] hover:drop-shadow-[0_0_25px_rgba(255,255,255,0.6)] transition-all duration-500 cursor-pointer">
                       <Image 
-                        src={`/images/company logos/${logo}`} 
-                        alt="Partner Logo" 
+                        src={`/images/company logos/${logo.file}`} 
+                        alt={`${logo.name} - trusted partner of SysHub365`} 
                         width={200} 
                         height={80} 
                         className="object-contain h-10 md:h-12 w-auto" 
