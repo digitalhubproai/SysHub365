@@ -150,6 +150,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
         />
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="MhT69x5RT7gjX3m3wRRtxg"
+          async
+        />
       </head>
       <body className="bg-transparent antialiased min-h-screen flex flex-col relative z-0">
         <noscript>

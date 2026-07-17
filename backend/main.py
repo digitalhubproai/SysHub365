@@ -81,7 +81,9 @@ class KnowledgeSearchRequest(BaseModel):
     query: str = Field(..., max_length=1000)
     limit: int = Field(default=3, ge=1, le=20)
 
+import asyncio
 from qdrant_store import search_knowledge, ingest_texts, ensure_collection, get_embedder
+import email_service
 
 
 def verify_admin_key(x_api_key: str = Header(default="")):
@@ -263,11 +265,33 @@ async def handle_contact(request: Request, body: ContactRequest, db: Session = D
     except Exception as e:
         db.rollback()
         print(f"DB save failed (contact): {e}")
+
+    try:
+        await asyncio.to_thread(
+            email_service.send_contact_notification,
+            body.name, body.email, body.phone, body.message
+        )
+    except Exception as e:
+        print(f"Email send failed (contact): {e}")
+
     return {"status": "success", "message": "Message received and stored."}
 
 @app.post("/api/newsletter")
 @limiter.limit("5/minute")
-async def handle_newsletter(request: Request, body: NewsletterRequest):
+async def handle_newsletter(request: Request, body: NewsletterRequest, db: Session = Depends(get_db)):
+    try:
+        db_sub = models.NewsletterSubscription(email=body.email)
+        db.add(db_sub)
+        db.commit()
+    except Exception as e:
+        db.rollback()
+        print(f"DB save failed (newsletter): {e}")
+
+    try:
+        await asyncio.to_thread(email_service.send_newsletter_notification, body.email)
+    except Exception as e:
+        print(f"Email send failed (newsletter): {e}")
+
     return {"status": "success", "message": "Subscribed successfully."}
 
 @app.get("/")

@@ -33,3 +33,10 @@ class ChatMessageStore(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     session = relationship("ChatSession", back_populates="messages")
+
+class NewsletterSubscription(Base):
+    __tablename__ = "newsletter_subscriptions"
+
+    id = Column(Integer, primary_key=True, index=True)
+    email = Column(String(255), nullable=False, unique=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
