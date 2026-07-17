@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { LuArrowUpRight, LuSearch, LuMail } from "react-icons/lu";
+import { LuArrowUpRight, LuSearch, LuMail, LuCheck, LuTriangleAlert } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
 import { BLOG_POSTS } from "@/lib/data";
@@ -19,6 +19,8 @@ const CATEGORIES = ["All", "AI & Healthcare", "Watch SaaS", "Agentic Automation"
 export default function Blog() {
   const [search, setSearch] = useState("");
   const [active, setActive] = useState("All");
+  const [email, setEmail] = useState("");
+  const [subStatus, setSubStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
 
   const filtered = BLOG_POSTS.filter((p) => {
     const matchesSearch = p.title.toLowerCase().includes(search.toLowerCase()) || p.excerpt.toLowerCase().includes(search.toLowerCase());
@@ -199,27 +201,65 @@ export default function Blog() {
       {/* Newsletter Protocol */}
       <section className="py-32 bg-[var(--obsidian-deep)] relative overflow-hidden border-t border-white/5">
          <div className="max-w-[90rem] mx-auto flex flex-col items-center text-center gap-10 px-6">
-            <div className="w-16 h-16 rounded-full bg-electric-blue/10 flex items-center justify-center text-electric-blue">
-               <LuMail size={28} />
+            <div className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors ${subStatus === "success" ? "bg-green-500/10 text-green-400" : subStatus === "error" ? "bg-red-500/10 text-red-400" : "bg-electric-blue/10 text-electric-blue"}`}>
+               {subStatus === "success" ? <LuCheck size={28} /> : subStatus === "error" ? <LuTriangleAlert size={28} /> : <LuMail size={28} />}
             </div>
             <div className="flex flex-col gap-4">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-                 Subscribe for Technical Updates.
+                {subStatus === "success" ? "Subscribed Successfully." : "Subscribe for Technical Updates."}
               </h2>
               <p className="text-lg text-slate-400 max-w-xl">
-                 Get high-quality architectural research and insight reports delivered directly to your transmission feed.
+                {subStatus === "success"
+                  ? "You're now on the list. We'll send you high-quality architectural research directly."
+                  : "Get high-quality architectural research and insight reports delivered directly to your transmission feed."}
               </p>
             </div>
             
-            <div className="relative w-full max-w-lg mt-4 group">
-               <input 
-                 placeholder="Enter email address" 
-                 className="w-full bg-white/[0.03] border border-white/10 rounded-2xl py-6 px-8 pr-40 text-white focus:outline-none focus:border-electric-blue transition-all placeholder:text-slate-600" 
-               />
-                <Button variant="shimmer" className="absolute right-3 top-1/2 -translate-y-1/2 !px-8 !py-3 !rounded-xl">
-                   Subscribe
+            {subStatus !== "success" && (
+              <form
+                onSubmit={async (e: FormEvent) => {
+                  e.preventDefault();
+                  if (!email.trim() || subStatus === "loading") return;
+                  setSubStatus("loading");
+                  try {
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newsletter/subscribe`, {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ email: email.trim() }),
+                    });
+                    if (!res.ok) throw new Error("Failed");
+                    setSubStatus("success");
+                    setEmail("");
+                  } catch {
+                    setSubStatus("error");
+                    setTimeout(() => setSubStatus("idle"), 4000);
+                  }
+                }}
+                className="relative w-full max-w-lg mt-4 group"
+              >
+                <input
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter email address"
+                  required
+                  type="email"
+                  className={`w-full bg-white/[0.03] border rounded-2xl py-6 px-8 pr-44 text-white focus:outline-none transition-all placeholder:text-slate-600 ${
+                    subStatus === "error" ? "border-red-500/50 focus:border-red-400" : "border-white/10 focus:border-electric-blue"
+                  }`}
+                />
+                <Button
+                  type="submit"
+                  variant="shimmer"
+                  disabled={subStatus === "loading"}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 !px-8 !py-3 !rounded-xl"
+                >
+                  {subStatus === "loading" ? "Sending..." : "Subscribe"}
                 </Button>
-            </div>
+              </form>
+            )}
+            {subStatus === "error" && (
+              <p className="text-xs text-red-400">Something went wrong. Please try again.</p>
+            )}
          </div>
       </section>
     </main>

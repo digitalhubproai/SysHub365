@@ -2,7 +2,7 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuArrowUpRight, LuMegaphone, LuKey, LuPenTool } from "react-icons/lu";
+import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuArrowUpRight, LuMegaphone, LuKey, LuPenTool, LuDatabase, LuUsers } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
 import { GradientIcon } from "@/components/GradientIcon";
@@ -68,6 +68,20 @@ const SERVICES_DETAILED = [
     slug: "graphic-design",
     desc: "Professional brand identity, modern logos, and custom marketing materials to visually elevate your brand and communicate your core message effectively.",
     gradient: ["#eab308", "#f97316"], id: "grad-graphic-det"
+  },
+  {
+    icon: <LuDatabase size={28} />,
+    title: "ERP Solutions",
+    slug: "erp-solutions",
+    desc: "End-to-end enterprise resource planning systems that streamline operations, automate workflows, and unify your business data.",
+    gradient: ["#06b6d4", "#10b981"], id: "grad-erp-det"
+  },
+  {
+    icon: <LuUsers size={28} />,
+    title: "CRM Solutions",
+    slug: "crm-solutions",
+    desc: "Custom customer relationship management platforms engineered to track leads, automate sales, and deepen client engagement.",
+    gradient: ["#3b82f6", "#8b5cf6"], id: "grad-crm-det"
   }
 ];
 
