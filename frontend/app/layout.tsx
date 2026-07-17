@@ -4,8 +4,8 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { ClientComponentsProvider } from "@/components/ClientComponentsProvider";
-import { CookieConsent } from "@/components/CookieConsent";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
+import { CookieConsent } from "@/components/CookieConsent";
 import { cn } from "@/lib/utils";
 
 const sora = Sora({
