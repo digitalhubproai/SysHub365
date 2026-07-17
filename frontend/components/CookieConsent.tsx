@@ -81,17 +81,17 @@ export function CookieConsent() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed bottom-0 left-0 right-0 z-[99999] p-4 md:p-6"
+            className="fixed bottom-0 left-0 right-0 z-[99999] p-3 sm:p-4 md:p-6"
           >
             <div className="mx-auto max-w-7xl">
-              <div className="relative overflow-hidden bg-black/80 backdrop-blur-3xl border border-white/10 rounded-[1.5rem] p-5 md:p-6 shadow-[0_0_80px_-20px_rgba(37,99,235,0.3)]">
-                <div className="flex flex-col md:flex-row items-start gap-4">
+              <div className="relative overflow-hidden bg-black/80 backdrop-blur-3xl border border-white/10 rounded-2xl sm:rounded-[1.5rem] p-4 sm:p-5 md:p-6 shadow-[0_0_80px_-20px_rgba(37,99,235,0.3)]">
+                <div className="flex flex-col md:flex-row items-start gap-3 sm:gap-4">
                   <div className="hidden md:flex w-10 h-10 rounded-full bg-electric-blue/10 items-center justify-center shrink-0 border border-white/10">
                     <LuCookie className="text-electric-blue" size={18} />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center justify-between gap-4 mb-2">
-                      <h3 className="text-sm font-bold text-white uppercase tracking-wider">
+                  <div className="flex-1 min-w-0 w-full md:w-auto">
+                    <div className="flex items-center justify-between gap-4 mb-1 sm:mb-2">
+                      <h3 className="text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
                         Cookie Consent
                       </h3>
                       <button
@@ -102,7 +102,7 @@ export function CookieConsent() {
                         <LuX size={16} />
                       </button>
                     </div>
-                    <p className="text-xs md:text-sm text-slate-400 leading-relaxed max-w-3xl">
+                    <p className="text-[11px] sm:text-xs md:text-sm text-slate-400 leading-relaxed max-w-3xl">
                       This site uses cookies to improve your experience and analyze traffic.
                       Choose which cookies you allow or{" "}
                       <a href="/privacy" className="text-electric-blue hover:text-cyber-cyan underline transition-colors">
@@ -110,14 +110,14 @@ export function CookieConsent() {
                       </a>.
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 shrink-0 pt-1">
-                    <Button variant="outline" size="sm" onClick={openSettings} className="!px-4 !py-2">
+                  <div className="flex flex-wrap items-center gap-2 shrink-0 pt-1 w-full sm:w-auto">
+                    <Button variant="outline" size="sm" onClick={openSettings} className="!px-3 sm:!px-4 !py-2 flex-1 sm:flex-none min-w-0 text-xs sm:text-sm">
                       Customize
                     </Button>
-                    <Button variant="obsidian" size="sm" onClick={handleRejectAll} className="!px-4 !py-2">
+                    <Button variant="obsidian" size="sm" onClick={handleRejectAll} className="!px-3 sm:!px-4 !py-2 flex-1 sm:flex-none min-w-0 text-xs sm:text-sm">
                       Reject All
                     </Button>
-                    <Button variant="primary" size="sm" onClick={handleAcceptAll} className="!px-4 !py-2">
+                    <Button variant="primary" size="sm" onClick={handleAcceptAll} className="!px-3 sm:!px-4 !py-2 flex-1 sm:flex-none min-w-0 text-xs sm:text-sm">
                       Accept All
                     </Button>
                   </div>
@@ -134,7 +134,7 @@ export function CookieConsent() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[99999] flex items-center justify-center p-4"
+            className="fixed inset-0 z-[99999] flex items-center justify-center p-3 sm:p-4"
           >
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setShowSettings(false)} />
             <motion.div
@@ -142,7 +142,7 @@ export function CookieConsent() {
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="relative w-full max-w-md bg-black/80 backdrop-blur-3xl border border-white/10 rounded-[1.5rem] p-6 shadow-[0_0_100px_-20px_rgba(37,99,235,0.3)]"
+              className="relative w-full max-w-md bg-black/80 backdrop-blur-3xl border border-white/10 rounded-2xl sm:rounded-[1.5rem] p-4 sm:p-6 shadow-[0_0_100px_-20px_rgba(37,99,235,0.3)] mx-3 sm:mx-0"
             >
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider">Cookie Settings</h3>
