@@ -18,7 +18,7 @@ if SQLALCHEMY_DATABASE_URL and any(d in SQLALCHEMY_DATABASE_URL for d in ["neon.
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL,
-    pool_pre_ping=False,
+    pool_pre_ping=True,
     pool_recycle=300,
     connect_args=ca
 )

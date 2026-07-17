@@ -222,7 +222,7 @@ export default function Blog() {
                   if (!email.trim() || subStatus === "loading") return;
                   setSubStatus("loading");
                   try {
-                    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newsletter/subscribe`, {
+                    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newsletter`, {
                       method: "POST",
                       headers: { "Content-Type": "application/json" },
                       body: JSON.stringify({ email: email.trim() }),

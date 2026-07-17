@@ -82,6 +82,7 @@ Thumbs.db
 
 # SQL dump
 *.sql
+!migrations/*.sql
 
 # SQLAlchemy
 alembic/
