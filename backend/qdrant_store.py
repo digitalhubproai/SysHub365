@@ -35,8 +35,8 @@ def get_embedder():
     if _embedder is not None:
         return _embedder
     try:
-        from sentence_transformers import SentenceTransformer
-        _embedder = SentenceTransformer("all-MiniLM-L6-v2")
+        from fastembed import TextEmbedding
+        _embedder = TextEmbedding(model_name="sentence-transformers/all-MiniLM-L6-v2", max_length=256)
         return _embedder
     except Exception as e:
         logger.error(f"Failed to load embedding model: {e}")
@@ -70,7 +70,7 @@ def ingest_texts(texts: list[str], metadata: Optional[list[dict]] = None) -> int
     try:
         from qdrant_client.http.models import PointStruct
         import uuid
-        embeddings = embedder.encode(texts, convert_to_numpy=True)
+        embeddings = list(embedder.embed(texts))
         points = []
         for i, (text, emb) in enumerate(zip(texts, embeddings)):
             payload = {"text": text}
@@ -90,7 +90,7 @@ def search_knowledge(query: str, limit: int = 3) -> list[str]:
     if not client or not embedder:
         return []
     try:
-        query_vector = embedder.encode(query, convert_to_numpy=True).tolist()
+        query_vector = list(embedder.embed([query]))[0].tolist()
         results = client.query_points(
             collection_name=QDRANT_COLLECTION,
             query=query_vector,
