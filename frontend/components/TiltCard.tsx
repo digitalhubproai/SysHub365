@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { memo, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 interface TiltCardProps {
@@ -8,7 +8,7 @@ interface TiltCardProps {
   className?: string;
 }
 
-export default function TiltCard({ children, className = "" }: TiltCardProps) {
+const TiltCard = memo(function TiltCard({ children, className = "" }: TiltCardProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -84,4 +84,4 @@ export default function TiltCard({ children, className = "" }: TiltCardProps) {
       </motion.div>
     </div>
   );
-}
+});

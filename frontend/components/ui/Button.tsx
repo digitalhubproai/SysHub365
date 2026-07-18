@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonHTMLAttributes, FC } from 'react';
+import { ButtonHTMLAttributes, memo } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -14,7 +14,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   rel?: string;
 }
 
-export const Button: FC<ButtonProps> = ({ 
+const ButtonComponent = ({ 
   className, 
   variant = 'primary', 
   size = 'md', 
@@ -24,7 +24,7 @@ export const Button: FC<ButtonProps> = ({
   rel,
   children,
   ...props 
-}) => {
+}: ButtonProps) => {
   const variants = {
     primary: 'btn-obsidian-primary',
     obsidian: 'btn-obsidian',
@@ -86,3 +86,5 @@ export const Button: FC<ButtonProps> = ({
     </motion.button>
   );
 };
+
+export const Button = memo(ButtonComponent);
