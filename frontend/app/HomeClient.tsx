@@ -63,7 +63,7 @@ export default function HomeClient() {
               <span className="text-xs font-bold uppercase tracking-widest text-white/80">Premium Development Studio</span>
             </motion.div>
 
-            <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-[4rem] lg:text-[5rem] font-extrabold text-white tracking-tight leading-[1.1]">
+            <motion.div variants={fadeUp} className="text-4xl sm:text-5xl md:text-[4rem] lg:text-[5rem] font-extrabold text-white tracking-tight leading-[1.1]">
               We Build Software <br/>
               That Drives{" "}
               <span className="inline-grid sm:text-left text-center">
@@ -80,7 +80,7 @@ export default function HomeClient() {
                   </motion.span>
                 </AnimatePresence>
               </span>
-            </motion.h1>
+            </motion.div>
 
             <motion.p variants={fadeUp} className="text-[17px] md:text-lg text-slate-400 max-w-2xl leading-relaxed">
               From fast-moving startups to established enterprises, we engineer scalable web applications, AI integrations, and digital platforms that deliver real business results.

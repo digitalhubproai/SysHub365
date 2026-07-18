@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     default: "SYSHUB365 | Premium Software Engineering Studio",
     template: "%s | SYSHUB365"
   },
-  description: "SYSHUB365 is a premium software engineering studio building high-performance web applications, AI-driven solutions, and enterprise digital ecosystems for global visionaries.",
+  description: "SYSHUB365 is a premium software engineering studio building high-performance web apps, AI solutions, and enterprise digital ecosystems for global visionaries.",
   keywords: [
     "software engineering", 
     "web development studio", 

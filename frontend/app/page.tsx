@@ -3,7 +3,7 @@ import HomeClient from "./HomeClient";
 
 export const metadata: Metadata = {
   title: "SYSHUB365 | Premium Software Engineering Studio",
-  description: "SYSHUB365 is a premium software engineering studio building high-performance web applications, AI-driven solutions, and enterprise digital ecosystems for global visionaries. Professional technical orchestration with architectural precision.",
+  description: "SYSHUB365 is a premium software engineering studio building high-performance web apps, AI solutions, and enterprise digital ecosystems for global visionaries.",
   keywords: [
     "software engineering studio",
     "web development agency",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "SYSHUB365 | Premium Software Engineering Studio",
-    description: "Architecting high-performance digital ecosystems for global visionaries. Professional software engineering with architectural precision.",
+    description: "SYSHUB365 is a premium software engineering studio building high-performance web apps, AI solutions, and enterprise digital ecosystems for global visionaries.",
     url: "https://syshub365.com",
     siteName: "SYSHUB365",
     images: [
