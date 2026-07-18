@@ -34,6 +34,18 @@ class ChatMessageStore(Base):
 
     session = relationship("ChatSession", back_populates="messages")
 
+class Lead(Base):
+    __tablename__ = "leads"
+
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255), nullable=False)
+    email = Column(String(255), nullable=True)
+    phone = Column(String(50), nullable=True)
+    source = Column(String(50), nullable=False, default="chatbot")
+    status = Column(String(50), nullable=False, default="new")
+    session_id = Column(String(255), nullable=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+
 class NewsletterSubscription(Base):
     __tablename__ = "newsletter_subscriptions"
 

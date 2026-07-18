@@ -70,6 +70,13 @@ class ContactRequest(BaseModel):
     phone: str = Field("", max_length=50)
     message: str = Field(..., max_length=5000)
 
+class LeadRequest(BaseModel):
+    name: str = Field(..., max_length=200)
+    email: str = Field("", max_length=255)
+    phone: str = Field("", max_length=50)
+    source: str = Field("chatbot", max_length=50)
+    session_id: str = Field("", max_length=64)
+
 class NewsletterRequest(BaseModel):
     email: EmailStr
 
@@ -120,10 +127,15 @@ async def chat(request: Request, body: ChatRequest, db: Session = Depends(get_db
     }
 
     system_prompt = (
-        "You are a Senior Digital Strategist at SysHub365. Be direct, confident, helpful. Max 3 sentences. "
-        "If the user greets you (hi, hello, hey, etc.), greet them back warmly. "
-        "Never say you are AI. Use the client's name if provided. "
+        "You are a Senior Digital Strategist at SysHub365. Be direct, confident, helpful. Max 3 sentences per response. "
+        "If the user greets you (hi, hello, hey, etc.), greet them back warmly and ask for their name and what they're looking for. "
+        "Never say you are AI. "
         "Refer to syshub365.com/services and syshub365.com/projects for details.\n\n"
+        "=== LEAD CAPTURE ===\n"
+        "Your goal is to qualify visitors. Politely ask for their name early in the conversation. "
+        "When they mention a project, service, or need, offer to connect them with the team — ask for their email and phone. "
+        "Once you have name + email or phone, say: 'Great, I'll have our team reach out to you shortly.' "
+        "Do NOT be pushy. If they refuse, respect that and continue helping.\n\n"
         "=== COMPANY INFO ===\n"
         "SysHub365 is a premium software engineering studio based in Karachi, Pakistan. "
         "Founded by Sarfraz Ahmad. Headquarters: A-407, Maymar Tower, Sector X-2, Gulshan-e-Maymar, Karachi. "
@@ -276,6 +288,35 @@ async def handle_contact(request: Request, body: ContactRequest, db: Session = D
         print(f"Email send failed (contact): {e}")
 
     return {"status": "success", "message": "Message received and stored."}
+
+@app.post("/api/leads")
+@limiter.limit("10/minute")
+async def handle_lead(request: Request, body: LeadRequest, db: Session = Depends(get_db)):
+    try:
+        db_lead = models.Lead(
+            name=body.name,
+            email=body.email or None,
+            phone=body.phone or None,
+            source=body.source or "chatbot",
+            session_id=body.session_id or None
+        )
+        db.add(db_lead)
+        db.commit()
+        db.refresh(db_lead)
+    except Exception as e:
+        db.rollback()
+        print(f"DB save failed (lead): {e}")
+        raise HTTPException(status_code=500, detail="Failed to save lead")
+
+    try:
+        await asyncio.to_thread(
+            email_service.send_lead_notification,
+            body.name, body.email, body.phone, body.source
+        )
+    except Exception as e:
+        print(f"Email send failed (lead): {e}")
+
+    return {"status": "success", "message": "Lead captured successfully.", "id": db_lead.id}
 
 @app.post("/api/newsletter")
 @limiter.limit("5/minute")
