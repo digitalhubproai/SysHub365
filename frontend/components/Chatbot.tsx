@@ -14,16 +14,12 @@ type Message = {
   content: string;
 };
 
-type LeadCaptureState = "idle" | "form" | "submitting" | "done";
-
 export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [sessionId, setSessionId] = useState<string>("");
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [leadState, setLeadState] = useState<LeadCaptureState>("idle");
-  const [leadForm, setLeadForm] = useState({ name: "", email: "", phone: "" });
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -80,37 +76,9 @@ export function Chatbot() {
         setMessages([
           { id: "1", role: "assistant", content: "Welcome to **SysHub365**. How may I strategically support your digital objectives today?" }
         ]);
-        setLeadState("idle");
-        setLeadForm({ name: "", email: "", phone: "" });
       }
     } catch (error) {
       console.error("Failed to clear chat history:", error);
-    }
-  };
-
-  const submitLead = async () => {
-    if (!leadForm.name.trim() || leadState !== "form") return;
-    setLeadState("submitting");
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/leads`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: leadForm.name,
-          email: leadForm.email,
-          phone: leadForm.phone,
-          source: "chatbot",
-          session_id: sessionId
-        })
-      });
-      if (response.ok) {
-        setLeadState("done");
-        setMessages(prev => [...prev, { id: Date.now().toString(), role: "assistant", content: `Excellent **${leadForm.name}**! I've shared your details with our team. Someone will reach out within 24 hours. Is there anything else I can help with?` }]);
-      } else {
-        setLeadState("form");
-      }
-    } catch {
-      setLeadState("form");
     }
   };
 
@@ -146,8 +114,6 @@ export function Chatbot() {
       setIsLoading(false);
     }
   };
-
-  const isSubmitting = leadState === "submitting";
 
   return (
     <>
@@ -257,40 +223,6 @@ export function Chatbot() {
                   </div>
                 </div>
               )}
-              {(messages.filter(m => m.role === "user").length >= 2 && leadState === "idle") && (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex justify-center">
-                  <button
-                    onClick={() => setLeadState("form")}
-                    className="flex items-center gap-2 px-5 py-3 text-xs font-semibold uppercase tracking-widest text-cyber-cyan bg-white/[0.03] border border-cyber-cyan/20 rounded-full hover:bg-cyber-cyan/10 hover:border-cyber-cyan/40 transition-all"
-                  >
-                    <LuSparkles size={14} />
-                    Discuss Your Project
-                  </button>
-                </motion.div>
-              )}
-
-              {leadState === "form" && (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-white/[0.03] border border-white/10 rounded-2xl p-5 space-y-3">
-                  <p className="text-xs font-semibold uppercase tracking-widest text-cyber-cyan text-center">Share your details</p>
-                  <input type="text" placeholder="Your Name *" value={leadForm.name} onChange={e => setLeadForm(p => ({...p, name: e.target.value}))} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-cyber-cyan/50 transition-colors" />
-                  <input type="email" placeholder="Email Address" value={leadForm.email} onChange={e => setLeadForm(p => ({...p, email: e.target.value}))} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-cyber-cyan/50 transition-colors" />
-                  <input type="tel" placeholder="Phone Number" value={leadForm.phone} onChange={e => setLeadForm(p => ({...p, phone: e.target.value}))} className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder:text-white/20 focus:outline-none focus:border-cyber-cyan/50 transition-colors" />
-                  <div className="flex gap-2">
-                    <Button variant="ghost" size="sm" className="!py-2.5 !px-4 text-xs" onClick={() => setLeadState("idle")}>Cancel</Button>
-                    <Button variant="primary" size="sm" className="!py-2.5 !px-6 text-xs flex-1" disabled={!leadForm.name.trim() || isSubmitting} onClick={submitLead}>
-                      {isSubmitting ? "Submitting..." : "Submit"}
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-
-              {leadState === "done" && (
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="bg-gradient-to-r from-electric-blue/10 to-vibrant-purple/10 border border-electric-blue/20 rounded-2xl p-5 text-center">
-                  <p className="text-sm font-semibold text-white">Thank You!</p>
-                  <p className="text-xs text-slate-400 mt-1">Our team will reach out to you shortly.</p>
-                </motion.div>
-              )}
-
               <div ref={messagesEndRef} />
             </div>
 

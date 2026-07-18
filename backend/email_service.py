@@ -66,39 +66,6 @@ def send_contact_notification(name: str, email: str, phone: str, message: str) -
     send_email(ADMIN_EMAIL, subject, html)
 
 
-def send_lead_notification(name: str, email: str, phone: str, source: str) -> None:
-    subject = f"New Lead from {source}: {name}"
-    html = f"""\
-<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"></head>
-<body style="font-family: Arial, sans-serif; background: #0a0a0f; padding: 40px;">
-  <table align="center" cellpadding="0" cellspacing="0" style="max-width: 600px; width: 100%;">
-    <tr>
-      <td style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 16px; padding: 40px; border: 1px solid rgba(255,255,255,0.1);">
-        <h1 style="color: #ffffff; font-size: 24px; margin: 0 0 8px 0;">New Lead Captured</h1>
-        <p style="color: #60a5fa; font-size: 14px; margin: 0 0 32px 0;">Source: {source}</p>
-
-        <table cellpadding="0" cellspacing="0" style="width: 100%;">
-          <tr><td style="padding: 12px 0;"><span style="color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;">Name</span></td></tr>
-          <tr><td style="padding: 0 0 20px 0; color: #ffffff; font-size: 16px;">{name}</td></tr>
-
-          <tr><td style="padding: 12px 0;"><span style="color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;">Email</span></td></tr>
-          <tr><td style="padding: 0 0 20px 0; color: #ffffff; font-size: 16px;"><a href="mailto:{email}" style="color: #60a5fa;">{email}</a></td></tr>
-
-          <tr><td style="padding: 12px 0;"><span style="color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; font-weight: bold;">Phone</span></td></tr>
-          <tr><td style="padding: 0 0 20px 0; color: #ffffff; font-size: 16px;">{phone}</td></tr>
-        </table>
-
-        <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.05); margin: 32px 0;" />
-        <p style="color: #475569; font-size: 12px; text-align: center; margin: 0;">Sent via SysHub365 Lead Capture</p>
-      </td>
-    </tr>
-  </table>
-</body>
-</html>"""
-    send_email(ADMIN_EMAIL, subject, html)
-
 def send_newsletter_notification(email: str) -> None:
     subject = "New Newsletter Subscription"
     html = f"""\
