@@ -1,6 +1,7 @@
 import { LuShieldCheck, LuLock, LuEye, LuFileText, LuArrowUpRight } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import type { Metadata } from "next";
+import { BreadcrumbJsonLd } from "next-seo";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | SysHub365",
@@ -20,6 +21,13 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen pt-32 pb-20 px-6 md:px-12 lg:px-24">
+      <BreadcrumbJsonLd
+        scriptKey="privacy-breadcrumb"
+        items={[
+          { name: "Home", item: "https://syshub365.com" },
+          { name: "Privacy Policy", item: "https://syshub365.com/privacy" },
+        ]}
+      />
       <div className="max-w-[70rem] mx-auto flex flex-col gap-20">
         
         {/* Header */}

@@ -7,6 +7,7 @@ import { ClientComponentsProvider } from "@/components/ClientComponentsProvider"
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
 import { CookieConsent } from "@/components/CookieConsent";
 import { cn } from "@/lib/utils";
+import { OrganizationJsonLd, LocalBusinessJsonLd, FAQJsonLd } from "next-seo";
 
 const sora = Sora({
   variable: "--font-sora",
@@ -84,48 +85,63 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "SYSHUB365",
-    "url": "https://syshub365.com",
-    "logo": "https://syshub365.com/images/logo.png",
-    "description": "SYSHUB365 is a premium software engineering studio specializing in high-performance web systems and AI integration."
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How long does a typical project take?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Project timelines vary widely. A basic MVP can take 4-6 weeks, while a full-scale enterprise platform might take 3-6 months."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do you design the product as well as build it?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. We offer end-to-end services. Our UI/UX team will create high-fidelity prototypes in Figma for your approval."
-        }
-      }
-    ]
-  };
-
   return (
     <html lang="en" className={cn("scroll-smooth", sora.variable, inter.variable, "font-sans")}>
       <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        <OrganizationJsonLd
+          scriptKey="organization"
+          name="SYSHUB365"
+          url="https://syshub365.com"
+          logo="https://syshub365.com/images/logo.png"
+          description="SYSHUB365 is a premium software engineering studio specializing in high-performance web systems and AI integration."
+          email="hello@syshub365.com"
+          telephone="+923356660365"
+          address={{
+            "@type": "PostalAddress",
+            streetAddress: "A-407, Maymar Tower, Sector X-2, Gulshan-e-Maymar",
+            addressLocality: "Karachi",
+            addressCountry: "PK",
+          }}
+          sameAs={[
+            "https://www.linkedin.com/company/syshub365/",
+            "https://web.facebook.com/profile.php?id=61588992526864",
+            "https://www.x.com/syshub365",
+            "https://www.instagram.com/syshub365/",
+          ]}
         />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        <LocalBusinessJsonLd
+          scriptKey="local-business"
+          type="ProfessionalService"
+          name="SYSHUB365"
+          description="Premium software engineering studio building high-performance web apps, AI solutions, and enterprise digital ecosystems."
+          url="https://syshub365.com"
+          telephone="+923356660365"
+          email="hello@syshub365.com"
+          address={{
+            "@type": "PostalAddress",
+            streetAddress: "A-407, Maymar Tower, Sector X-2, Gulshan-e-Maymar",
+            addressLocality: "Karachi",
+            addressCountry: "PK",
+          }}
+          sameAs={[
+            "https://www.linkedin.com/company/syshub365/",
+            "https://web.facebook.com/profile.php?id=61588992526864",
+            "https://www.x.com/syshub365",
+            "https://www.instagram.com/syshub365/",
+          ]}
+        />
+        <FAQJsonLd
+          scriptKey="faq"
+          questions={[
+            {
+              question: "How long does a typical project take?",
+              answer: "Project timelines vary widely. A basic MVP can take 4-6 weeks, while a full-scale enterprise platform might take 3-6 months.",
+            },
+            {
+              question: "Do you design the product as well as build it?",
+              answer: "Yes. We offer end-to-end services. Our UI/UX team will create high-fidelity prototypes in Figma for your approval.",
+            },
+          ]}
         />
       </head>
       <body className="bg-transparent antialiased min-h-screen flex flex-col relative z-0">

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LuArrowLeft, LuCircleCheck } from "react-icons/lu";
 import { Button } from "@/components/ui/Button";
 import { Metadata } from "next";
+import { BreadcrumbJsonLd } from "next-seo";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -53,6 +54,14 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
 
   return (
     <main className="bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white min-h-screen pt-32 pb-20">
+      <BreadcrumbJsonLd
+        scriptKey="project-breadcrumb"
+        items={[
+          { name: "Home", item: "https://syshub365.com" },
+          { name: "Projects", item: "https://syshub365.com/projects" },
+          { name: project.title, item: `https://syshub365.com/projects/${slug}` },
+        ]}
+      />
       <div className="max-w-[75rem] mx-auto px-6 md:px-12">
         <Link href="/projects" className="inline-flex items-center gap-2 text-slate-400 hover:text-white transition-colors mb-12">
            <LuArrowLeft size={20} />

@@ -6,6 +6,7 @@ import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuArrowUpRight, 
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
 import { GradientIcon } from "@/components/GradientIcon";
+import { BreadcrumbJsonLd } from "next-seo";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -88,6 +89,13 @@ const SERVICES_DETAILED = [
 export default function Services() {
   return (
     <main className="relative bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden pt-32 pb-20">
+      <BreadcrumbJsonLd
+        scriptKey="services-breadcrumb"
+        items={[
+          { name: "Home", item: "https://syshub365.com" },
+          { name: "Services", item: "https://syshub365.com/services" },
+        ]}
+      />
       <div className="noise-overlay" />
       
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">

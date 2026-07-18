@@ -1,6 +1,7 @@
 import { LuSignature, LuGavel, LuScale, LuBriefcase, LuArrowUpRight } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import type { Metadata } from "next";
+import { BreadcrumbJsonLd } from "next-seo";
 
 export const metadata: Metadata = {
   title: "Terms of Service | SysHub365",
@@ -20,6 +21,13 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <main className="min-h-screen pt-32 pb-20 px-6 md:px-12 lg:px-24">
+      <BreadcrumbJsonLd
+        scriptKey="terms-breadcrumb"
+        items={[
+          { name: "Home", item: "https://syshub365.com" },
+          { name: "Terms of Service", item: "https://syshub365.com/terms" },
+        ]}
+      />
       <div className="max-w-[70rem] mx-auto flex flex-col gap-20">
         
         {/* Header */}

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { LuArrowUpRight, LuSearch, LuMail, LuCheck, LuTriangleAlert } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
+import { BreadcrumbJsonLd } from "next-seo";
 import { BLOG_POSTS } from "@/lib/data";
 
 const fadeUp: Variants = {
@@ -32,6 +33,13 @@ export default function Blog() {
 
   return (
     <main className="relative bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden pt-32 pb-20">
+      <BreadcrumbJsonLd
+        scriptKey="blog-breadcrumb"
+        items={[
+          { name: "Home", item: "https://syshub365.com" },
+          { name: "Blog", item: "https://syshub365.com/blog" },
+        ]}
+      />
       <div className="noise-overlay" />
 
       {/* Unified Elite Hero Section */}

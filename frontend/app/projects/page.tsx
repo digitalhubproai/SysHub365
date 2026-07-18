@@ -6,6 +6,7 @@ import Image from "next/image";
 import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuRocket, LuArrowUpRight } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
+import { BreadcrumbJsonLd } from "next-seo";
 import { PROJECTS } from "@/lib/data";
 
 const fadeUp: Variants = {
@@ -21,6 +22,13 @@ const staggerContainer: Variants = {
 export default function ProjectsPage() {
   return (
     <main className="relative bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden pt-32 pb-20">
+      <BreadcrumbJsonLd
+        scriptKey="projects-breadcrumb"
+        items={[
+          { name: "Home", item: "https://syshub365.com" },
+          { name: "Projects", item: "https://syshub365.com/projects" },
+        ]}
+      />
       <div className="noise-overlay" />
       
       {/* Hero Header */}

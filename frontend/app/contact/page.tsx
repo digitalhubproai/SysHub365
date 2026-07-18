@@ -6,6 +6,7 @@ import { LuMail, LuMapPin, LuPhone, LuSend, LuUser, LuMessageSquare, LuBuilding2
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
 import { CalendlyButton } from "@/components/CalendlyButton";
+import { BreadcrumbJsonLd } from "next-seo";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -43,6 +44,13 @@ export default function Contact() {
 
   return (
     <main className="relative bg-[var(--obsidian-base)] selection:bg-neon-accent selection:text-black overflow-x-hidden pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20">
+      <BreadcrumbJsonLd
+        scriptKey="contact-breadcrumb"
+        items={[
+          { name: "Home", item: "https://syshub365.com" },
+          { name: "Contact", item: "https://syshub365.com/contact" },
+        ]}
+      />
       <div className="absolute inset-0 pointer-events-none z-0 opacity-20">         <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] bg-electric-blue/10 rounded-full blur-[150px]" />
          <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-vibrant-purple/10 rounded-full blur-[120px]" />
       </div>

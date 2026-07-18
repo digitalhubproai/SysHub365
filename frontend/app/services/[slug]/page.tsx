@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import ServiceDetailClient from "./ServiceDetailClient";
+import { BreadcrumbJsonLd } from "next-seo";
 
 const SERVICE_META: Record<string, { title: string; description: string }> = {
   "web-development": {
@@ -75,6 +76,21 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default function ServiceDetailPage() {
-  return <ServiceDetailClient />;
+export default async function ServiceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const service = SERVICE_META[slug];
+
+  return (
+    <>
+      <BreadcrumbJsonLd
+        scriptKey="service-breadcrumb"
+        items={[
+          { name: "Home", item: "https://syshub365.com" },
+          { name: "Services", item: "https://syshub365.com/services" },
+          { name: service?.title || slug, item: `https://syshub365.com/services/${slug}` },
+        ]}
+      />
+      <ServiceDetailClient />
+    </>
+  );
 }

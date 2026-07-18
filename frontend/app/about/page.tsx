@@ -7,6 +7,7 @@ import { LuTarget, LuUsers, LuLightbulb, LuShield, LuMapPin, LuChevronRight, LuC
 import PremiumCard from "@/components/PremiumCard";
 import { GradientIcon } from "@/components/GradientIcon";
 import { Button } from "@/components/ui/Button";
+import { BreadcrumbJsonLd } from "next-seo";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -23,6 +24,13 @@ const VALUES = [
 export default function About() {
   return (
     <main className="relative bg-[var(--obsidian-base)] selection:bg-neon-accent selection:text-black overflow-x-hidden pt-32 pb-20">
+      <BreadcrumbJsonLd
+        scriptKey="about-breadcrumb"
+        items={[
+          { name: "Home", item: "https://syshub365.com" },
+          { name: "About", item: "https://syshub365.com/about" },
+        ]}
+      />
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
           <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-electric-blue/15 rounded-full blur-[150px]" />
           <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-electric-blue/10 rounded-full blur-[180px]" />
