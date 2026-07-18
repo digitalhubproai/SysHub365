@@ -5,6 +5,7 @@ import { motion, Variants } from "framer-motion";
 import { LuMail, LuMapPin, LuPhone, LuSend, LuUser, LuMessageSquare, LuBuilding2, LuChevronRight, LuCheck, LuTriangleAlert } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
+import { CalendlyButton } from "@/components/CalendlyButton";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -115,6 +116,14 @@ export default function Contact() {
                     <p className="text-xs sm:text-sm text-slate-500">We will get back to you within 24 hours.</p>
                   </div>
 
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className="h-px flex-1 bg-white/10" />
+                      <span className="text-xs font-bold text-white/40 uppercase tracking-widest">or book instantly</span>
+                      <div className="h-px flex-1 bg-white/10" />
+                    </div>
+                    <CalendlyButton label="Schedule a Call" />
+                  </div>
                   <form className="flex flex-col gap-5 sm:gap-6 md:gap-8" onSubmit={handleSubmit}>
                     {/* Full Name & Phone Number */}
                     <div className="grid md:grid-cols-2 gap-4 sm:gap-5 md:gap-6">

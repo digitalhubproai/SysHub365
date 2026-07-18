@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { LuMail, LuPhone, LuUser, LuMessageSquare, LuLoader } from "react-icons/lu";
+import { LuMail, LuPhone, LuUser, LuMessageSquare, LuLoader, LuCalendar } from "react-icons/lu";
+import { CalendlyButton } from "@/components/CalendlyButton";
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: "", phone: "", email: "", message: "" });
@@ -77,6 +78,14 @@ export function ContactSection() {
         >
           <div className="absolute top-0 right-0 w-64 h-64 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.1) 0%, transparent 70%)' }} />
           
+          <div className="relative z-10 flex flex-col gap-4 mb-2">
+            <div className="flex items-center gap-3">
+              <div className="h-px flex-1 bg-white/10" />
+              <span className="text-xs font-bold text-white/40 uppercase tracking-widest">or</span>
+              <div className="h-px flex-1 bg-white/10" />
+            </div>
+            <CalendlyButton />
+          </div>
           <form className="relative z-10 flex flex-col gap-6" onSubmit={handleSubmit}>
             <div className="grid md:grid-cols-2 gap-6">
               <div className="flex flex-col gap-2">
