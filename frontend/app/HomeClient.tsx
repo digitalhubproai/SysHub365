@@ -51,7 +51,7 @@ export default function HomeClient() {
 
       {/* HERO SECTION */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center pt-32 pb-20 px-6 md:px-12 lg:px-24 overflow-hidden">
-        <motion.div style={{ opacity: heroOpacity, scale: heroScale, willChange: "transform, opacity" }} className="absolute inset-0 z-0">
+        <motion.div style={{ opacity: heroOpacity, scale: heroScale, willChange: "transform, opacity" }} className="absolute inset-0 z-0" aria-hidden="true">
           <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] rounded-full animate-mesh-pulse pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(37,99,235,0.15) 0%, transparent 70%)' }} />
           <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(139,92,246,0.1) 0%, transparent 70%)' }} />
         </motion.div>

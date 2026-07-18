@@ -23,7 +23,8 @@ const VALUES = [
 export default function About() {
   return (
     <main className="relative bg-[var(--obsidian-base)] selection:bg-neon-accent selection:text-black overflow-x-hidden pt-32 pb-20">
-      <div className="absolute inset-0 pointer-events-none z-0">          <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-electric-blue/15 rounded-full blur-[150px]" />
+      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+          <div className="absolute top-[10%] left-[20%] w-[500px] h-[500px] bg-electric-blue/15 rounded-full blur-[150px]" />
           <div className="absolute bottom-[10%] right-[10%] w-[600px] h-[600px] bg-electric-blue/10 rounded-full blur-[180px]" />
       </div>
 
@@ -53,10 +54,9 @@ export default function About() {
         </div>
       </section>
 
-      {/* Mission & Purpose (Enhanced About Us) */}
+      {/* Mission & Purpose */}
       <section id="about" className="py-24 px-6 md:px-12 lg:px-24 relative z-10 overflow-hidden">
-        {/* Background ambient glows */}
-        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-electric-blue/5 rounded-full blur-[150px] -translate-y-1/2 pointer-events-none" />
+        <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-electric-blue/5 rounded-full blur-[150px] -translate-y-1/2 pointer-events-none" aria-hidden="true" />
 
         <div className="max-w-[90rem] mx-auto grid lg:grid-cols-2 gap-16 lg:gap-24 items-center relative z-10">
           <motion.div 
