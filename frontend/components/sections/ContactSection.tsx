@@ -37,7 +37,7 @@ export function ContactSection() {
           <div className="flex flex-col gap-4">
             <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-sm">Get in touch</span>
             <h2 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-white leading-tight">
-              Let's Build Something <br/>
+              Let&apos;s Build Something <br/>
               <span className="text-gradient">Extraordinary.</span>
             </h2>
           </div>
@@ -90,7 +90,7 @@ export function ContactSection() {
                 <label className="text-xs font-bold text-white/60 uppercase tracking-widest pl-2">Phone Number</label>
                 <div className="relative">
                   <LuPhone className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
-                  <input required value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} type="tel" placeholder="+92 000 0000000" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
+                  <input value={formData.phone} onChange={(e) => setFormData({...formData, phone: e.target.value})} type="tel" placeholder="+92 000 0000000" className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-4 pl-12 pr-4 text-white focus:outline-none focus:border-electric-blue transition-colors placeholder:text-white/20" />
                 </div>
               </div>
             </div>

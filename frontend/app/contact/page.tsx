@@ -41,7 +41,7 @@ export default function Contact() {
   };
 
   return (
-    <main className="bg-[var(--obsidian-base)] selection:bg-neon-accent selection:text-black overflow-x-hidden pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20">
+    <main className="relative bg-[var(--obsidian-base)] selection:bg-neon-accent selection:text-black overflow-x-hidden pt-24 sm:pt-28 md:pt-32 pb-16 sm:pb-20">
       <div className="absolute inset-0 pointer-events-none z-0 opacity-20">         <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] bg-electric-blue/10 rounded-full blur-[150px]" />
          <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-vibrant-purple/10 rounded-full blur-[120px]" />
       </div>
@@ -138,7 +138,6 @@ export default function Contact() {
                           <LuPhone className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 text-white/30" size={16} />
                           <input
                             type="tel"
-                            required
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             placeholder="+1 (555) 000-0000"
@@ -219,20 +218,27 @@ export default function Contact() {
                   <motion.div 
                     key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
                   >
-                    <PremiumCard className="p-6 sm:p-8 md:p-10 gap-6 sm:gap-8 md:gap-10 flex flex-col">
-                      <div className="flex justify-between items-start">
-                          <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-xl bg-electric-blue/10 flex items-center justify-center text-electric-blue transition-all group-hover:bg-electric-blue group-hover:text-white shrink-0">
-                            <LuMapPin size={20} />
-                          </div>
-                          <span className="text-[10px] sm:text-xs font-bold text-electric-blue uppercase tracking-widest">{node.status}</span>
-                      </div>
-                      <div className="flex flex-col gap-1 sm:gap-2">
-                          <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight group-hover:text-gradient transition-all duration-500">{node.city}</h3>
-                          <p className="text-slate-500 font-medium text-base sm:text-lg group-hover:text-slate-300 transition-colors">{node.loc}</p>
-                      </div>
-                      <div className="flex items-center gap-2 text-electric-blue text-[10px] sm:text-xs font-bold tracking-widest uppercase opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
-                          View Map <LuChevronRight size={12} />
-                      </div>
+                    <PremiumCard className="p-6 sm:p-8 md:p-10 gap-6 sm:gap-8 md:gap-10 flex flex-col cursor-pointer">
+                      <a
+                        href="https://maps.google.com/?q=A-407,+Maymar+Tower,+Sector+X-2,+Gulshan-e-Maymar,+Karachi"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex flex-col h-full w-full justify-between gap-6 sm:gap-8 md:gap-10"
+                      >
+                        <div className="flex justify-between items-start">
+                            <div className="w-10 sm:w-12 h-10 sm:h-12 rounded-xl bg-electric-blue/10 flex items-center justify-center text-electric-blue transition-all group-hover:bg-electric-blue group-hover:text-white shrink-0">
+                              <LuMapPin size={20} />
+                            </div>
+                            <span className="text-[10px] sm:text-xs font-bold text-electric-blue uppercase tracking-widest">{node.status}</span>
+                        </div>
+                        <div className="flex flex-col gap-1 sm:gap-2">
+                            <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight group-hover:text-gradient transition-all duration-500">{node.city}</h3>
+                            <p className="text-slate-500 font-medium text-base sm:text-lg group-hover:text-slate-300 transition-colors">{node.loc}</p>
+                        </div>
+                        <div className="flex items-center gap-2 text-electric-blue text-[10px] sm:text-xs font-bold tracking-widest uppercase opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">
+                            View Map <LuChevronRight size={12} />
+                        </div>
+                      </a>
                     </PremiumCard>
                   </motion.div>
                 ))}
