@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { getPreferences } from "./CookieConsent";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 
 export function AnalyticsProvider() {
   const [active, setActive] = useState<{ analytics: boolean; marketing: boolean } | null>(null);
@@ -33,11 +34,14 @@ export function AnalyticsProvider() {
   return (
     <>
       {mounted && active?.analytics && (
-        <Script
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key="MhT69x5RT7gjX3m3wRRtxg"
-          strategy="afterInteractive"
-        />
+        <>
+          <Analytics />
+          <Script
+            src="https://analytics.ahrefs.com/analytics.js"
+            data-key="MhT69x5RT7gjX3m3wRRtxg"
+            strategy="afterInteractive"
+          />
+        </>
       )}
       {mounted && active?.marketing && (
         <>
