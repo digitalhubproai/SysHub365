@@ -38,7 +38,7 @@ export default function BlogDetailClient() {
   }
 
   return (
-    <main className="bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white min-h-screen pt-32 pb-20 overflow-x-hidden">
+    <main className="relative bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white min-h-screen pt-32 pb-20 overflow-x-hidden">
       <div className="noise-overlay" />
       
       {/* Reading Progress Bar */}

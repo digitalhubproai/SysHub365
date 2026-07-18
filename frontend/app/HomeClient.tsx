@@ -46,7 +46,7 @@ export default function HomeClient() {
   }, []);
 
   return (
-    <main className="bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden">
+    <main className="relative bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden">
       <div className="noise-overlay" />
 
       {/* HERO SECTION */}

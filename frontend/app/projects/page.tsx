@@ -20,7 +20,7 @@ const staggerContainer: Variants = {
 
 export default function ProjectsPage() {
   return (
-    <main className="bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden pt-32 pb-20">
+    <main className="relative bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden pt-32 pb-20">
       <div className="noise-overlay" />
       
       {/* Hero Header */}

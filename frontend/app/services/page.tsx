@@ -87,7 +87,7 @@ const SERVICES_DETAILED = [
 
 export default function Services() {
   return (
-    <main className="bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden pt-32 pb-20">
+    <main className="relative bg-[var(--obsidian-base)] selection:bg-electric-blue selection:text-white overflow-x-hidden pt-32 pb-20">
       <div className="noise-overlay" />
       
       {/* Background Glows matching Homepage */}
