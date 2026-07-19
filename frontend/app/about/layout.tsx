@@ -19,6 +19,12 @@ export const metadata: Metadata = {
     description: "Learn about SysHub365, a premier software engineering house building high-integrity systems.",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "About SysHub365 - Engineering The Next Standard",
+    description: "Learn about SysHub365, a premier software engineering house building high-integrity systems.",
+    images: ["/images/logo.png"],
+  },
 };
 
 export default function AboutLayout({ children }: { children: React.ReactNode }) {

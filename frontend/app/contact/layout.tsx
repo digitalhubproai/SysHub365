@@ -19,6 +19,12 @@ export const metadata: Metadata = {
     description: "Get in touch with SysHub365. Ready to start your next project?",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact SysHub365 - Let's Build Something Great",
+    description: "Get in touch with SysHub365. Ready to start your next project?",
+    images: ["/images/logo.png"],
+  },
 };
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {

@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/privacy",
   },
+  openGraph: {
+    title: "Privacy Policy | SysHub365",
+    description: "Learn how SysHub365 handles your data with our simple, transparent Privacy Policy.",
+    type: "website",
+  },
 };
 
 export default function PrivacyPage() {

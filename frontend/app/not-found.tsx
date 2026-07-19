@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { LuHouse, LuArrowLeft } from "react-icons/lu";
+
+export const metadata: Metadata = {
+  title: "404 - Page Not Found | SYSHUB365",
+  description: "The page you're looking for doesn't exist or has been moved. Let's get you back on course.",
+};
 
 export default function NotFound() {
   return (

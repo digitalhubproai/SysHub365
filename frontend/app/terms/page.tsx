@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/terms",
   },
+  openGraph: {
+    title: "Terms of Service | SysHub365",
+    description: "Read the SysHub365 Terms of Service. Simple, transparent agreements for our digital solutions.",
+    type: "website",
+  },
 };
 
 export default function TermsPage() {

@@ -20,6 +20,12 @@ export const metadata: Metadata = {
     description: "A curated showcase of our most complex deployments.",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Portfolio & Case Studies | SysHub365",
+    description: "A curated showcase of our most complex deployments.",
+    images: ["/images/logo.png"],
+  },
 };
 
 export default function ProjectsLayout({ children }: { children: React.ReactNode }) {

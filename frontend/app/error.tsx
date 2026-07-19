@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { LuRefreshCw, LuHouse } from "react-icons/lu";
 import Link from "next/link";
 
@@ -10,6 +11,9 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  useEffect(() => {
+    document.title = "System Error | SYSHUB365";
+  }, []);
   return (
     <main className="bg-[var(--obsidian-base)] min-h-screen flex items-center justify-center overflow-hidden relative">
       <div className="absolute inset-0 pointer-events-none z-0">

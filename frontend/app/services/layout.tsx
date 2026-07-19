@@ -21,6 +21,12 @@ export const metadata: Metadata = {
     description: "End-to-end software development and AI integration services.",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Our Services | SysHub365",
+    description: "End-to-end software development and AI integration services.",
+    images: ["/images/logo.png"],
+  },
 };
 
 export default function ServicesLayout({ children }: { children: React.ReactNode }) {

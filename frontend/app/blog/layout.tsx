@@ -19,6 +19,12 @@ export const metadata: Metadata = {
     description: "Read the latest technical observations, architectural patterns, and strategic engineering updates from the SysHub365 experts.",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog & Insights | SysHub365",
+    description: "Read the latest technical observations, architectural patterns, and strategic engineering updates from the SysHub365 experts.",
+    images: ["/images/logo.png"],
+  },
 };
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {

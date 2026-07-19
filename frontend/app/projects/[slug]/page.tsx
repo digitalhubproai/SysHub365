@@ -30,6 +30,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: project.desc,
       images: [project.img],
     },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | SysHub365 Portfolio`,
+      description: project.desc,
+      images: [project.img],
+    },
   };
 }
 

@@ -50,6 +50,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "/",
+    languages: {
+      "en": "/",
+    },
   },
   icons: {
     icon: "/images/favicon.svg",
@@ -87,7 +90,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={cn("scroll-smooth", sora.variable, inter.variable, "font-sans")}>
-      <head>
+      <body className={cn("bg-transparent antialiased min-h-screen flex flex-col relative z-0")}>
+        <AnalyticsProvider />
+        <div className="dynamic-bg" />
+        <ClientComponentsProvider />
+        <Navbar />
+        <div className="flex-grow">{children}</div>
+        <Footer />
+        <CookieConsent />
         <OrganizationJsonLd
           scriptKey="organization"
           name="SYSHUB365"
@@ -143,15 +153,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             },
           ]}
         />
-      </head>
-      <body className="bg-transparent antialiased min-h-screen flex flex-col relative z-0">
-        <AnalyticsProvider />
-        <div className="dynamic-bg" />
-        <ClientComponentsProvider />
-        <Navbar />
-        <div className="flex-grow">{children}</div>
-        <Footer />
-        <CookieConsent />
       </body>
     </html>
   );
