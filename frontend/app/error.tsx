@@ -24,7 +24,7 @@ export default function Error({
           <span className="text-4xl">!</span>
         </div>
         <h1 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
-          System <span className="text-red-400">Error.</span>
+          System <span className="text-red-400">Error</span>
         </h1>
         <p className="text-slate-400 text-lg leading-relaxed">
           Something went wrong on our end. Our team has been notified.

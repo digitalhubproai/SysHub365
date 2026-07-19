@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = BLOG_POSTS.find(p => p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') === slug);
   
-  if (!post) return { title: "Post Not Found" };
+  if (!post) return { title: "Post Not Found | SysHub365" };
 
   return {
     title: `${post.title} | SysHub365 Blog`,
