@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["lucide-react", "react-icons", "framer-motion"],
   },
   compress: true,
+  // Target modern browsers to avoid unnecessary polyfills
+  transpilePackages: [],
   async headers() {
     return [
       {
@@ -38,6 +40,10 @@ const nextConfig: NextConfig = {
           {
             key: "Permissions-Policy",
             value: "geolocation=(), camera=(), microphone=()",
+          },
+          {
+            key: "Link",
+            value: "<https://syshub365-api-3f088fe0-71f2-4e0c-bcf1-ca591e93ba4b.fly.dev>; rel=preconnect; crossorigin=anonymous",
           },
         ],
       },

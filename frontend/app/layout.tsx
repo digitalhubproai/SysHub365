@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import { Sora, Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
 import { ClientComponentsProvider } from "@/components/ClientComponentsProvider";
 import { AnalyticsProvider } from "@/components/AnalyticsProvider";
-import { CookieConsent } from "@/components/CookieConsent";
 import { cn } from "@/lib/utils";
 import { OrganizationJsonLd, LocalBusinessJsonLd, FAQJsonLd } from "next-seo";
+
+const Footer = dynamic(() => import("@/components/Footer").then((mod) => mod.Footer));
+const CookieConsentLazy = dynamic(() => import("@/components/CookieConsent").then((mod) => mod.CookieConsent));
 
 const sora = Sora({
   variable: "--font-sora",
@@ -97,7 +99,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Navbar />
         <div className="flex-grow">{children}</div>
         <Footer />
-        <CookieConsent />
+        <CookieConsentLazy />
         <OrganizationJsonLd
           scriptKey="organization"
           name="SYSHUB365"
