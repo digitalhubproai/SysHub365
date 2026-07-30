@@ -18,8 +18,17 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ["lucide-react", "react-icons", "framer-motion"],
   },
   compress: true,
-  // Target modern browsers to avoid unnecessary polyfills
   transpilePackages: [],
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.syshub365.com" }],
+        destination: "https://syshub365.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {
