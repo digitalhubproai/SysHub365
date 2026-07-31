@@ -19,16 +19,6 @@ const nextConfig: NextConfig = {
   },
   compress: true,
   transpilePackages: [],
-  async redirects() {
-    return [
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.syshub365.com" }],
-        destination: "https://syshub365.com/:path*",
-        permanent: true,
-      },
-    ];
-  },
   async headers() {
     return [
       {
