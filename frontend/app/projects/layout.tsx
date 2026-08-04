@@ -11,6 +11,17 @@ export const metadata: Metadata = {
     "fintech architecture",
     "healthcare software",
     "digital product showcase",
+    "our work",
+    "software portfolio",
+    "web development case studies",
+    "successful software projects",
+    "SaaS examples",
+    "AI project showcase",
+    "fintech software examples",
+    "healthcare software solutions",
+    "client success stories",
+    "previous work software company",
+    "custom projects portfolio"
   ],
   alternates: {
     canonical: "/projects",

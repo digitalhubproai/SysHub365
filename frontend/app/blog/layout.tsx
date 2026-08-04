@@ -10,6 +10,16 @@ export const metadata: Metadata = {
     "AI trends",
     "web development articles",
     "SysHub365 blog",
+    "software development blog",
+    "web development tips",
+    "AI trends 2026",
+    "technology insights",
+    "software architecture articles",
+    "developer blog",
+    "tech news",
+    "programming articles",
+    "engineering best practices",
+    "digital transformation blog"
   ],
   alternates: {
     canonical: "/blog",

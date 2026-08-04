@@ -24,6 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       "software engineering",
       "tech insights",
       post.title,
+      post.title + " guide",
+      "web development",
+      "AI technology",
+      "software architecture",
+      "tech trends",
+      "engineering insights",
     ],
     alternates: {
       canonical: `/blog/${slug}`,

@@ -10,6 +10,16 @@ export const metadata: Metadata = {
     "technology studio",
     "engineering team",
     "SysHub365 team",
+    "about us",
+    "our company",
+    "why choose SysHub365",
+    "experienced software developers",
+    "software development experts",
+    "software house Karachi",
+    "software engineering house Pakistan",
+    "trusted software company",
+    "software engineers for hire",
+    "technology partners"
   ],
   alternates: {
     canonical: "/about",

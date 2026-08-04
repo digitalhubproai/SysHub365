@@ -21,6 +21,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       "software project",
       "case study",
       project.title,
+      project.title + " project",
+      project.category.toLowerCase() + " software",
+      "web development case study",
+      "custom software example",
+      "successful software project",
+      "client project showcase",
     ],
     alternates: {
       canonical: `/projects/${slug}`,

@@ -10,6 +10,18 @@ export const metadata: Metadata = {
     "web development quote",
     "tech project inquiry",
     "get in touch",
+    "contact us",
+    "contact software company",
+    "hire development team",
+    "get web development quote",
+    "software project consultation",
+    "free consultation",
+    "request a quote",
+    "talk to software engineers",
+    "start a software project",
+    "software company contact number",
+    "software house Pakistan contact",
+    "outsource development project"
   ],
   alternates: {
     canonical: "/contact",

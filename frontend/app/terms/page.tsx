@@ -12,6 +12,10 @@ export const metadata: Metadata = {
     "software agreement",
     "service terms",
     "legal terms",
+    "terms and conditions",
+    "software development contract",
+    "project agreement",
+    "service agreement software company",
   ],
   alternates: {
     canonical: "/terms",

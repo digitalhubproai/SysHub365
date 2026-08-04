@@ -12,6 +12,10 @@ export const metadata: Metadata = {
     "data protection",
     "data privacy",
     "GDPR",
+    "privacy policy software company",
+    "how we handle your data",
+    "data security policy",
+    "website privacy policy",
   ],
   alternates: {
     canonical: "/privacy",
