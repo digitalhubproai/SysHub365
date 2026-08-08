@@ -36,8 +36,8 @@ export default function Blog() {
       <BreadcrumbJsonLd
         scriptKey="blog-breadcrumb"
         items={[
-          { name: "Home", item: "https://syshub365.com" },
-          { name: "Blog", item: "https://syshub365.com/blog" },
+          { name: "Home", item: "https://www.syshub365.com" },
+          { name: "Blog", item: "https://www.syshub365.com/blog" },
         ]}
       />
       <div className="noise-overlay" />

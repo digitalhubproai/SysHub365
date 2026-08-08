@@ -26,7 +26,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://syshub365.com"),
+  metadataBase: new URL("https://www.syshub365.com"),
   title: {
     default: "SYSHUB365 | Premium Software Engineering Studio",
     template: "%s | SYSHUB365"
@@ -98,7 +98,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SYSHUB365 | Premium Software Engineering Studio",
     description: "Architecting high-performance digital ecosystems for global visionaries. Professional software engineering with architectural precision.",
-    url: "https://syshub365.com",
+    url: "https://www.syshub365.com",
     siteName: "SYSHUB365",
     images: [
       {
@@ -136,8 +136,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <OrganizationJsonLd
           scriptKey="organization"
           name="SYSHUB365"
-          url="https://syshub365.com"
-          logo="https://syshub365.com/images/logo.png"
+          url="https://www.syshub365.com"
+          logo="https://www.syshub365.com/images/logo.png"
           description="SYSHUB365 is a premium software engineering studio specializing in high-performance web systems and AI integration."
           email="hello@syshub365.com"
           telephone="+923356660365"
@@ -159,7 +159,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           type="ProfessionalService"
           name="SYSHUB365"
           description="Premium software engineering studio building high-performance web apps, AI solutions, and enterprise digital ecosystems."
-          url="https://syshub365.com"
+          url="https://www.syshub365.com"
           telephone="+923356660365"
           email="hello@syshub365.com"
           address={{

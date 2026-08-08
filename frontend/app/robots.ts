@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://syshub365.com/sitemap.xml',
+    sitemap: 'https://www.syshub365.com/sitemap.xml',
   }
 }

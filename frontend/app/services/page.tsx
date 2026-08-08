@@ -92,8 +92,8 @@ export default function Services() {
       <BreadcrumbJsonLd
         scriptKey="services-breadcrumb"
         items={[
-          { name: "Home", item: "https://syshub365.com" },
-          { name: "Services", item: "https://syshub365.com/services" },
+          { name: "Home", item: "https://www.syshub365.com" },
+          { name: "Services", item: "https://www.syshub365.com/services" },
         ]}
       />
       <div className="noise-overlay" />

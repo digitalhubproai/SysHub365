@@ -47,8 +47,8 @@ export default function Contact() {
       <BreadcrumbJsonLd
         scriptKey="contact-breadcrumb"
         items={[
-          { name: "Home", item: "https://syshub365.com" },
-          { name: "Contact", item: "https://syshub365.com/contact" },
+          { name: "Home", item: "https://www.syshub365.com" },
+          { name: "Contact", item: "https://www.syshub365.com/contact" },
         ]}
       />
       <div className="absolute inset-0 pointer-events-none z-0 opacity-20">         <div className="absolute top-[20%] right-[-10%] w-[60%] h-[60%] bg-electric-blue/10 rounded-full blur-[150px]" />

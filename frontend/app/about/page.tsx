@@ -27,8 +27,8 @@ export default function About() {
       <BreadcrumbJsonLd
         scriptKey="about-breadcrumb"
         items={[
-          { name: "Home", item: "https://syshub365.com" },
-          { name: "About", item: "https://syshub365.com/about" },
+          { name: "Home", item: "https://www.syshub365.com" },
+          { name: "About", item: "https://www.syshub365.com/about" },
         ]}
       />
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">

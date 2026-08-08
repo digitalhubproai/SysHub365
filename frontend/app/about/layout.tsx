@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Us | SysHub365",
+  title: "About Us",
   description: "Learn about SysHub365, a premier software engineering house. We are digital architects building high-integrity systems for the next era of global infrastructure.",
   keywords: [
     "about SysHub365",

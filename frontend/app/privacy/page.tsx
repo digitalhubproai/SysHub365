@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     canonical: "/privacy",
   },
   openGraph: {
-    title: "Privacy Policy | SysHub365",
+title: "Privacy Policy",
     description: "Learn how SysHub365 handles your data with our simple, transparent Privacy Policy.",
     type: "website",
   },
@@ -33,8 +33,8 @@ export default function PrivacyPage() {
       <BreadcrumbJsonLd
         scriptKey="privacy-breadcrumb"
         items={[
-          { name: "Home", item: "https://syshub365.com" },
-          { name: "Privacy Policy", item: "https://syshub365.com/privacy" },
+          { name: "Home", item: "https://www.syshub365.com" },
+          { name: "Privacy Policy", item: "https://www.syshub365.com/privacy" },
         ]}
       />
       <div className="max-w-[70rem] mx-auto flex flex-col gap-20">

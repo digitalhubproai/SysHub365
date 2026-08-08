@@ -25,8 +25,8 @@ export default function ProjectsPage() {
       <BreadcrumbJsonLd
         scriptKey="projects-breadcrumb"
         items={[
-          { name: "Home", item: "https://syshub365.com" },
-          { name: "Projects", item: "https://syshub365.com/projects" },
+          { name: "Home", item: "https://www.syshub365.com" },
+          { name: "Projects", item: "https://www.syshub365.com/projects" },
         ]}
       />
       <div className="noise-overlay" />

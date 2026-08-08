@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!project) return { title: "Project Not Found" };
 
   return {
-    title: `${project.title} | SysHub365 Portfolio`,
+    title: project.title,
     description: project.desc,
     keywords: [
       "SysHub365 portfolio",
@@ -69,9 +69,9 @@ export default async function ProjectDetail({ params }: { params: Promise<{ slug
       <BreadcrumbJsonLd
         scriptKey="project-breadcrumb"
         items={[
-          { name: "Home", item: "https://syshub365.com" },
-          { name: "Projects", item: "https://syshub365.com/projects" },
-          { name: project.title, item: `https://syshub365.com/projects/${slug}` },
+          { name: "Home", item: "https://www.syshub365.com" },
+          { name: "Projects", item: "https://www.syshub365.com/projects" },
+          { name: project.title, item: `https://www.syshub365.com/projects/${slug}` },
         ]}
       />
       <div className="max-w-[75rem] mx-auto px-6 md:px-12">

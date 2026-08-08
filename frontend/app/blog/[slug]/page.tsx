@@ -14,10 +14,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const post = BLOG_POSTS.find(p => p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') === slug);
   
-  if (!post) return { title: "Post Not Found | SysHub365" };
+  if (!post) return { title: "Post Not Found" };
 
   return {
-    title: `${post.title} | SysHub365 Blog`,
+    title: post.title,
     description: post.excerpt,
     keywords: [
       "SysHub365 blog",
@@ -62,15 +62,15 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
       <BreadcrumbJsonLd
         scriptKey="blog-breadcrumb"
         items={[
-          { name: "Home", item: "https://syshub365.com" },
-          { name: "Blog", item: "https://syshub365.com/blog" },
-          { name: post.title, item: `https://syshub365.com/blog/${slug}` },
+          { name: "Home", item: "https://www.syshub365.com" },
+          { name: "Blog", item: "https://www.syshub365.com/blog" },
+          { name: post.title, item: `https://www.syshub365.com/blog/${slug}` },
         ]}
       />
       <ArticleJsonLd
         scriptKey="blog-article"
         type="Article"
-        url={`https://syshub365.com/blog/${slug}`}
+        url={`https://www.syshub365.com/blog/${slug}`}
         headline={post.title}
         description={post.excerpt}
         image={post.img}
@@ -79,7 +79,7 @@ export default async function BlogDetailPage({ params }: { params: Promise<{ slu
         publisher={{
           "@type": "Organization",
           name: "SYSHUB365",
-          logo: { "@type": "ImageObject", url: "https://syshub365.com/images/logo.png" },
+          logo: { "@type": "ImageObject", url: "https://www.syshub365.com/images/logo.png" },
         }}
       />
       <BlogDetailClient />

@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "SYSHUB365 | Premium Software Engineering Studio",
     description: "SYSHUB365 is a premium software engineering studio building high-performance web apps, AI solutions, and enterprise digital ecosystems for global visionaries.",
-    url: "https://syshub365.com",
+    url: "https://www.syshub365.com",
     siteName: "SYSHUB365",
     images: [
       {
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     type: "website",
   },
   alternates: {
-    canonical: "https://syshub365.com",
+    canonical: "https://www.syshub365.com",
   },
 };
 

@@ -173,10 +173,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const service = SERVICE_META[slug];
 
-  if (!service) return { title: "Service Not Found | SysHub365" };
+  if (!service) return { title: "Service Not Found" };
 
   return {
-    title: `${service.title} | SysHub365 Services`,
+    title: `${service.title} | Our Services`,
     description: service.description,
     keywords: [
       "SysHub365 services",
@@ -213,9 +213,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <BreadcrumbJsonLd
         scriptKey="service-breadcrumb"
         items={[
-          { name: "Home", item: "https://syshub365.com" },
-          { name: "Services", item: "https://syshub365.com/services" },
-          { name: service?.title || slug, item: `https://syshub365.com/services/${slug}` },
+          { name: "Home", item: "https://www.syshub365.com" },
+          { name: "Services", item: "https://www.syshub365.com/services" },
+          { name: service?.title || slug, item: `https://www.syshub365.com/services/${slug}` },
         ]}
       />
       <ServiceDetailClient />

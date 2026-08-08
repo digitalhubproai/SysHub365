@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     canonical: "/terms",
   },
   openGraph: {
-    title: "Terms of Service | SysHub365",
+title: "Terms of Service",
     description: "Read the SysHub365 Terms of Service. Simple, transparent agreements for our digital solutions.",
     type: "website",
   },
@@ -33,8 +33,8 @@ export default function TermsPage() {
       <BreadcrumbJsonLd
         scriptKey="terms-breadcrumb"
         items={[
-          { name: "Home", item: "https://syshub365.com" },
-          { name: "Terms of Service", item: "https://syshub365.com/terms" },
+          { name: "Home", item: "https://www.syshub365.com" },
+          { name: "Terms of Service", item: "https://www.syshub365.com/terms" },
         ]}
       />
       <div className="max-w-[70rem] mx-auto flex flex-col gap-20">
