@@ -63,6 +63,7 @@ export function ContactSection() {
               <div>
                 <span className="text-sm text-slate-400 font-bold uppercase tracking-widest">Call Us</span>
                 <a href="tel:+923356660365" className="text-white hover:text-electric-blue transition-colors text-lg font-medium block">+92 335 6660365</a>
+                <a href="tel:+923323487941" className="text-white hover:text-electric-blue transition-colors text-lg font-medium block">+92 332 3487941</a>
               </div>
             </div>
           </div>
