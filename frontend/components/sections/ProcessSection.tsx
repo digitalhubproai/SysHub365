@@ -50,7 +50,7 @@ function PhaseCard({ p, index }: { p: Phase; index: number }) {
     >
       <div
         data-card
-        className="relative flex flex-col gap-3 p-5 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-electric-blue/40 transition-colors duration-500 w-full overflow-hidden"
+        className="relative flex flex-col gap-2.5 p-4 sm:gap-3 sm:p-5 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-electric-blue/40 transition-colors duration-500 w-full overflow-hidden"
       >
         <div
           className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
@@ -62,16 +62,16 @@ function PhaseCard({ p, index }: { p: Phase; index: number }) {
         </span>
 
         <div className="flex items-center justify-between">
-          <span className="text-3xl font-extrabold text-white/10 leading-none">0{index + 1}</span>
-          <span className="px-2.5 py-0.5 rounded-full border border-electric-blue/30 bg-electric-blue/10 text-[10px] font-bold uppercase tracking-widest text-electric-blue">
+          <span className="text-2xl sm:text-3xl font-extrabold text-white/10 leading-none">0{index + 1}</span>
+          <span className="px-2.5 py-0.5 rounded-full border border-electric-blue/30 bg-electric-blue/10 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest text-electric-blue">
             {p.duration}
           </span>
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-[10px]">Phase {p.phase}</span>
-          <h3 className="text-lg font-bold text-white transition-colors duration-300 group-hover:text-electric-blue/90">{p.title}</h3>
-          <p className="text-[13px] text-slate-400 leading-relaxed">{p.desc}</p>
+          <span className="text-electric-blue font-black tracking-[0.3em] uppercase text-[9px] sm:text-[10px]">Phase {p.phase}</span>
+          <h3 className="text-base sm:text-lg font-bold text-white leading-tight transition-colors duration-300 group-hover:text-electric-blue/90">{p.title}</h3>
+          <p className="text-[12px] sm:text-[13px] text-slate-400 leading-relaxed">{p.desc}</p>
         </div>
 
         <ul className="flex flex-col gap-2 pt-3 border-t border-white/5">
@@ -82,9 +82,9 @@ function PhaseCard({ p, index }: { p: Phase; index: number }) {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.35 + idx * 0.1, duration: 0.4 }}
-              className="flex items-center gap-2.5 text-[13px] text-slate-300 transition-transform duration-300 group-hover:translate-x-1"
+              className="flex items-center gap-2 text-[12px] sm:text-[13px] text-slate-300 transition-transform duration-300 group-hover:translate-x-1"
             >
-              <span className="flex items-center justify-center w-5 h-5 rounded-md border border-white/10 text-[10px] font-bold text-electric-blue transition-colors duration-300 group-hover:border-electric-blue/40 group-hover:bg-electric-blue/10">
+              <span className="flex items-center justify-center w-5 h-5 rounded-md border border-white/10 text-[9px] sm:text-[10px] font-bold text-electric-blue transition-colors duration-300 group-hover:border-electric-blue/40 group-hover:bg-electric-blue/10">
                 {String(idx + 1).padStart(2, "0")}
               </span>
               {d}

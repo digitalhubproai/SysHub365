@@ -20,6 +20,7 @@ const NAV_LINKS = [
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const isServicesActive = pathname === "/services" || pathname.startsWith("/services/");
@@ -30,7 +31,7 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => { setMobileMenuOpen(false); setServicesOpen(false); }, [pathname]);
+  useEffect(() => { setMobileMenuOpen(false); setServicesOpen(false); setMobileServicesOpen(false); }, [pathname]);
 
   return (
     <>
@@ -162,28 +163,39 @@ export function Navbar() {
       {mobileMenuOpen && (
         <div className="lg:hidden fixed inset-0 z-[49] bg-[#05070a] p-6 sm:p-10 flex flex-col overflow-y-auto">
           <div className="flex flex-col gap-8 my-auto">
-            <Link
-              href="/services"
-              className="text-3xl sm:text-4xl font-bold text-white uppercase block hover:text-neon-accent transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
+            <button
+              onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+              className="text-3xl sm:text-4xl font-bold text-white uppercase block hover:text-neon-accent transition-colors flex items-center gap-3 text-left"
+              aria-expanded={mobileServicesOpen}
             >
               Services
-            </Link>
-            <div className="flex flex-col gap-2 pl-4 -mt-4 border-l border-white/10">
-              {SERVICES.map((s) => (
-                <div className="flex flex-col">
-                  <Link
-                    key={s.slug}
-                    href={`/services/${s.slug}`}
-                    className="flex items-center gap-3 text-base text-slate-400 hover:text-white transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    <s.icon size={16} className="text-electric-blue" />
-                    <span>{s.title}</span>
-                  </Link>
-                </div>
-              ))}
-            </div>
+              <LuChevronDown size={22} className={clsx("transition-transform duration-300", mobileServicesOpen ? "rotate-180" : "")} />
+            </button>
+            <AnimatePresence initial={false}>
+              {mobileServicesOpen && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.25, ease: "easeInOut" }}
+                  className="overflow-hidden -mt-4"
+                >
+                  <div className="flex flex-col gap-2 pl-4 border-l border-white/10">
+                    {SERVICES.map((s) => (
+                      <Link
+                        key={s.slug}
+                        href={`/services/${s.slug}`}
+                        className="flex items-center gap-3 text-base text-slate-400 hover:text-white transition-colors py-0.5"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        <s.icon size={16} className="text-electric-blue" />
+                        <span>{s.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
             {NAV_LINKS.filter((l) => l.name !== "Services").map((link) => (
               <Link
                 key={link.name}
