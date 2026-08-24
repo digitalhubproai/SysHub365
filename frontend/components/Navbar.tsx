@@ -161,8 +161,9 @@ export function Navbar() {
       </header>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[49] bg-[#05070a] p-6 sm:p-10 flex flex-col overflow-y-auto">
-          <div className="flex flex-col gap-8 my-auto">
+        <div className="lg:hidden fixed inset-0 z-[49] bg-[#05070a] overflow-y-auto">
+          <div className="min-h-full flex flex-col justify-center p-6 sm:p-10">
+            <div className="flex flex-col gap-8">
             <button
               onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
               className="text-3xl sm:text-4xl font-bold text-white uppercase block hover:text-neon-accent transition-colors flex items-center gap-3 text-left"
@@ -215,6 +216,7 @@ export function Navbar() {
             >
               Contact Us
             </Button>
+            </div>
           </div>
         </div>
       )}
