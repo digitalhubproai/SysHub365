@@ -75,7 +75,7 @@ export default function TermsPage() {
               </div>
               <h3 className="text-2xl font-bold text-white">Your Ownership</h3>
               <p className="text-slate-400 leading-relaxed flex-grow">
-                Once the project is finished and paid for, you own everything—the source code, the design files, and all final deliverables. It is 100% yours.
+                Once the project is finished and paid for, you own everything: the source code, the design files, and all final deliverables. It is 100% yours.
               </p>
             </div>
           </PremiumCard>

@@ -97,7 +97,7 @@ export default function About() {
             <div className="absolute bottom-8 left-8 right-8 border border-white/10 rounded-2xl bg-black/40 backdrop-blur-xl p-8 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500">
               <p className="text-white font-bold text-lg leading-snug">"Quality is not an act, it is a habit."</p>
               <div className="w-12 h-1 bg-electric-blue mt-4 mb-2 rounded-full" />
-              <p className="text-white/60 text-sm uppercase tracking-widest font-semibold">— The SysHub365 Ethos</p>
+              <p className="text-white/60 text-sm uppercase tracking-widest font-semibold">The SysHub365 Ethos</p>
             </div>
           </motion.div>
 

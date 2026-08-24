@@ -2,89 +2,17 @@
 
 import { motion, Variants } from "framer-motion";
 import Link from "next/link";
-import { LuCode, LuBrainCog, LuPalette, LuCloud, LuShieldCheck, LuArrowUpRight, LuMegaphone, LuKey, LuPenTool, LuDatabase, LuUsers } from "react-icons/lu";
+import { LuArrowUpRight } from "react-icons/lu";
 import PremiumCard from "@/components/PremiumCard";
 import { Button } from "@/components/ui/Button";
 import { GradientIcon } from "@/components/GradientIcon";
 import { BreadcrumbJsonLd } from "next-seo";
+import { SERVICES } from "@/lib/services";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const } }
 };
-
-const SERVICES_DETAILED = [
-  {
-    icon: <LuCode size={28} />,
-    title: "Enterprise Web Systems",
-    slug: "web-development",
-    desc: "Architecting high-availability, low-latency web platforms that serve as the backbone of modern enterprise operations.",
-    gradient: ["#06b6d4", "#2563eb"], id: "grad-web-det"
-  },
-  {
-    icon: <LuBrainCog size={28} />,
-    title: "AI Integration",
-    slug: "ai-integration",
-    desc: "Embed intelligent automation, chatbots, and generative AI into your existing business workflows for maximum efficiency.",
-    gradient: ["#8b5cf6", "#d946ef"], id: "grad-ai-det"
-  },
-  {
-    icon: <LuPalette size={28} />,
-    title: "UI/UX Product Design",
-    slug: "ui-ux-design",
-    desc: "Beautiful, intuitive interfaces designed to maximize user engagement and conversion rates through scientific design.",
-    gradient: ["#f43f5e", "#fb923c"], id: "grad-design-det"
-  },
-  {
-    icon: <LuCloud size={28} />,
-    title: "Cloud Infrastructure",
-    slug: "cloud-solutions",
-    desc: "Secure, highly-available infrastructure setup on AWS and GCP with full CI/CD automation and global sync.",
-    gradient: ["#3b82f6", "#06b6d4"], id: "grad-cloud-det"
-  },
-  {
-    icon: <LuShieldCheck size={28} />,
-    title: "Cybersecurity Defense",
-    slug: "cybersecurity",
-    desc: "Enterprise-grade security audits and implementation to protect your digital assets and ensure compliance.",
-    gradient: ["#ef4444", "#8b5cf6"], id: "grad-security-det"
-  },
-  {
-    icon: <LuMegaphone size={28} />,
-    title: "Digital Marketing",
-    slug: "digital-marketing",
-    desc: "Data-driven SEO, performance marketing, and targeted campaigns to drastically scale your online presence and revenue.",
-    gradient: ["#10b981", "#3b82f6"], id: "grad-marketing-det"
-  },
-  {
-    icon: <LuKey size={28} />,
-    title: "Software Licensing",
-    slug: "software-licensing",
-    desc: "Comprehensive licensing for all types of software — from enterprise operating systems to specialized SaaS tools.",
-    gradient: ["#fb923c", "#f43f5e"], id: "grad-license-det"
-  },
-  {
-    icon: <LuPenTool size={28} />,
-    title: "Graphic Design",
-    slug: "graphic-design",
-    desc: "Professional brand identity, modern logos, and custom marketing materials to visually elevate your brand and communicate your core message effectively.",
-    gradient: ["#eab308", "#f97316"], id: "grad-graphic-det"
-  },
-  {
-    icon: <LuDatabase size={28} />,
-    title: "ERP Solutions",
-    slug: "erp-solutions",
-    desc: "End-to-end enterprise resource planning systems that streamline operations, automate workflows, and unify your business data.",
-    gradient: ["#06b6d4", "#10b981"], id: "grad-erp-det"
-  },
-  {
-    icon: <LuUsers size={28} />,
-    title: "CRM Solutions",
-    slug: "crm-solutions",
-    desc: "Custom customer relationship management platforms engineered to track leads, automate sales, and deepen client engagement.",
-    gradient: ["#3b82f6", "#8b5cf6"], id: "grad-crm-det"
-  }
-];
 
 export default function Services() {
   return (
@@ -132,9 +60,9 @@ export default function Services() {
       {/* Service Grid - 4-column layout */}
       <section className="py-20 px-6 md:px-12 lg:px-24 relative z-10">
         <div className="max-w-[90rem] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SERVICES_DETAILED.map((s, i) => (
+          {SERVICES.map((s, i) => (
             <motion.div
-              key={i}
+              key={s.slug}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -155,7 +83,7 @@ export default function Services() {
                   }}
                   className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.05)] group-hover:border-white/20"
                 >
-                  <GradientIcon icon={s.icon} id={s.id} colors={s.gradient} />
+                  <GradientIcon icon={<s.icon size={28} />} id={s.id} colors={s.gradient} />
                 </motion.div>
                 <div className="flex flex-col gap-4">
                   <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>

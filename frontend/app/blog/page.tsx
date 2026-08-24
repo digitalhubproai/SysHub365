@@ -90,7 +90,7 @@ export default function Blog() {
                         Featured Insight
                       </span>
                       <span className="text-[10px] font-bold text-white/30 uppercase tracking-[0.2em]">
-                        {featuredPost.date} — {featuredPost.readTime}
+                        {featuredPost.date} · {featuredPost.readTime}
                       </span>
                     </div>
 

@@ -4,18 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import PremiumCard from "@/components/PremiumCard";
 import { GradientIcon } from "@/components/GradientIcon";
-import { LuArrowUpRight, LuCode, LuBrainCog, LuPalette, LuCloud, LuMegaphone, LuShieldCheck, LuKey, LuPenTool } from "react-icons/lu";
-
-const SERVICES = [
-  { icon: <LuCode size={28} />, title: "Web Development", slug: "web-development", desc: "High-performance, scalable web applications built with React, Next.js, and modern architectures.", gradient: ["#06b6d4", "#2563eb"], id: "grad-web" },
-  { icon: <LuBrainCog size={28} />, title: "AI Integration", slug: "ai-integration", desc: "Embed intelligent automation, chatbots, and generative AI into your existing business workflows.", gradient: ["#8b5cf6", "#d946ef"], id: "grad-ai" },
-  { icon: <LuPalette size={28} />, title: "UI/UX Design", slug: "ui-ux-design", desc: "Beautiful, intuitive interfaces designed to maximize user engagement and conversion rates.", gradient: ["#f43f5e", "#fb923c"], id: "grad-design" },
-  { icon: <LuCloud size={28} />, title: "Cloud Solutions", slug: "cloud-solutions", desc: "Secure, highly-available infrastructure setup on AWS and GCP with full CI/CD automation.", gradient: ["#3b82f6", "#06b6d4"], id: "grad-cloud" },
-  { icon: <LuMegaphone size={28} />, title: "Digital Marketing", slug: "digital-marketing", desc: "Data-driven SEO, performance marketing, and targeted campaigns to drastically scale your online presence and revenue.", gradient: ["#10b981", "#3b82f6"], id: "grad-marketing" },
-  { icon: <LuShieldCheck size={28} />, title: "Cybersecurity", slug: "cybersecurity", desc: "Enterprise-grade security audits and implementation to protect your digital assets.", gradient: ["#ef4444", "#8b5cf6"], id: "grad-security" },
-  { icon: <LuKey size={28} />, title: "Software Licensing", slug: "software-licensing", desc: "Comprehensive licensing for all types of software — from enterprise operating systems to specialized SaaS tools.", gradient: ["#fb923c", "#f43f5e"], id: "grad-license" },
-  { icon: <LuPenTool size={28} />, title: "Graphic Design", slug: "graphic-design", desc: "Professional brand identity, modern logos, and custom marketing materials to elevate your visual presence.", gradient: ["#eab308", "#f97316"], id: "grad-graphic" },
-];
+import { LuArrowUpRight } from "react-icons/lu";
+import { SERVICES } from "@/lib/services";
 
 export function ServicesSection() {
   return (
@@ -48,7 +38,7 @@ export function ServicesSection() {
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.1 }}
                   className="w-16 h-16 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center shadow-[0_0_40px_rgba(255,255,255,0.05)] group-hover:border-white/20"
                 >
-                  <GradientIcon icon={s.icon} id={s.id} colors={s.gradient} />
+                  <GradientIcon icon={<s.icon size={28} />} id={s.id} colors={s.gradient} />
                 </motion.div>
                 <div>
                   <h3 className="text-2xl font-bold text-white group-hover:text-gradient transition-all duration-500">{s.title}</h3>

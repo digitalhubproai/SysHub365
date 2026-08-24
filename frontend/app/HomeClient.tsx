@@ -11,6 +11,7 @@ const StatsSection = dynamic(() => import("@/components/sections/StatsSection").
 const ServicesSection = dynamic(() => import("@/components/sections/ServicesSection").then(m => m.ServicesSection), { ssr: true });
 const PartnersSection = dynamic(() => import("@/components/sections/PartnersSection").then(m => m.PartnersSection), { ssr: true });
 const SolutionsSection = dynamic(() => import("@/components/sections/SolutionsSection").then(m => m.SolutionsSection), { ssr: true });
+const ProcessSection = dynamic(() => import("@/components/sections/ProcessSection").then(m => m.ProcessSection), { ssr: true });
 const ProjectsSection = dynamic(() => import("@/components/sections/ProjectsSection").then(m => m.ProjectsSection), { ssr: true });
 const TestimonialsSection = dynamic(() => import("@/components/sections/TestimonialsSection").then(m => m.TestimonialsSection), { ssr: true });
 const BlogSection = dynamic(() => import("@/components/sections/BlogSection").then(m => m.BlogSection), { ssr: true });
@@ -91,6 +92,7 @@ export default function HomeClient() {
       <ServicesSection />
       <PartnersSection />
       <SolutionsSection />
+      <ProcessSection />
       <ProjectsSection />
       <TestimonialsSection />
       <BlogSection />

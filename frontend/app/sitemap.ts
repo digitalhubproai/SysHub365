@@ -1,20 +1,8 @@
 import { MetadataRoute } from 'next'
 import { BLOG_POSTS, PROJECTS } from '@/lib/data'
+import { SERVICES } from '@/lib/services'
 
 const BASE_URL = 'https://www.syshub365.com'
-
-const SERVICE_SLUGS = [
-  'web-development',
-  'ai-integration',
-  'ui-ux-design',
-  'cloud-solutions',
-  'digital-marketing',
-  'cybersecurity',
-  'software-licensing',
-  'graphic-design',
-  'erp-solutions',
-  'crm-solutions',
-]
 
 const parsePostDate = (date: string) => {
   const d = new Date(`${date}, 2026`)
@@ -40,8 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // Service detail pages
-  const servicePages = SERVICE_SLUGS.map((slug) => ({
-    url: `${BASE_URL}/services/${slug}`,
+  const servicePages = SERVICES.map((s) => ({
+    url: `${BASE_URL}/services/${s.slug}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.7,

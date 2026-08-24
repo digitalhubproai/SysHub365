@@ -35,7 +35,7 @@ export function SolutionsSection() {
             </h2>
           </div>
           <p className="text-slate-400 max-w-md text-lg">
-            From enterprise resource planning to CRM platforms — integrated solutions that drive real business outcomes.
+            From enterprise resource planning to CRM platforms, integrated solutions that drive real business outcomes.
           </p>
         </div>
 

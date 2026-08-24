@@ -46,7 +46,7 @@ export function AboutSection() {
           <div className="absolute bottom-4 left-4 right-4 sm:bottom-8 sm:left-8 sm:right-8 border border-white/10 rounded-xl sm:rounded-2xl bg-black/40 backdrop-blur-xl p-5 sm:p-8 translate-y-4 group-hover:translate-y-0 transition-all duration-500">
             <p className="text-white font-bold text-sm sm:text-lg leading-snug">&ldquo;Quality is not an act, it is a habit.&rdquo;</p>
             <div className="w-10 h-1 bg-electric-blue mt-3 sm:mt-4 mb-2 rounded-full" />
-            <p className="text-white/60 text-[10px] sm:text-sm uppercase tracking-widest font-semibold">— The SysHub365 Ethos</p>
+            <p className="text-white/60 text-[10px] sm:text-sm uppercase tracking-widest font-semibold">The SysHub365 Ethos</p>
           </div>
         </motion.div>
 
