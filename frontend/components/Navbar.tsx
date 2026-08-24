@@ -161,61 +161,68 @@ export function Navbar() {
       </header>
 
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[49] bg-[#05070a] overflow-y-auto">
-          <div className="min-h-full flex flex-col justify-center p-6 sm:p-10">
-            <div className="flex flex-col gap-8">
-            <button
-              onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-              className="text-3xl sm:text-4xl font-bold text-white uppercase block hover:text-neon-accent transition-colors flex items-center gap-3 text-left"
-              aria-expanded={mobileServicesOpen}
-            >
-              Services
-              <LuChevronDown size={22} className={clsx("transition-transform duration-300", mobileServicesOpen ? "rotate-180" : "")} />
-            </button>
-            <AnimatePresence initial={false}>
-              {mobileServicesOpen && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.25, ease: "easeInOut" }}
-                  className="overflow-hidden -mt-4"
+        <div className="lg:hidden fixed inset-0 z-[49] bg-[#05070a]">
+          <div className="h-full overflow-y-auto">
+            <div className="flex flex-col gap-8 p-6 sm:p-10 pt-28">
+              <button
+                className="self-end w-10 h-10 flex items-center justify-center rounded-full bg-white/5 text-white hover:bg-white/10 transition-colors mb-4"
+                onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close Menu"
+              >
+                <LuX size={20} />
+              </button>
+              <button
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                className="text-3xl sm:text-4xl font-bold text-white uppercase block hover:text-neon-accent transition-colors flex items-center gap-3 text-left"
+                aria-expanded={mobileServicesOpen}
+              >
+                Services
+                <LuChevronDown size={22} className={clsx("transition-transform duration-300", mobileServicesOpen ? "rotate-180" : "")} />
+              </button>
+              <AnimatePresence initial={false}>
+                {mobileServicesOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="flex flex-col gap-2 pl-4 border-l border-white/10">
+                      {SERVICES.map((s) => (
+                        <Link
+                          key={s.slug}
+                          href={`/services/${s.slug}`}
+                          className="flex items-center gap-3 text-base text-slate-400 hover:text-white transition-colors py-0.5"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          <s.icon size={16} className="text-electric-blue shrink-0" />
+                          <span>{s.title}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              {NAV_LINKS.filter((l) => l.name !== "Services").map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className="text-3xl sm:text-4xl font-bold text-white uppercase block hover:text-neon-accent transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
                 >
-                  <div className="flex flex-col gap-2 pl-4 border-l border-white/10">
-                    {SERVICES.map((s) => (
-                      <Link
-                        key={s.slug}
-                        href={`/services/${s.slug}`}
-                        className="flex items-center gap-3 text-base text-slate-400 hover:text-white transition-colors py-0.5"
-                        onClick={() => setMobileMenuOpen(false)}
-                      >
-                        <s.icon size={16} className="text-electric-blue" />
-                        <span>{s.title}</span>
-                      </Link>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            {NAV_LINKS.filter((l) => l.name !== "Services").map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className="text-3xl sm:text-4xl font-bold text-white uppercase block hover:text-neon-accent transition-colors"
+                  {link.name}
+                </Link>
+              ))}
+              <Button
+                href="/contact"
+                variant="shimmer"
+                size="lg"
+                className="w-full"
                 onClick={() => setMobileMenuOpen(false)}
               >
-                {link.name}
-              </Link>
-            ))}
-            <Button
-              href="/contact"
-              variant="shimmer"
-              size="lg"
-              className="w-full"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Contact Us
-            </Button>
+                Contact Us
+              </Button>
             </div>
           </div>
         </div>
