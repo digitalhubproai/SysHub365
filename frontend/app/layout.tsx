@@ -28,10 +28,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.syshub365.com"),
   title: {
-    default: "SYSHUB365 | Premium Software Engineering Studio",
+    default: "Software Development Company in Karachi, Pakistan | SYSHUB365",
     template: "%s | SYSHUB365"
   },
-  description: "SYSHUB365 is a premium software engineering studio building high-performance web apps, AI solutions, and enterprise digital ecosystems for global visionaries.",
+  description: "SYSHUB365 is a software development company in Karachi, Pakistan building high-performance web apps, AI solutions, mobile apps, and enterprise software for global clients.",
   keywords: [
     "software company",
     "web development",
@@ -96,8 +96,8 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   openGraph: {
-    title: "SYSHUB365 | Premium Software Engineering Studio",
-    description: "Architecting high-performance digital ecosystems for global visionaries. Professional software engineering with architectural precision.",
+    title: "Software Development Company in Karachi, Pakistan | SYSHUB365",
+    description: "SYSHUB365 is a software development company in Karachi, Pakistan. We build high-performance web apps, AI solutions, and enterprise software for global visionaries.",
     url: "https://www.syshub365.com",
     siteName: "SYSHUB365",
     images: [
@@ -113,8 +113,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "SYSHUB365 | Premium Software Engineering Studio",
-    description: "Architecting high-performance digital ecosystems for global visionaries.",
+    title: "Software Development Company in Karachi, Pakistan | SYSHUB365",
+    description: "SYSHUB365 is a software development company in Karachi, Pakistan building high-performance web apps, AI solutions, and enterprise software.",
     images: ["/images/logo.png"],
   },
   verification: {

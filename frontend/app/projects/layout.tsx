@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Portfolio & Case Studies",
-  description: "A curated showcase of our most complex deployments, from AI-driven healthcare platforms to high-performance fintech architectures.",
+  title: "Portfolio & Case Studies | SYSHUB365",
+  description: "View SYSHUB365's software development portfolio: AI platforms, web apps, fintech, healthcare software, and mobile apps built by our software house in Karachi, Pakistan.",
   keywords: [
     "SysHub365 portfolio",
     "software case studies",
+    "software development portfolio",
     "web development projects",
     "AI platform examples",
     "fintech architecture",
@@ -27,14 +28,14 @@ export const metadata: Metadata = {
     canonical: "/projects",
   },
   openGraph: {
-    title: "Portfolio & Case Studies | SysHub365",
-    description: "A curated showcase of our most complex deployments.",
+    title: "Software Development Portfolio | SYSHUB365",
+    description: "AI platforms, web apps, and enterprise software built by our software house in Karachi, Pakistan.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portfolio & Case Studies | SysHub365",
-    description: "A curated showcase of our most complex deployments.",
+    title: "Software Development Portfolio | SYSHUB365",
+    description: "AI platforms, web apps, and enterprise software built by our software house in Karachi, Pakistan.",
     images: ["/images/logo.png"],
   },
 };

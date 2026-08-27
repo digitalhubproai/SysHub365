@@ -2,9 +2,12 @@ import { Metadata } from "next";
 import HomeClient from "./HomeClient";
 
 export const metadata: Metadata = {
-  title: "SYSHUB365 | Premium Software Engineering Studio",
-  description: "SYSHUB365 is a premium software engineering studio building high-performance web apps, AI solutions, and enterprise digital ecosystems for global visionaries.",
+  title: "Software Development Company in Karachi, Pakistan | SYSHUB365",
+  description: "SYSHUB365 is a software development company in Karachi, Pakistan building high-performance web apps, AI solutions, mobile apps, and enterprise software for global clients.",
   keywords: [
+    "software development company in Pakistan",
+    "software company Karachi",
+    "software house in Pakistan",
     "software engineering studio",
     "web development agency",
     "AI solutions",
@@ -32,8 +35,8 @@ export const metadata: Metadata = {
     "SysHub365"
   ],
   openGraph: {
-    title: "SYSHUB365 | Premium Software Engineering Studio",
-    description: "SYSHUB365 is a premium software engineering studio building high-performance web apps, AI solutions, and enterprise digital ecosystems for global visionaries.",
+    title: "Software Development Company in Karachi, Pakistan | SYSHUB365",
+    description: "SYSHUB365 is a software development company in Karachi, Pakistan building high-performance web apps, AI solutions, mobile apps, and enterprise software for global clients.",
     url: "https://www.syshub365.com",
     siteName: "SYSHUB365",
     images: [

@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Us",
-  description: "Learn about SysHub365, a premier software engineering house. We are digital architects building high-integrity systems for the next era of global infrastructure.",
+  title: "About Us - Software House in Pakistan | SYSHUB365",
+  description: "SYSHUB365 is a leading software house in Karachi, Pakistan and offshore software development company delivering enterprise software, AI solutions, and custom web apps for global clients.",
   keywords: [
     "about SysHub365",
+    "software house in Pakistan",
+    "software development company in Karachi",
+    "offshore software development company",
     "software engineering company",
     "digital architecture",
     "technology studio",
@@ -25,14 +28,14 @@ export const metadata: Metadata = {
     canonical: "/about",
   },
   openGraph: {
-    title: "About SysHub365 - Engineering The Next Standard",
-    description: "Learn about SysHub365, a premier software engineering house building high-integrity systems.",
+    title: "About SYSHUB365 - Software House in Pakistan",
+    description: "Learn about SYSHUB365, a leading software house in Karachi, Pakistan building high-integrity systems.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "About SysHub365 - Engineering The Next Standard",
-    description: "Learn about SysHub365, a premier software engineering house building high-integrity systems.",
+    title: "About SYSHUB365 - Software House in Pakistan",
+    description: "Learn about SYSHUB365, a leading software house in Karachi, Pakistan building high-integrity systems.",
     images: ["/images/logo.png"],
   },
 };

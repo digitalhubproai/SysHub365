@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Our Services",
-  description: "End-to-end software development, from conceptual design and prototyping to enterprise-grade deployment, AI integration, and global scaling.",
+  title: "Our Services - Software Development Services in Karachi",
+  description: "End-to-end software development services in Karachi, Pakistan: web apps, AI integration, mobile apps, cloud, UI/UX design, ERP, CRM, and enterprise software from SYSHUB365.",
   keywords: [
     "software development services",
+    "software development services in Karachi",
     "AI integration services",
     "web app development",
     "enterprise software",
@@ -46,14 +47,14 @@ export const metadata: Metadata = {
     canonical: "/services",
   },
   openGraph: {
-    title: "Our Services | SysHub365",
-    description: "End-to-end software development and AI integration services.",
+    title: "Software Development Services in Karachi | SYSHUB365",
+    description: "End-to-end software development and AI integration services in Karachi, Pakistan.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Our Services | SysHub365",
-    description: "End-to-end software development and AI integration services.",
+    title: "Software Development Services in Karachi | SYSHUB365",
+    description: "End-to-end software development and AI integration services in Karachi, Pakistan.",
     images: ["/images/logo.png"],
   },
 };

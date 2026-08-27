@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog & Insights",
-  description: "Read the latest technical observations, architectural patterns, and strategic engineering updates from the SysHub365 experts.",
+  title: "Blog & Insights - Software Engineering Blog",
+  description: "Read the latest software engineering, AI, and web development insights from SYSHUB365, a software house in Karachi, Pakistan.",
   keywords: [
     "software engineering blog",
     "tech insights",
@@ -25,14 +25,14 @@ export const metadata: Metadata = {
     canonical: "/blog",
   },
   openGraph: {
-    title: "Blog & Insights | SysHub365",
-    description: "Read the latest technical observations, architectural patterns, and strategic engineering updates from the SysHub365 experts.",
+    title: "Software Engineering Blog | SYSHUB365",
+    description: "AI, web development, and software engineering insights from SYSHUB365, Karachi, Pakistan.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog & Insights | SysHub365",
-    description: "Read the latest technical observations, architectural patterns, and strategic engineering updates from the SysHub365 experts.",
+    title: "Software Engineering Blog | SYSHUB365",
+    description: "AI, web development, and software engineering insights from SYSHUB365, Karachi, Pakistan.",
     images: ["/images/logo.png"],
   },
 };

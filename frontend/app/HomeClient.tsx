@@ -61,13 +61,13 @@ export default function HomeClient() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-[4rem] lg:text-[5rem] font-extrabold text-white tracking-tight leading-[1.1]">
-              We Build Software <br/>
+              Software Development <br/>
               That Drives{" "}
               <RotatingWord />
             </h1>
 
             <p className="text-[17px] md:text-lg text-slate-400 max-w-2xl leading-relaxed">
-              From fast-moving startups to established enterprises, we engineer scalable web applications, AI integrations, and digital platforms that deliver real business results.
+              SYSHUB365 is a software development company in Karachi, Pakistan. From fast-moving startups to established enterprises, we engineer scalable web applications, AI integrations, mobile apps, and digital platforms that deliver real business results.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-6 mt-6">
