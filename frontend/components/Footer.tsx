@@ -1,0 +1,164 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { LuTwitter, LuLinkedin, LuFacebook, LuInstagram, LuLoader } from "react-icons/lu";
+
+const FOOTER_LINKS = [
+  {
+    title: "Company",
+    links: [
+      { name: "Services", href: "/services" },
+      { name: "Projects", href: "/projects" },
+      { name: "About", href: "/about" },
+      { name: "Blog", href: "/blog" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { name: "Contact Hub", href: "/contact" },
+      { name: "Help Center", href: "/contact" },
+      { name: "Privacy Policy", href: "/privacy" },
+      { name: "Terms of Service", href: "/terms" },
+    ],
+  },
+];
+
+const SOCIAL_LINKS = [
+  { icon: <LuLinkedin size={20} />, href: "https://www.linkedin.com/company/syshub365/", label: "LinkedIn" },
+  { icon: <LuFacebook size={20} />, href: "https://web.facebook.com/profile.php?id=61588992526864", label: "Facebook" },
+  { icon: <LuTwitter size={20} />, href: "https://www.x.com/syshub365", label: "Twitter" },
+  { icon: <LuInstagram size={20} />, href: "https://www.instagram.com/syshub365/", label: "Instagram" },
+];
+
+function NewsletterForm() {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus("loading");
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/newsletter`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (response.ok) {
+        setStatus("success");
+        setEmail("");
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
+  };
+
+  return (
+    <form className="flex flex-col gap-3" onSubmit={handleSubmit}>
+      <input 
+        type="email" 
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email Address" 
+        className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-electric-blue transition-all placeholder:text-slate-700"
+        required
+        aria-label="Newsletter Email Address"
+      />
+
+      <button disabled={status === "loading"} type="submit" className="btn-obsidian-primary w-full py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50">
+        {status === "loading" ? <LuLoader size={12} className="animate-spin" /> : null}
+        {status === "success" ? "Subscribed!" : status === "error" ? "Failed" : "Subscribe Now"}
+      </button>
+    </form>
+  );
+}
+
+export function Footer() {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="relative bg-[var(--obsidian-deep)] py-20 lg:py-32 px-6 md:px-12 lg:px-24 overflow-hidden border-t border-white/5">
+      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none" aria-hidden="true">
+         <div className="absolute top-0 right-[20%] w-[500px] h-[500px] bg-electric-blue/10 blur-[150px] rounded-full" />
+      </div>
+
+      <div className="max-w-[90rem] mx-auto relative z-10 flex flex-col gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
+          
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            <Link href="/" className="flex items-center group w-max" aria-label="SysHub365 Home">
+              <Image
+                src="/images/logo.png"
+                alt="SysHub365 Logo"
+                width={150}
+                height={50}
+                style={{ width: "auto", height: "auto" }}
+                className="object-contain"
+              />
+            </Link>
+            <p className="text-base text-slate-400 leading-relaxed max-w-sm">
+              Architecting the future of enterprise software and AI. We build elite digital systems that drive global transformation.
+            </p>
+            <div className="flex flex-col gap-1">
+              <span className="text-white font-bold text-xs uppercase tracking-widest">Headquarters</span>
+              <span className="text-slate-500 text-sm">A-407, Maymar Tower, Sector X-2, Gulshan-e-Maymar, Karachi</span>
+            </div>
+            <div className="flex gap-4">
+               {SOCIAL_LINKS.map((social, i) => (
+                 <a 
+                   key={i} 
+                   href={social.href} 
+                   className="w-10 h-10 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center text-slate-400 hover:text-white hover:bg-electric-blue hover:border-electric-blue transition-all duration-300 hover:-translate-y-1"
+                   aria-label={`Follow SysHub365 on ${social.label}`}
+                   target="_blank"
+                   rel="noopener noreferrer"
+                 >
+                    {social.icon}
+                 </a>
+               ))}
+            </div>
+          </div>
+
+          <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16">
+              {FOOTER_LINKS.map((section) => (
+                <div key={section.title} className="flex flex-col gap-6">
+                   <h3 className="text-white font-bold text-sm tracking-wider uppercase">{section.title}</h3>
+                   <ul className="flex flex-col gap-4">
+                      {section.links.map((link) => (
+                        <li key={link.name}>
+                           <Link href={link.href} className="text-sm text-slate-400 hover:text-electric-blue transition-colors duration-300">
+                              {link.name}
+                           </Link>
+                        </li>
+                       ))}
+                   </ul>
+                </div>
+              ))}
+
+              <div className="flex flex-col gap-6">
+                <h3 className="text-white font-bold text-sm tracking-wider uppercase">Newsletter</h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  Subscribe for elite AI insights and project updates.
+                </p>
+                <NewsletterForm />
+              </div>
+          </div>
+        </div>
+
+        <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="text-sm text-slate-500">
+               © {year} SysHub365. All rights reserved.
+            </div>
+            <div className="flex gap-8 items-center text-sm text-slate-500">
+               <Link href="/privacy" className="hover:text-white transition-colors cursor-pointer">Privacy Policy</Link>
+               <Link href="/terms" className="hover:text-white transition-colors cursor-pointer">Terms of Service</Link>
+            </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
