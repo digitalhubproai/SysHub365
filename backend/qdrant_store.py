@@ -95,8 +95,20 @@ def search_knowledge(query: str, limit: int = 3) -> list[str]:
             collection_name=QDRANT_COLLECTION,
             query=query_vector,
             limit=limit,
+            score_threshold=0.25,
         )
-        return [r.payload.get("text", "") for r in results.points if r.payload]
+        snippets = []
+        for r in results.points:
+            if not r.payload:
+                continue
+            text = r.payload.get("text", "")
+            page = r.payload.get("page", "")
+            url = r.payload.get("url", "")
+            if page and text:
+                snippets.append(f"[From {page} ({url})]\n{text}")
+            elif text:
+                snippets.append(text)
+        return snippets
     except Exception as e:
         logger.error(f"Qdrant search failed: {e}")
         return []
