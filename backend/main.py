@@ -73,8 +73,32 @@ class NewsletterRequest(BaseModel):
     email: EmailStr
 
 import asyncio
+import re
 from qdrant_store import search_knowledge, ensure_collection, get_embedder
 import email_service
+
+_REASONING_LEAK = re.compile(
+    r"^(okay[,.\s]|let me|i need to|i should|the user|looking at|first[,.\s]|wait[,.\s]|hmm|so[,.\s]the|i can |since the|alternatively|to answer)",
+    re.IGNORECASE,
+)
+
+
+def _strip_reasoning_leak(text: str) -> str:
+    # Some OpenRouter free models leak their chain-of-thought into `content`.
+    # If the reply opens like internal monologue, try to recover the real
+    # answer: take the last paragraph block that doesn't start that way.
+    if not _REASONING_LEAK.match(text.strip()):
+        return text.strip()
+    blocks = [b.strip() for b in text.split("\n\n") if b.strip()]
+    for block in reversed(blocks):
+        if not _REASONING_LEAK.match(block) and len(block) > 30:
+            return block
+    # Nothing clean found — strip leading monologue sentences.
+    sentences = re.split(r"(?<=[.!?])\s+", text.strip())
+    for i, sent in enumerate(sentences):
+        if not _REASONING_LEAK.match(sent.strip()):
+            return " ".join(sentences[i:]).strip()
+    return text.strip()
 
 
 @app.post("/api/chat")
@@ -180,7 +204,14 @@ async def chat(request: Request, body: ChatRequest, db: Session = Depends(get_db
     async with httpx.AsyncClient() as client:
         last_error = None
         for model in free_models:
-            data = {"model": model, "messages": messages, "max_tokens": 300}
+            data = {
+                "model": model,
+                "messages": messages,
+                "max_tokens": 512,
+                # Disable thinking/reasoning mode — these models dump their
+                # internal monologue ("Okay, the user is asking...") into content
+                "reasoning": {"effort": "none"},
+            }
             try:
                 response = await client.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=data, timeout=30.0)
                 if response.status_code in [402, 404, 429]:
@@ -188,7 +219,10 @@ async def chat(request: Request, body: ChatRequest, db: Session = Depends(get_db
                     continue
                 response.raise_for_status()
                 result = response.json()
-                reply = result["choices"][0]["message"]["content"]
+                choice = result["choices"][0]
+                reply = (choice["message"].get("content") or "").strip()
+                # Belt-and-braces: drop any leaked chain-of-thought preamble
+                reply = _strip_reasoning_leak(reply)
                 if not reply:
                     continue
                 
